@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from tiny_agents.core.llm import HelloAgentsLLM
 from tiny_agents.tools import ToolRegistry
 from tiny_agents.tools import CalculatorTool
-from my_simple_agent import MySimpleAgent
+from tiny_agents.demo.my_simple_agent import MySimpleAgent
 
 # 加载环境变量
 load_dotenv()

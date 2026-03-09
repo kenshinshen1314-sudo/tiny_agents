@@ -8,8 +8,8 @@
 
 使用示例：
 ```python
-from hello_agents import ToolRegistry
-from hello_agents.tools.builtin import ReadTool, WriteTool, EditTool
+from tiny_agents.tools.tool_registry import ToolRegistry
+from tiny_agents.tools.builtin import ReadTool, WriteTool, EditTool
 
 registry = ToolRegistry()
 registry.register_tool(ReadTool(project_root="./"))

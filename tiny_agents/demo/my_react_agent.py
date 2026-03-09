@@ -103,3 +103,52 @@ class MyReActAgent(ReActAgent):
         self.add_message(Message(input_text, "user"))
         self.add_message(Message(final_answer, "assistant"))
         return final_answer
+
+    def _parse_output(self, response_text: str):
+        """
+        解析LLM输出，提取思考和行动
+
+        Args:
+            response_text: LLM返回的文本
+
+        Returns:
+            (thought, action) 元组
+        """
+        # 提取 Thought
+        thought_match = re.search(r'Thought:\s*(.*?)(?=Action:|$)', response_text, re.DOTALL)
+        thought = thought_match.group(1).strip() if thought_match else ""
+
+        # 提取 Action
+        action_match = re.search(r'Action:\s*(.*)', response_text, re.DOTALL)
+        action = action_match.group(1).strip() if action_match else ""
+
+        return thought, action
+
+    def _parse_action(self, action_text: str):
+        """
+        解析行动文本，提取工具名称和输入
+
+        Args:
+            action_text: 行动文本，格式为 "tool_name[input]" 或 "Finish[answer]"
+
+        Returns:
+            (tool_name, tool_input) 元组
+        """
+        # 匹配工具调用格式：tool_name[input]
+        match = re.match(r'(\w+)\[(.*)\]', action_text)
+        if match:
+            return match.group(1), match.group(2)
+        return None, None
+
+    def _parse_action_input(self, action_text: str) -> str:
+        """
+        解析行动输入（主要用于 Finish[answer]）
+
+        Args:
+            action_text: 行动文本
+
+        Returns:
+            输入内容
+        """
+        match = re.match(r'\w+\[(.*)\]', action_text)
+        return match.group(1) if match else ""

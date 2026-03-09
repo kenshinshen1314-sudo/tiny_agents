@@ -1,7 +1,7 @@
 # test_plan_solve_agent.py
 from dotenv import load_dotenv
 from tiny_agents.core.llm import HelloAgentsLLM
-from my_plan_solve_agent import MyPlanAndSolveAgent
+from tiny_agents.demo.my_plan_solve_agent import MyPlanAndSolveAgent
 
 # 加载环境变量
 load_dotenv()
@@ -35,8 +35,9 @@ math_prompts = {
 问题: {question}
 
 输出格式:
-python
+```python
 ["计算步骤1", "计算步骤2", "求总和"]
+```
 """,
 
 "executor": """
@@ -62,4 +63,4 @@ math_result = math_agent.run(question)
 print(f"数学专用Agent结果: {math_result}")
 
 # 查看对话历史
-print(f"对话历史: {len(agent.get_history())} 条消息")
+print(f"对话历史: {len(math_agent.get_history())} 条消息")

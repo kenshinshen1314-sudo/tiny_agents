@@ -77,7 +77,7 @@ class CalculatorTool(Tool):
 
             return ToolResponse.success(
                 text=f"计算结果: {result_str}",
-         data={
+                data={
                     "expression": expression,
                     "result": result,
                     "result_str": result_str,

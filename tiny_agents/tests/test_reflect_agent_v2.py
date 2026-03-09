@@ -1,7 +1,7 @@
 # test_reflection_agent.py
 from dotenv import load_dotenv
-from hello_agents import HelloAgentsLLM
-from my_reflection_agent import MyReflectionAgent
+from tiny_agents.core.llm import HelloAgentsLLM
+from tiny_agents.demo.my_reflection_agent import MyReflectionAgent
 
 load_dotenv()
 llm = HelloAgentsLLM()

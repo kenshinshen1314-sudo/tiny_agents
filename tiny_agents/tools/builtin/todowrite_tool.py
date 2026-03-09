@@ -10,8 +10,8 @@
 
 使用示例：
 ```python
-from hello_agents import ToolRegistry
-from hello_agents.tools.builtin import TodoWriteTool
+from tiny_agents.tools.tool_registry import ToolRegistry
+from tiny_agents.tools.builtin.todowrite_tool import TodoWriteTool
 
 registry = ToolRegistry()
 registry.register_tool(TodoWriteTool(project_root="./"))

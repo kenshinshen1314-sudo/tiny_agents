@@ -1,6 +1,6 @@
 # test_advanced_search.py
 from dotenv import load_dotenv
-from my_advanced_search import create_advanced_search_registry, MyAdvancedSearchTool
+from tiny_agents.demo.my_advanced_search import create_advanced_search_registry, MyAdvancedSearchTool
 
 # 加载环境变量
 load_dotenv()

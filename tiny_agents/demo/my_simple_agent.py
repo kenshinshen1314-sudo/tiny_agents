@@ -233,7 +233,7 @@ class MySimpleAgent(SimpleAgent):
     def add_tool(self, tool) -> None:
         """添加工具到Agent（便利方法）"""
         if not self.tool_registry:
-            from hello_agents import ToolRegistry
+            from tiny_agents.tools.registry import ToolRegistry
             self.tool_registry = ToolRegistry()
             self.enable_tool_calling = True
 

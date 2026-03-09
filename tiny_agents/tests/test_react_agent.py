@@ -81,9 +81,10 @@ def test_react_agent():
     print(f"\n📝 对话历史记录: {len(agent.get_history())} 条消息")
     
     # 显示工具使用统计
-    print(f"\n🛠️ 可用工具数量: {len(tool_registry._tools)}")
+    all_tools = list(tool_registry._tools.keys()) + list(tool_registry._functions.keys())
+    print(f"\n🛠️ 可用工具数量: {len(all_tools)}")
     print("已注册的工具:")
-    for tool_name in tool_registry._tools.keys():
+    for tool_name in all_tools:
         print(f"  - {tool_name}")
     
     print("\n🎉 测试完成！")
