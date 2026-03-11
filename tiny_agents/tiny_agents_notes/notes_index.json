@@ -1,0 +1,52 @@
+{
+  "notes": [
+    {
+      "id": "note_20260311_164428_0",
+      "title": "tiny_agents 项目架构概览",
+      "type": "reference",
+      "tags": [
+        "architecture",
+        "overview",
+        "project-structure"
+      ],
+      "created_at": "2026-03-11T16:44:28.831793"
+    },
+    {
+      "id": "note_20260311_172150_1",
+      "title": "tiny_agents 代码结构探索",
+      "type": "conclusion",
+      "tags": [
+        "architecture",
+        "codebase",
+        "structure"
+      ],
+      "created_at": "2026-03-11T17:21:50.667125"
+    },
+    {
+      "id": "note_20260311_182435_2",
+      "title": "tiny_agents 项目代码结构分析",
+      "type": "conclusion",
+      "tags": [
+        "architecture",
+        "code-structure",
+        "overview"
+      ],
+      "created_at": "2026-03-11T18:24:35.324621"
+    },
+    {
+      "id": "note_20260311_182715_3",
+      "title": "tiny_agents 项目探索 - 下一步任务规划",
+      "type": "task_state",
+      "tags": [
+        "task-planning",
+        "roadmap",
+        "next-steps"
+      ],
+      "created_at": "2026-03-11T18:27:15.585551"
+    }
+  ],
+  "metadata": {
+    "created_at": "2026-03-11T16:41:19.137520",
+    "total_notes": 4
+  }
+}

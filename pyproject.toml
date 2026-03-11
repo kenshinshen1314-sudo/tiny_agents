@@ -6,7 +6,6 @@ build-backend = "setuptools.build_meta"
 name = "tiny-agents"
 version = "0.1.0"
 description = "轻量级 AI Agent 框架"
-readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
     "openai>=1.0.0",
@@ -17,3 +16,9 @@ dependencies = [
 dev = [
     "pytest>=7.0.0",
 ]
+
+[tool.setuptools]
+packages = ["tiny_agents"]
+
+[tool.setuptools.package-data]
+tiny_agents = ["*.json", "*.yaml", "*.yml"]

@@ -1,0 +1,15 @@
+{
+  "session_info": {
+    "session_id": "session_20260311_170044",
+    "user_id": "kenshin",
+    "start_time": "2026-03-11T17:01:20.077496",
+    "duration_seconds": 1928.693584
+  },
+  "learning_metrics": {
+    "documents_loaded": 1,
+    "questions_asked": 3,
+    "concepts_learned": 6
+  },
+  "memory_summary": "📊 记忆系统摘要\n总记忆数: 13\n当前会话: session_20260311_170310\n对话轮次: 0\n\n📋 记忆类型分布:\n  • 工作记忆: 3 条 (平均重要性: 0.60)\n  • 情景记忆: 4 条 (平均重要性: 0.75)\n  • 语义记忆: 6 条 (平均重要性: 0.80)\n\n⭐ 重要记忆 (前7条):\n  1. 加载文档成功 20260311_164459_f1491d39_Happy-LLM-0727.pdf (重要性: 0.90)\n  2. 加载文档成功 20260311_170235_543c438c_Happy-LLM-0727.pdf (重要性: 0.90)\n  3. ffads (重要性: 0.80)\n  4. afwef (重要性: 0.80)\n  5. 关于 '介绍一下transformer架构' 的学习 (重要性: 0.70)\n  6. 关于 '给出transformer架构的decoder的组件构成' 的学习 (重要性: 0.70)\n  7. 关于 '文档的主要内容是什么？' 的学习 (重要性: 0.70)",
+  "rag_status": "📊 **RAG 知识库统计**\n📝 命名空间: default\n📋 集合名称: rag_knowledge_base\n📂 存储根路径: ./knowledge_base\n📦 存储类型: qdrant\n📊 文档分块数: 376\n🔢 向量维度: 384\n📎 距离度量: Cosine\n\n🟢 **系统状态**\n✅ RAG 管道: 正常\n✅ LLM 连接: 正常"
+}

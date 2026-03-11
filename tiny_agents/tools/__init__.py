@@ -14,6 +14,12 @@ from .builtin.devlog_tool import DevLogTool, DevLogEntry, DevLogStore, CATEGORIE
 from .builtin.task_tool import TaskTool
 from .builtin.skill_tool import SkillTool
 
+from .builtin.memory_tool import MemoryTool
+from .builtin.rag_tool import RAGTool
+from .builtin.terminal_tool import TerminalTool
+from .builtin.note_tool import NoteTool
+from .builtin.search_tool import SearchTool
+
 # 子代理机制
 from .tool_filter import ToolFilter, ReadOnlyFilter, FullAccessFilter, CustomFilter
 
@@ -45,6 +51,11 @@ __all__ = [
     "CATEGORIES",
     "TaskTool",
     "SkillTool",
+    "MemoryTool",
+    "RAGTool",
+    "NoteTool",
+    "TerminalTool",
+    "SearchTool",
 
     # 子代理机制
     "ToolFilter",

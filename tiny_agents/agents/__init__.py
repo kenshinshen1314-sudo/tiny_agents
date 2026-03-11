@@ -2,9 +2,14 @@
 
 from .react_agent import ReActAgent
 from .plan_solve_agent import PlanAndSolveAgent
-
+from .simple_agent import SimpleAgent
+from .reflection_agent import ReflectionAgent
+from .function_call_agent import FunctionCallAgent
 
 __all__ = [
     "ReActAgent",
-    "PlanAndSolveAgent"
+    "PlanAndSolveAgent",
+    "SimpleAgent",
+    "ReflectionAgent",
+    "FunctionCallAgent"
 ]

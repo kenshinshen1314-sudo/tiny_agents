@@ -1,0 +1,84 @@
+{
+  "notes": [
+    {
+      "id": "note_20260311_185015_0",
+      "title": "tiny_agents 项目架构概览",
+      "type": "conclusion",
+      "tags": [
+        "architecture",
+        "project-structure",
+        "tiny-agents"
+      ],
+      "created_at": "2026-03-11T18:50:15.624416"
+    },
+    {
+      "id": "note_20260311_185256_1",
+      "title": "代码质量分析报告 - tiny_agents v0.1.0",
+      "type": "conclusion",
+      "tags": [
+        "code-quality",
+        "analysis",
+        "priority"
+      ],
+      "created_at": "2026-03-11T18:52:56.247589"
+    },
+    {
+      "id": "note_20260311_185314_2",
+      "title": "修复裸 except 语句",
+      "type": "action",
+      "tags": [
+        "bug-fix",
+        "high-priority",
+        "exception-handling"
+      ],
+      "created_at": "2026-03-11T18:53:14.214939"
+    },
+    {
+      "id": "note_20260311_185314_3",
+      "title": "清理调试日志",
+      "type": "action",
+      "tags": [
+        "refactoring",
+        "medium-priority",
+        "logging"
+      ],
+      "created_at": "2026-03-11T18:53:14.217764"
+    },
+    {
+      "id": "note_20260311_185314_4",
+      "title": "拆分大文件",
+      "type": "action",
+      "tags": [
+        "refactoring",
+        "medium-priority",
+        "code-organization"
+      ],
+      "created_at": "2026-03-11T18:53:14.219307"
+    },
+    {
+      "id": "note_20260311_185314_5",
+      "title": "创建项目文档",
+      "type": "action",
+      "tags": [
+        "documentation",
+        "medium-priority",
+        "project-setup"
+      ],
+      "created_at": "2026-03-11T18:53:14.220571"
+    },
+    {
+      "id": "note_20260311_185432_6",
+      "title": "下一步任务规划 - v0.1.0 代码质量改进",
+      "type": "task_state",
+      "tags": [
+        "task-planning",
+        "v0.1.0"
+      ],
+      "created_at": "2026-03-11T18:54:32.773433"
+    }
+  ],
+  "metadata": {
+    "created_at": "2026-03-11T18:48:30.442638",
+    "total_notes": 7
+  }
+}

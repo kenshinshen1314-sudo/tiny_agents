@@ -3,7 +3,6 @@ Name: tiny-agents
 Version: 0.1.0
 Summary: 轻量级 AI Agent 框架
 Requires-Python: >=3.8
-Description-Content-Type: text/markdown
 Requires-Dist: openai>=1.0.0
 Requires-Dist: python-dotenv>=1.0.0
 Provides-Extra: dev

@@ -7,7 +7,6 @@ tiny_agents.egg-info/requires.txt
 tiny_agents.egg-info/top_level.txt
 tiny_agents/agents/__init__.py
 tiny_agents/agents/react_agent.py
-tiny_agents/agents/tool_executor.py
 tiny_agents/core/__init__.py
 tiny_agents/core/agent.py
 tiny_agents/core/config.py
@@ -20,7 +19,6 @@ tiny_agents/tools/circuit_breaker.py
 tiny_agents/tools/errors.py
 tiny_agents/tools/registry.py
 tiny_agents/tools/response.py
-tiny_agents/tools/search.py
 tiny_agents/tools/tool_filter.py
 tiny_agents/tools/builtin/__init__.py
 tiny_agents/tools/builtin/calculator.py
