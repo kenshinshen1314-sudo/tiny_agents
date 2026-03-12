@@ -23,6 +23,7 @@ from .rag_tool import RAGTool
 from .search_tool import SearchTool
 from .note_tool import NoteTool
 from .terminal_tool import TerminalTool
+from .protocol_tools import ANPTool, A2ATool, MCPTool
 
 
 __all__ = [
@@ -44,5 +45,8 @@ __all__ = [
     "RAGTool",
     "SearchTool",
     "NoteTool",
-    "TerminalTool"
+    "TerminalTool",
+    "ANPTool",
+    "A2ATool",
+    "MCPTool"
 ]

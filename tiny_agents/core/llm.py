@@ -152,7 +152,7 @@ class HelloAgentsLLM:
                         return "vllm"
                     else:
                         return "local"
-            elif any(port in base_url_lower for port in [":8080", ":7860", ":5000"]):
+            elif any(port in base_url_lower for port in [":8080", ":7860", ":5123"]):
                 # 常见的本地部署端口
                 return "local"
 

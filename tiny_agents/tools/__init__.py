@@ -19,6 +19,9 @@ from .builtin.rag_tool import RAGTool
 from .builtin.terminal_tool import TerminalTool
 from .builtin.note_tool import NoteTool
 from .builtin.search_tool import SearchTool
+from .builtin.protocol_tools import MCPTool, A2ATool, ANPTool
+
+
 
 # 子代理机制
 from .tool_filter import ToolFilter, ReadOnlyFilter, FullAccessFilter, CustomFilter
@@ -56,6 +59,9 @@ __all__ = [
     "NoteTool",
     "TerminalTool",
     "SearchTool",
+    "MCPTool",
+    "A2ATool",
+    "ANPTool",
 
     # 子代理机制
     "ToolFilter",
