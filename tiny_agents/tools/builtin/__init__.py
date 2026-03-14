@@ -24,7 +24,7 @@ from .search_tool import SearchTool
 from .note_tool import NoteTool
 from .terminal_tool import TerminalTool
 from .protocol_tools import ANPTool, A2ATool, MCPTool
-
+from .rl_training_tool import RLTrainingTool
 
 __all__ = [
     "CalculatorTool",
@@ -48,5 +48,6 @@ __all__ = [
     "TerminalTool",
     "ANPTool",
     "A2ATool",
-    "MCPTool"
+    "MCPTool",
+    "RLTrainingTool"
 ]

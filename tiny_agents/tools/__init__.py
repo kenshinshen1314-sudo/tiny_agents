@@ -20,7 +20,7 @@ from .builtin.terminal_tool import TerminalTool
 from .builtin.note_tool import NoteTool
 from .builtin.search_tool import SearchTool
 from .builtin.protocol_tools import MCPTool, A2ATool, ANPTool
-
+from .builtin.rl_training_tool import RLTrainingTool
 
 
 # 子代理机制
@@ -62,6 +62,7 @@ __all__ = [
     "MCPTool",
     "A2ATool",
     "ANPTool",
+    "RLTrainingTool",
 
     # 子代理机制
     "ToolFilter",
