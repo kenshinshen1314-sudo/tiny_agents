@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260315-125630-1fdb</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260315-125630-1fdb</h1>
+        <p>生成时间: 2026-03-15 12:56:30</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T12:56:30.913327</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "行程规划专家",
+  "agent_type": "SimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T12:56:30.913511</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "请根据以下信息生成丽江的3天旅行计划:\n\n**基本信息:**\n- 城市: 丽江\n- 日期: 2026-03-16T04:51:45.708Z 至 2026-03-18T04:51:47.966Z\n- 天数: 3天\n- 交通方式: 公共交通\n- 兴趣标签: 历史文化, 自然风光, 休闲, 摄影, 户外探险\n- 饮食偏好: 微辣, 清淡\n- 交通方式偏好: 公共交通\n- 住宿偏好: 经济型酒店\n- 就餐环境偏好: ['路边摊', '苍蝇馆', '小吃街']\n\n\n**景点信息:**\n```json\n[\n  {\n    \"name\": \"丽江古城\",\n    \"address\": \"民主路与福慧路交叉口东南\",\n    \"location\": {\n      \"longitude\": 100.235517,\n      \"latitude\": 26.870507\n    },\n    \"rating\": 4.9,\n    \"description\": \"世界文化遗产5A景区，纳西族文化发源地，古城风貌保存完好\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 240,\n    \"ticket_price\": 50\n  },\n  {\n    \"name\": \"丽江古城博物院-木府\",\n    \"address\": \"光义街官院巷49号\",\n    \"location\": {\n      \"longitude\": 100.233536,\n      \"latitude\": 26.869453\n    },\n    \"rating\": 4.8,\n    \"description\": \"纳西族土司府邸，明代建筑风格，了解丽江历史文化必去之地\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 120,\n    \"ticket_price\": 40\n  },\n  {\n    \"name\": \"四方街\",\n    \"address\": \"丽江古城五一路下段\",\n    \"location\": {\n      \"longitude\": 100.233949,\n      \"latitude\": 26.872039\n    },\n    \"rating\": 4.8,\n    \"description\": \"古城中心广场，纳西族传统集市，体验民族风情和夜生活\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 60,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"束河古镇\",\n    \"address\": \"束河镇\",\n    \"location\": {\n      \"longitude\": 100.205679,\n      \"latitude\": 26.9196\n    },\n    \"rating\": 4.8,\n    \"description\": \"4A景区，茶马古道重镇，比丽江古城更安静，适合休闲漫步\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 180,\n    \"ticket_price\": 40\n  },\n  {\n    \"name\": \"丽江古城-古城大水车\",\n    \"address\": \"东大街1号丽江古城内(北侧)\",\n    \"location\": {\n      \"longitude\": 100.233324,\n      \"latitude\": 26.876027\n    },\n    \"rating\": 4.8,\n    \"description\": \"丽江古城标志性景观，网红打卡点，适合拍照留念\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 30,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"黑龙潭\",\n    \"address\": \"民主路1号\",\n    \"location\": {\n      \"longitude\": 100.239852,\n      \"latitude\": 26.888448\n    },\n    \"rating\": 4.6,\n    \"description\": \"4A景区，玉龙雪山倒影绝佳拍摄点，自然风光与人文景观并存\",\n    \"category\": \"自然风光\",\n    \"visit_duration\": 90,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"丽江千古情景区\",\n    \"address\": \"黄山街道玉兴西路88号\",\n    \"location\": {\n      \"longitude\": 100.218666,\n      \"latitude\": 26.827705\n    },\n    \"rating\": 4.7,\n    \"description\": \"大型实景演出，展现丽江历史文化，震撼视听体验\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 150,\n    \"ticket_price\": 280\n  },\n  {\n    \"name\": \"狮子山万古楼景区\",\n    \"address\": \"大研镇新华街丽江古城-狮子山(狮山路)(东北角)\",\n    \"location\": {\n      \"longitude\": 100.231338,\n      \"latitude\": 26.870249\n    },\n    \"rating\": 4.6,\n    \"description\": \"古城制高点，俯瞰全城和玉龙雪山，摄影观景绝佳位置\",\n    \"category\": \"自然风光\",\n    \"visit_duration\": 90,\n    \"ticket_price\": 50\n  },\n  {\n    \"name\": \"大石桥\",\n    \"address\": \"丽江古城\",\n    \"location\": {\n      \"longitude\": 100.234997,\n      \"latitude\": 26.872292\n    },\n    \"rating\": 4.7,\n    \"description\": \"明代古桥，古城重要地标，流水潺潺，古韵悠长\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 30,\n    \"ticket_price\": 0\n  }\n]\n```\n\n**美食信息:**\n```json\n[\n    {\n        \"type\": \"snack\",\n        \"name\": \"渣渣米线(古城店)\",\n        \"address\": \"光义街忠义巷75号\",\n        \"location\": {\"longitude\": 100.234164, \"latitude\": 26.867893},\n        \"description\": \"特色米线、招牌米线、云南特色米线\",\n        \"estimated_cost\": 59\n    },\n    {\n        \"type\": \"snack\",\n        \"name\": \"渣渣米线(四方街店)\",\n        \"address\": \"大研街道新义街四方街34号(鬼包子对面)\",\n        \"location\": {\"longitude\": 100.234393, \"latitude\": 26.872722},\n        \"description\": \"特色米线、招牌米线、云南风味米线\",\n        \"estimated_cost\": 57\n    },\n    {\n        \"type\": \"snack\",\n        \"name\": \"椿村小吃\",\n        \"address\": \"光义街忠义巷184号\",\n        \"location\": {\"longitude\": 100.235048, \"latitude\": 26.868161},\n        \"description\": \"特色小吃、米线、烤鸡、鸡肉\",\n        \"estimated_cost\": 48\n    },\n    {\n        \"type\": \"snack\",\n        \"name\": \"久哥米线\",\n        \"address\": \"大研街道办事处五一街居委会王家庄巷65-2\",\n        \"location\": {\"longitude\": 100.237971, \"latitude\": 26.871356},\n        \"description\": \"特色米线、云南米线、招牌米线\",\n        \"estimated_cost\": 49\n    },\n    {\n        \"type\": \"snack\",\n        \"name\": \"则瓦米线·云南小吃集合(一中店)\",\n        \"address\": \"大研街道五一街王家庄巷18-19号\",\n        \"location\": {\"longitude\": 100.239299, \"latitude\": 26.870048},\n        \"description\": \"煎鸡豆凉粉、傣味舂干巴、火烧肉米线、柠檬鸡爪、香茅草烤鱼、包烧野生菌、菠萝饭\",\n        \"estimated_cost\": 47\n    },\n    {\n        \"type\": \"snack\",\n        \"name\": \"则瓦米线·云南小吃集合(花巷店)\",\n        \"address\": \"金虹路遇见丽江广场旁\",\n        \"location\": {\"longitude\": 100.236208, \"latitude\": 26.875093},\n        \"description\": \"纳西风味千张、老王秘制红烧肉、中式例汤、柠檬鸡爪、三色银条、纳西回锅洋芋、云南酸笋牛肉\",\n        \"estimated_cost\": 56\n    },\n    {\n        \"type\": \"breakfast\",\n        \"name\": \"沈记土鸡米线(七星街店)\",\n        \"address\": \"七星街下段84号\",\n        \"location\": {\"longitude\": 100.225006, \"latitude\": 26.873839},\n        \"description\": \"土鸡米线、鸡翅膀、鸡肝、鸡爪、土鸡饵丝、卤猪尾巴\",\n        \"estimated_cost\": 19\n    },\n    {\n        \"type\": \"lunch\",\n        \"name\": \"茄子恰恰·创意云南菜(丽江店)\",\n        \"address\": \"丽客隆超市人民广场店1楼(517美食专列)\",\n        \"location\": {\"longitude\": 100.226174, \"latitude\": 26.859989},\n        \"description\": \"焦糖豆花、青梅菠萝饭、水淹菜红豆汤、三少爷焖鸡、风味小刀肉、牛蛙爱上土豆片、秘制酱洋芋、面包诱惑、恰恰茄子、生焖海鲈鱼、霸王奶茶木瓜水、牛肝菌焖饭\",\n        \"estimated_cost\": 50\n    },\n    {\n        \"type\": \"dinner\",\n        \"name\": \"金生丽水·云南菜·祥和楼\",\n        \"address\": \"祥和商业广场东牌坊\",\n        \"location\": {\"longitude\": 100.230485, \"latitude\": 26.85549},\n        \"description\": \"云南特色菜、鸡肉、云南风味\",\n        \"estimated_cost\": 103\n    },\n    {\n        \"type\": \"snack\",\n        \"name\": \"绿背篓婆婆米线店\",\n        \"address\": \"祥和路278-41号忠义市场内部\",\n        \"location\": {\"longitude\": 100.236172, \"latitude\": 26.86642},\n        \"description\": \"特色米线、云南米线、婆婆米线\",\n        \"estimated_cost\": 12\n    },\n    {\n        \"type\": \"dinner\",\n        \"name\": \"德四家·云南傣味烧烤品牌(丽江店)\",\n        \"address\": \"祥和街道办事处纳里文创商业街一楼C区二楼C区\",\n        \"location\": {\"longitude\": 100.231595, \"latitude\": 26.8546},\n        \"description\": \"炭烤乌鸡、烤鸡拼盘、手抓饭、鲜切吊龙、油炝全家福、蘸料全家福、高压锅生蚝、蒜蓉粉丝花甲、生焖脑花、大虾\",\n        \"estimated_cost\": 65\n    },\n    {\n        \"type\": \"breakfast\",\n        \"name\": \"正宗李家土鸡米线店\",\n        \"address\": \"康年丽水阳光酒店东南门北130米\",\n        \"location\": {\"longitude\": 100.20692, \"latitude\": 26.916921},\n        \"description\": \"土鸡米线、鸡腿、鸡翅、鸡肉、鸡汤\",\n        \"estimated_cost\": 20\n    },\n    {\n        \"type\": \"snack\",\n        \"name\": \"云南十八怪大理吉祥饵块\",\n        \"address\": \"长水路忠义市场夜市一条街\",\n        \"location\": {\"longitude\": 100.235447, \"latitude\": 26.865849},\n        \"description\": \"饵块、云南特色饵块、大理饵块\",\n        \"estimated_cost\": 11\n    },\n    {\n        \"type\": \"snack\",\n        \"name\": \"二哥米线(七一街店)\",\n        \"address\": \"七一街崇仁巷32号(七一街居委会旁)\",\n        \"location\": {\"longitude\": 100.238259, \"latitude\": 26.870787},\n        \"description\": \"土鸡米线、卤鸡腿、米线、手工面、鸡肝、葱油饼、鸡翅、土鸡饵丝\",\n        \"estimated_cost\": 30\n    },\n    {\n        \"type\": \"snack\",\n        \"name\": \"勺子米线·云南传统小吃市集\",\n        \"address\": \"新义街百岁坊8号大石桥与百岁桥之间河边\",\n        \"location\": {\"longitude\": 100.235111, \"latitude\": 26.871602},\n        \"description\": \"特色米线、云南传统小吃、传统米线\",\n        \"estimated_cost\": 50\n    }\n]\n```\n\n**天气信息:**\n```json\n[\n  {\n    \"date\": \"2026-03-15\",\n    \"day_weather\": \"阴\",\n    \"night_weather\": \"阴\",\n    \"day_temp\": 16,\n    \"night_temp\": 7,\n    \"wind_direction\": \"北\",\n    \"wind_power\": \"1-3\"\n  },\n  {\n    \"date\": \"2026-03-16\",\n    \"day_weather\": \"小雨\",\n    \"night_weather\": \"多云\",\n    \"day_temp\": 17,\n    \"night_temp\": 6,\n    \"wind_direction\": \"北\",\n    \"wind_power\": \"1-3\"\n  },\n  {\n    \"date\": \"2026-03-17\",\n    \"day_weather\": \"多云\",\n    \"night_weather\": \"多云\",\n    \"day_temp\": 18,\n    \"night_temp\": 5,\n    \"wind_direction\": \"北\",\n    \"wind_power\": \"1-3\"\n  },\n  {\n    \"date\": \"2026-03-18\",\n    \"day_weather\": \"多云\",\n    \"night_weather\": \"晴\",\n    \"day_temp\": 18,\n    \"night_temp\": 3,\n    \"wind_direction\": \"北\",\n    \"wind_power\": \"1-3\"\n  }\n]\n```\n\n**酒店信息:**\n根据您的需求，我为您搜索了丽江的经济型酒店，以下是推荐的5家酒店：\n\n```json\n[\n  {\n    \"name\": \"VillaHoliday一墅全屋智能酒店(丽江古城店)\",\n    \"address\": \"祥和街道办事处义和居委会白龙潭村36号\",\n    \"location\": {\"longitude\": 100.230523, \"latitude\": 26.862791},\n    \"price_range\": \"200-300元/晚\",\n    \"rating\": \"4.8\",\n    \"type\": \"经济型酒店\",\n    \"distance\": \"距离丽江古城约1公里\",\n    \"estimated_cost\": 250\n  },\n  {\n    \"name\": \"STARS泊岸酒店\",\n    \"address\": \"云南省丽江市古城区祥和街道义和村委会白龙潭村34\",\n    \"location\": {\"longitude\": 100.230055, \"latitude\": 26.863771},\n    \"price_range\": \"200-300元/晚\",\n    \"rating\": \"4.8\",\n    \"type\": \"经济型酒店\",\n    \"distance\": \"距离丽江古城约1公里\",\n    \"estimated_cost\": 250\n  },\n  {\n    \"name\": \"丽江树野酒店(古城忠义市场店)\",\n    \"address\": \"祥和街道义和社区忠义东村39号\",\n    \"location\": {\"longitude\": 100.235651, \"latitude\": 26.862193},\n    \"price_range\": \"200-300元/晚\",\n    \"rating\": \"4.9\",\n    \"type\": \"经济型酒店\",\n    \"distance\": \"距离忠义市场约500米\",\n    \"estimated_cost\": 280\n  },\n  {\n    \"name\": \"海友酒店(丽江古城大水车店)\",\n    \"address\": \"玉缘路玉河走廊停车场内四合院1-3层\",\n    \"location\": {\"longitude\": 100.233575, \"latitude\": 26.878619},\n    \"price_range\": \"200-300元/晚\",\n    \"rating\": \"4.8\",\n    \"type\": \"经济型酒店\",\n    \"distance\": \"距离大水车景点约500米\",\n    \"estimated_cost\": 230\n  },\n  {\n    \"name\": \"如家精选酒店(丽江古城大水车店)\",\n    \"address\": \"红太阳广场旁\",\n    \"location\": {\"longitude\": 100.232150, \"latitude\": 26.880114},\n    \"price_range\": \"200-300元/晚\",\n    \"rating\": \"4.7\",\n    \"type\": \"经济型连锁酒店\",\n    \"distance\": \"距离大水车景点约500米\",\n    \"estimated_cost\": 260\n  }\n]\n```\n\n**推荐说明：**\n- 所有酒店评分均在4.7分以上，性价比很高\n- 大部分酒店位于丽江古城区周边，交通便利\n- 价格区间约200-300元/晚，符合经济型需求\n- 部分酒店距离热门景点（如大水车、忠义市场）较近，游览方便\n\n建议您根据具体行程安排和预算选择合适的酒店预订。\n\n**JSON 输出要求:**\n1. 必须返回完整的 JSON 对象\n2. 景点必须包含: name, address, location, visit_duration, description, category\n3. 天气信息必须是 WeatherInfo 格式的对象数组，包含: date, day_weather, night_weather, day_temp, night_temp, wind_direction, wind_power\n4. 温度值只填数字，不要带°C单位\n5. 餐饮必须包含: type, name, description, estimated_cost\n6. 酒店必须包含: name, address, location, price_range, rating, type, estimated_cost\n\n**行程安排:**\n1. 每天安排2-3个景点\n2. 每天必须包含早中晚三餐，根据美食信息推荐当地特色餐厅\n3. 每天推荐一个具体的酒店(从酒店信息中选择)\n4. 考虑景点之间的距离和交通方式\n5. 景点和酒店的经纬度坐标(location)必须真实准确!\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T12:58:21.508051</span>
+                <span class="event-type">session_end</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "duration": 110.595622,
+  "final_answer": "```json\n{\n  \"city\": \"丽江\",\n  \"start_date\": \"2026-03-16\",\n  \"end_date\": \"2026-03-18\",\n  \"days\": [\n    {\n      \"date\": \"2026-03-16\",\n      \"day_index\": 0,\n      \"description\": \"抵达丽江，游览古城核心区域，体验纳西族文化与美食，小雨天气适合古城漫步。\",\n      \"transportation\": \"步行\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"海友酒店(丽江古城大水车店)\",\n        \"address\": \"玉缘路玉河走廊停车场内四合院1-3层\",\n        \"location\": {\n          \"longitude\": 100.233575,\n          \"latitude\": 26.878619\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.8\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"距离大水车景点约500米\",\n        \"estimated_cost\": 230\n      },\n      \"attractions\": [\n        {\n          \"name\": \"丽江古城-古城大水车\",\n          \"address\": \"东大街1号丽江古城内(北侧)\",\n          \"location\": {\n            \"longitude\": 100.233324,\n            \"latitude\": 26.876027\n          },\n          \"visit_duration\": 30,\n          \"description\": \"丽江古城标志性景观，网红打卡点，适合拍照留念\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.8,\n          \"ticket_price\": 0\n        },\n        {\n          \"name\": \"四方街\",\n          \"address\": \"丽江古城五一路下段\",\n          \"location\": {\n            \"longitude\": 100.233949,\n            \"latitude\": 26.872039\n          },\n          \"visit_duration\": 60,\n          \"description\": \"古城中心广场，纳西族传统集市，体验民族风情和夜生活\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.8,\n          \"ticket_price\": 0\n        },\n        {\n          \"name\": \"丽江古城博物院-木府\",\n          \"address\": \"光义街官院巷49号\",\n          \"location\": {\n            \"longitude\": 100.233536,\n            \"latitude\": 26.869453\n          },\n          \"visit_duration\": 120,\n          \"description\": \"纳西族土司府邸，明代建筑风格，了解丽江历史文化必去之地\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.8,\n          \"ticket_price\": 40\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"沈记土鸡米线(七星街店)\",\n          \"address\": \"七星街下段84号\",\n          \"location\": {\n            \"longitude\": 100.225006,\n            \"latitude\": 26.873839\n          },\n          \"description\": \"土鸡米线、鸡翅膀、鸡肝、鸡爪、土鸡饵丝、卤猪尾巴\",\n          \"estimated_cost\": 19\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"渣渣米线(四方街店)\",\n          \"address\": \"大研街道新义街四方街34号(鬼包子对面)\",\n          \"location\": {\n            \"longitude\": 100.234393,\n            \"latitude\": 26.872722\n          },\n          \"description\": \"特色米线、招牌米线、云南风味米线\",\n          \"estimated_cost\": 57\n        },\n        {\n          \"type\": \"dinner\",\n          \"name\": \"德四家·云南傣味烧烤品牌(丽江店)\",\n          \"address\": \"祥和街道办事处纳里文创商业街一楼C区二楼C区\",\n          \"location\": {\n            \"longitude\": 100.231595,\n            \"latitude\": 26.8546\n          },\n          \"description\": \"炭烤乌鸡、烤鸡拼盘、手抓饭、鲜切吊龙、油炝全家福、蘸料全家福\",\n          \"estimated_cost\": 65\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"海友酒店(丽江古城大水车店)\",\n          \"destination\": \"丽江古城-古城大水车\",\n          \"distance\": 0.3,\n          \"duration\": 5,\n          \"mode\": \"walking\"\n        },\n        {\n          \"origin\": \"丽江古城-古城大水车\",\n          \"destination\": \"四方街\",\n          \"distance\": 0.4,\n          \"duration\": 6,\n          \"mode\": \"walking\"\n        },\n        {\n          \"origin\": \"四方街\",\n          \"destination\": \"丽江古城博物院-木府\",\n          \"distance\": 0.3,\n          \"duration\": 5,\n          \"mode\": \"walking\"\n        }\n      ],\n      \"total_distance\": 1.0,\n      \"total_duration\": 16,\n      \"transport_cost\": 0\n    },\n    {\n      \"date\": \"2026-03-17\",\n      \"day_index\": 1,\n      \"description\": \"探访束河古镇体验茶马古道风情，下午登狮子山俯瞰古城，晚上观看《丽江千古情》演出。\",\n      \"transportation\": \"公共交通\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"VillaHoliday一墅全屋智能酒店(丽江古城店)\",\n        \"address\": \"祥和街道办事处义和居委会白龙潭村36号\",\n        \"location\": {\n          \"longitude\": 100.230523,\n          \"latitude\": 26.862791\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.8\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"距离丽江古城约1公里\",\n        \"estimated_cost\": 250\n      },\n      \"attractions\": [\n        {\n          \"name\": \"束河古镇\",\n          \"address\": \"束河镇\",\n          \"location\": {\n            \"longitude\": 100.205679,\n            \"latitude\": 26.9196\n          },\n          \"visit_duration\": 180,\n          \"description\": \"4A景区，茶马古道重镇，比丽江古城更安静，适合休闲漫步\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.8,\n          \"ticket_price\": 40\n        },\n        {\n          \"name\": \"狮子山万古楼景区\",\n          \"address\": \"大研镇新华街丽江古城-狮子山(狮山路)(东北角)\",\n          \"location\": {\n            \"longitude\": 100.231338,\n            \"latitude\": 26.870249\n          },\n          \"visit_duration\": 90,\n          \"description\": \"古城制高点，俯瞰全城和玉龙雪山，摄影观景绝佳位置\",\n          \"category\": \"自然风光\",\n          \"rating\": 4.6,\n          \"ticket_price\": 50\n        },\n        {\n          \"name\": \"丽江千古情景区\",\n          \"address\": \"黄山街道玉兴西路88号\",\n          \"location\": {\n            \"longitude\": 100.218666,\n            \"latitude\": 26.827705\n          },\n          \"visit_duration\": 150,\n          \"description\": \"大型实景演出，展现丽江历史文化，震撼视听体验\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.7,\n          \"ticket_price\": 280\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"正宗李家土鸡米线店\",\n          \"address\": \"康年丽水阳光酒店东南门北130米\",\n          \"location\": {\n            \"longitude\": 100.20692,\n            \"latitude\": 26.916921\n          },\n          \"description\": \"土鸡米线、鸡腿、鸡翅、鸡肉、鸡汤\",\n          \"estimated_cost\": 20\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"茄子恰恰·创意云南菜(丽江店)\",\n          \"address\": \"丽客隆超市人民广场店1楼(517美食专列)\",\n          \"location\": {\n            \"longitude\": 100.226174,\n            \"latitude\": 26.859989\n          },\n          \"description\": \"焦糖豆花、青梅菠萝饭、水淹菜红豆汤、三少爷焖鸡、风味小刀肉\",\n          \"estimated_cost\": 50\n        },\n        {\n          \"type\": \"dinner\",\n          \"name\": \"金生丽水·云南菜·祥和楼\",\n          \"address\": \"祥和商业广场东牌坊\",\n          \"location\": {\n            \"longitude\": 100.230485,\n            \"latitude\": 26.85549\n          },\n          \"description\": \"云南特色菜、鸡肉、云南风味\",\n          \"estimated_cost\": 103\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"VillaHoliday一墅全屋智能酒店\",\n          \"destination\": \"束河古镇\",\n          \"distance\": 8.5,\n          \"duration\": 30,\n          \"mode\": \"transit\"\n        },\n        {\n          \"origin\": \"束河古镇\",\n          \"destination\": \"狮子山万古楼景区\",\n          \"distance\": 7.0,\n          \"duration\": 25,\n          \"mode\": \"transit\"\n        },\n        {\n          \"origin\": \"狮子山万古楼景区\",\n          \"destination\": \"丽江千古情景区\",\n          \"distance\": 6.0,\n          \"duration\": 20,\n          \"mode\": \"transit\"\n        }\n      ],\n      \"total_distance\": 21.5,\n      \"total_duration\": 75,\n      \"transport_cost\": 15\n    },\n    {\n      \"date\": \"2026-03-18\",\n      \"day_index\": 2,\n      \"description\": \"清晨前往黑龙潭拍摄雪山倒影，午后深度游览丽江古城，品尝地道小吃，结束愉快旅程。\",\n      \"transportation\": \"步行\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"如家精选酒店(丽江古城大水车店)\",\n        \"address\": \"红太阳广场旁\",\n        \"location\": {\n          \"longitude\": 100.23215,\n          \"latitude\": 26.880114\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.7\",\n        \"type\": \"经济型连锁酒店\",\n        \"distance\": \"距离大水车景点约500米\",\n        \"estimated_cost\": 260\n      },\n      \"attractions\": [\n        {\n          \"name\": \"黑龙潭\",\n          \"address\": \"民主路1号\",\n          \"location\": {\n            \"longitude\": 100.239852,\n            \"latitude\": 26.888448\n          },\n          \"visit_duration\": 90,\n          \"description\": \"4A景区，玉龙雪山倒影绝佳拍摄点，自然风光与人文景观并存\",\n          \"category\": \"自然风光\",\n          \"rating\": 4.6,\n          \"ticket_price\": 0\n        },\n        {\n          \"name\": \"丽江古城\",\n          \"address\": \"民主路与福慧路交叉口东南\",\n          \"location\": {\n            \"longitude\": 100.235517,\n            \"latitude\": 26.870507\n          },\n          \"visit_duration\": 240,\n          \"description\": \"世界文化遗产5A景区，纳西族文化发源地，古城风貌保存完好\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.9,\n          \"ticket_price\": 50\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"绿背篓婆婆米线店\",\n          \"address\": \"祥和路278-41号忠义市场内部\",\n          \"location\": {\n            \"longitude\": 100.236172,\n            \"latitude\": 26.86642\n          },\n          \"description\": \"特色米线、云南米线、婆婆米线\",\n          \"estimated_cost\": 12\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"椿村小吃\",\n          \"address\": \"光义街忠义巷184号\",\n          \"location\": {\n            \"longitude\": 100.235048,\n            \"latitude\": 26.868161\n          },\n          \"description\": \"特色小吃、米线、烤鸡、鸡肉\",\n          \"estimated_cost\": 48\n        },\n        {\n          \"type\": \"dinner\",\n          \"name\": \"渣渣米线(古城店)\",\n          \"address\": \"光义街忠义巷75号\",\n          \"location\": {\n            \"longitude\": 100.234164,\n            \"latitude\": 26.867893\n          },\n          \"description\": \"特色米线、招牌米线、云南特色米线\",\n          \"estimated_cost\": 59\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"如家精选酒店(丽江古城大水车店)\",\n          \"destination\": \"黑龙潭\",\n          \"distance\": 1.2,\n          \"duration\": 18,\n          \"mode\": \"walking\"\n        },\n        {\n          \"origin\": \"黑龙潭\",\n          \"destination\": \"丽江古城\",\n          \"distance\": 1.5,\n          \"duration\": 22,\n          \"mode\": \"walking\"\n        }\n      ],\n      \"total_distance\": 2.7,\n      \"total_duration\": 40,\n      \"transport_cost\": 0\n    }\n  ],\n  \"weather_info\": [\n    {\n      \"date\": \"2026-03-16\",\n      \"day_weather\": \"小雨\",\n      \"night_weather\": \"多云\",\n      \"day_temp\": 17,\n      \"night_temp\": 6,\n      \"wind_direction\": \"北\",\n      \"wind_power\": \"1-3\"\n    },\n    {\n      \"date\": \"2026-03-17\",\n      \"day_weather\": \"多云\",\n      \"night_weather\": \"多云\",\n      \"day_temp\": 18,\n      \"night_temp\": 5,\n      \"wind_direction\": \"北\",\n      \"wind_power\": \"1-3\"\n    },\n    {\n      \"date\": \"2026-03-18\",\n      \"day_weather\": \"多云\",\n      \"night_weather\": \"晴\",\n      \"day_temp\": 18,\n      \"night_temp\": 3,\n      \"wind_direction\": \"北\",\n      \"wind_power\": \"1-3\"\n    }\n  ],\n  \"overall_suggestions\": \"丽江早晚温差较大，请注意保暖，尤其是去黑龙潭拍照的清晨。3月为旱季，但16日有小雨，建议携带雨具。古城内多为石板路，建议穿着舒适的平底鞋。丽江千古情演出非常震撼，建议提前预订座位。品尝当地米线时，可根据口味要求调整辣度。\",\n  \"budget\": {\n    \"total_attractions\": 460,\n    \"total_hotels\": 740,\n    \"total_meals\": 433,\n    \"total_transportation\": 15,\n    \"total\": 1648\n  }\n}\n```",
+  "status": "success",
+  "usage": {},
+  "latency_ms": 0
+}</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stats-panel">
+        <h2>📊 会话统计</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">总步骤数</span>
+                <span class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总 Token</span>
+                <span class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总成本</span>
+                <span class="stat-value">$0.0000</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">会话时长</span>
+                <span class="stat-value">110.6s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">模型调用次数</span>
+                <span class="stat-value">0</span>
+            </div>
+        </div>
+
+        <h3>🔧 工具调用统计</h3>
+        <table class="tool-stats">
+            <tr><th>工具名称</th><th>调用次数</th></tr>
+            <tr><td colspan="2">无工具调用</td></tr>
+        </table>
+
+        
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

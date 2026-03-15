@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260315-105211-ecd5</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260315-105211-ecd5</h1>
+        <p>生成时间: 2026-03-15 10:52:11</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T10:52:11.485484</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "酒店推荐专家",
+  "agent_type": "SimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T10:52:11.485818</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "请搜索上海的舒适型酒店酒店"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T10:52:13.221980</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "content": "我来为您搜索上海的舒适型酒店。",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 1882,
+    "completion_tokens": 95,
+    "total_tokens": 1977
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T10:52:13.222415</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-4')">[▼ 详情]</span>
+            </div>
+            <div id="details-4" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806907628113624838",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "amap_maps_text_search",
+    "arguments": {
+      "keywords": "酒店 星级酒店",
+      "city": "上海"
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T10:52:13.574090</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-5')">[▼ 详情]</span>
+            </div>
+            <div id="details-5" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806907628113624838",
+  "result": "❌ 错误 [UNKNOWN]: 工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T10:52:14.659714</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-6')">[▼ 详情]</span>
+            </div>
+            <div id="details-6" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 1991,
+    "completion_tokens": 28,
+    "total_tokens": 2019
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T10:52:14.660017</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-7')">[▼ 详情]</span>
+            </div>
+            <div id="details-7" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806911338965367569",
+  "args": {
+    "action": "list_tools"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T10:52:14.999754</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-8')">[▼ 详情]</span>
+            </div>
+            <div id="details-8" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806911338965367569",
+  "result": "找到 6 个工具:\n- maps_text_search: 搜索POI（兴趣点），支持按关键词搜索景点、酒店、餐厅等\n- maps_weather: 查询指定城市的天气信息\n- maps_direction_walking_by_address: 规划步行路线（通过地址）\n- maps_direction_driving_by_address: 规划驾车路线（通过地址）\n- maps_direction_transit_integrated_by_address: 规划公交路线（通过地址）\n- maps_geo: 地理编码：将地址转换为经纬度坐标\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T10:52:16.193087</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-9')">[▼ 详情]</span>
+            </div>
+            <div id="details-9" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 2118,
+    "completion_tokens": 58,
+    "total_tokens": 2176
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T10:52:16.193827</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-10')">[▼ 详情]</span>
+            </div>
+            <div id="details-10" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806927900359254242",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "maps_text_search",
+    "arguments": {
+      "keywords": "酒店 星级酒店",
+      "city": "上海"
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T10:52:16.902910</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-11')">[▼ 详情]</span>
+            </div>
+            <div id="details-11" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806927900359254242",
+  "result": "工具 'maps_text_search' 执行结果:\n{\"suggestion\": {\"keywords\": [], \"cities\": []}, \"count\": \"17\", \"infocode\": \"10000\", \"pois\": [{\"parent\": [], \"distance\": [], \"keytag\": \"五星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"5\", \"opentime2\": [], \"rating\": \"4.3\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;五星级宾馆|购物服务;购物相关场所;购物相关场所\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/b8fc5c22bac4d13e55e38300046a9ecf\"}, {\"provider\": [], \"title\": \"餐厅\", \"url\": \"http://store.is.autonavi.com/showpic/0eaeeff824598d3afa81061b9b693028\"}, {\"provider\": [], \"title\": \"客房\", \"url\": \"https://store.is.autonavi.com/showpic/e7b4fcc3a44e6073365b7fd4aee5801d\"}], \"building\": [], \"typecode\": \"100102|060000\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"黄浦区\", \"featured_reviews_remake\": [], \"tel\": \"021-64151188\", \"id\": \"B00155NEK2\", \"address\": \"长乐路161号(淮海中路地铁站3号口步行50米)\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"上海新锦江大酒店\", \"location\": \"121.462902,31.220767\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"五星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"5\", \"opentime2\": [], \"rating\": \"4.7\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;五星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/b0816ec2f620b493762f12eb9c1fbf39\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B00155N1OK/comment/E14A06AE_EF0A_4601_8241_5C16920A9436_L0_001_2000_150_1765267722331_84285337.jpg\"}, {\"provider\": [], \"title\": \"尊享房\", \"url\": \"https://store.is.autonavi.com/showpic/51d9b88c92807d920c8756ff107b7d0a\"}], \"building\": [], \"typecode\": \"100102|050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"浦东新区\", \"featured_reviews_remake\": [], \"tel\": \"021-38581188\", \"id\": \"B00155N1OK\", \"address\": \"雪野路1188号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"上海世博洲际酒店\", \"location\": \"121.505347,31.198853\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"五星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"5\", \"opentime2\": [], \"rating\": \"4.6\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;五星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/6f3a2b2772aca1c59509077df27b1fa2\"}, {\"provider\": [], \"title\": \"外观\", \"url\": \"https://store.is.autonavi.com/showpic/23442fab18140e1768055db6483d3227\"}, {\"provider\": [], \"title\": \"舒适高级房\", \"url\": \"https://store.is.autonavi.com/showpic/7884635fc460b3e8413298093bb6d7e7\"}], \"building\": [], \"typecode\": \"100102|050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"长宁区\", \"featured_reviews_remake\": [], \"tel\": \"021-61458888\", \"id\": \"B00153EB9D\", \"address\": \"番禺路400号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"上海银星皇冠假日酒店\", \"location\": \"121.429638,31.203028\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFFP7042\", \"distance\": [], \"keytag\": \"五星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"5\", \"opentime2\": [], \"rating\": \"4.6\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;五星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/c2cec549de956a6b9ee837b425805bff\"}, {\"provider\": [], \"title\": \"会议室\", \"url\": \"https://store.is.autonavi.com/showpic/a73e29f45ba346629e8a32c8a857c56d\"}, {\"provider\": [], \"title\": \"行政套房\", \"url\": \"https://store.is.autonavi.com/showpic/6d17f7a1b5da9e08c0699d0648687007\"}], \"building\": [], \"typecode\": \"100102|050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"浦东新区\", \"featured_reviews_remake\": [], \"tel\": \"021-38929666\", \"id\": \"B00155MVF1\", \"address\": \"锦绣路2588号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": \"324\", \"atag\": [], \"name\": \"星河湾酒店\", \"location\": \"121.537476,31.191778\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"四星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"4\", \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/99154af996291dd1c26bf247d44e760a\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/574cfc17bcfaf076c4014c596696acad\"}, {\"provider\": [], \"title\": \"豪华房 大床 高楼层\", \"url\": \"https://store.is.autonavi.com/showpic/35ab0bcde80dfa6fb8a58e73a0ee62f9\"}], \"building\": [], \"typecode\": \"100103\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"浦东新区\", \"featured_reviews_remake\": [], \"tel\": \"021-68629988;4008823880\", \"id\": \"B0FFJXW1W5\", \"address\": \"环龙路55号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"上海浦东丽晟假日酒店\", \"location\": \"121.528512,31.206460\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"四星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"4\", \"opentime2\": [], \"rating\": \"4.3\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/0365e31f86c071f7e5b5749330899e23\"}, {\"provider\": [], \"title\": \"外观\", \"url\": \"https://store.is.autonavi.com/showpic/0e7c337e9bd59c09788cd7e822f0fd5d\"}, {\"provider\": [], \"title\": \"豪华双床房\", \"url\": \"https://store.is.autonavi.com/showpic/3c20eb7029da60b781c25b972153cffb\"}], \"building\": [], \"typecode\": \"100103|050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"黄浦区\", \"featured_reviews_remake\": [], \"tel\": \"021-62551133\", \"id\": \"B00150BCFC\", \"address\": \"陕西南路5-7号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"城市酒店\", \"location\": \"121.457346,31.222726\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"四星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"4\", \"opentime2\": [], \"rating\": \"4.6\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": \"酒店外观\", \"url\": \"https://store.is.autonavi.com/showpic/be1894f0bdea073c9c8670ee1a237967\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B00155QDQ0/comment/5f18ff4a3da0d4755bd09fbe8be61c77_2048_2048_80.jpg\"}, {\"provider\": [], \"title\": \"高级大床房\", \"url\": \"https://store.is.autonavi.com/showpic/3233e8a3e331b9724b4b36d180900de4\"}], \"building\": [], \"typecode\": \"100103|050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"浦东新区\", \"featured_reviews_remake\": [], \"tel\": \"021-61621118\", \"id\": \"B00155QDQ0\", \"address\": \"丁香路555号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"东怡大酒店\", \"location\": \"121.542661,31.224013\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"四星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"4\", \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆|住宿服务;宾馆酒店;经济型连锁酒店|住宿服务;宾馆酒店;五星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/56842f1038e7507f3ab4804c700fe70c\"}, {\"provider\": [], \"title\": \"外观\", \"url\": \"https://store.is.autonavi.com/showpic/e705e63fb47e75923def18d2f11ba8e6\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/dc0966a673093e48d903793967d24f30\"}], \"building\": [], \"typecode\": \"100103|100105|100102|050000\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"浦东新区\", \"featured_reviews_remake\": [], \"tel\": \"021-60216888\", \"id\": \"B00152B39C\", \"address\": \"东方路838号(世纪大道地铁站7号口步行490米)\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"上海齐鲁酒店\", \"location\": \"121.525710,31.226031\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"四星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"4\", \"opentime2\": [], \"rating\": \"4.2\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/6a021cd171afca76a84d71a7fa9d7993\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B00155KYXY/comment/content_media_external_file_1000006182_ss__1763710876176_61231206.jpg\"}, {\"provider\": [], \"title\": \"商务套房\", \"url\": \"https://store.is.autonavi.com/showpic/4c5022971598e88f0a5d0b980f6add62\"}], \"building\": [], \"typecode\": \"100103|050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"静安区\", \"featured_reviews_remake\": [], \"tel\": \"021-56651888\", \"id\": \"B00155KYXY\", \"address\": \"共和新路2750号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"锦荣国际大酒店\", \"location\": \"121.450969,31.283809\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"四星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"4\", \"opentime2\": [], \"rating\": \"4.6\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/54218d1f37d210002138050cbe9d8c96\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B00155QKB0/comment/8BA56BBB_CA7C_4928_BE07_588253C40FF1_L0_001_1500_2000_1735990590800_23664214.jpg\"}, {\"provider\": [], \"title\": \"家庭房\", \"url\": \"https://store.is.autonavi.com/showpic/ce03414f04788b76efb6b72b881bcdbe\"}], \"building\": [], \"typecode\": \"100103|050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"宝山区\", \"featured_reviews_remake\": [], \"tel\": \"021-36114580\", \"id\": \"B00155QKB0\", \"address\": \"水产路2659号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"上海金仓永华大酒店\", \"location\": \"121.440603,31.365463\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"三星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"3\", \"opentime2\": [], \"rating\": \"4.3\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/2ba5a7209aefc40e7413b4d91e88d62a\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B00154DTRH/comment/c4b0079d6454121b2c04b024b26ffe48_2048_2048_80.jpg\"}, {\"provider\": [], \"title\": \"客房\", \"url\": \"https://store.is.autonavi.com/showpic/a792f81bc6791e20fcf3387dca9982af\"}], \"building\": [], \"typecode\": \"100103\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"浦东新区\", \"featured_reviews_remake\": [], \"tel\": \"021-68758800\", \"id\": \"B00154DTRH\", \"address\": \"浦东南路1888号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"浦东大酒店\", \"location\": \"121.518208,31.215366\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B00155L3I3\", \"distance\": [], \"keytag\": \"四星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"4\", \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": \"酒店外观\", \"url\": \"https://store.is.autonavi.com/showpic/00fc70dbff6e29de4964d53631c0324e\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/default_poi/comment/content_media_external_file_1000051412_ss__1763103570658_02059366.jpg\"}, {\"provider\": [], \"title\": \"商务套房\", \"url\": \"https://store.is.autonavi.com/showpic/0d0cb44f06f193bb14255bc8f4631e81\"}], \"building\": [], \"typecode\": \"100103|050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"浦东新区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B00155L4U2\", \"address\": \"东方路800号宝安大厦\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"宝安大酒店\", \"location\": \"121.524003,31.226461\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B001556QIY\", \"distance\": [], \"keytag\": \"三星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"3\", \"opentime2\": [], \"rating\": \"4.8\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;宾馆酒店\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/7aef4dce0ad34f7395c32b220b4150c9\"}, {\"provider\": [], \"title\": \"外观\", \"url\": \"https://store.is.autonavi.com/showpic/0286cf45b80ed8213f4d249f1d1e2f59\"}, {\"provider\": [], \"title\": \"公共区域\", \"url\": \"https://store.is.autonavi.com/showpic/333d9afa33c664ed683f14ae3597aa03\"}], \"building\": [], \"typecode\": \"100100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"崇明区\", \"featured_reviews_remake\": [], \"tel\": \"021-69690000\", \"id\": \"B0FFME64LN\", \"address\": \"城桥镇南门路178号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": \"324\", \"atag\": [], \"name\": \"星程酒店(上海崇明南门店)\", \"location\": \"121.396002,31.619282\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B00155CAWF\", \"distance\": [], \"keytag\": \"商务酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"3\", \"opentime2\": [], \"rating\": \"3.3\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;三星级宾馆\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/85a770429a7bf096ea3933ff01495b76\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B00154DWIH/comment/content_media_external_file_195929_ss__1756645982712_96560708.jpg\"}, {\"provider\": [], \"title\": \"公共区域\", \"url\": \"https://store.is.autonavi.com/showpic/650366b38efdbdb9540ee47cb093bbf3\"}], \"building\": [], \"typecode\": \"100104\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"浦东新区\", \"featured_reviews_remake\": [], \"tel\": \"021-58798798\", \"id\": \"B00154DWIH\", \"address\": \"南泉北路1033号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"中电大酒店\", \"location\": \"121.518999,31.225709\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"四星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"4\", \"opentime2\": [], \"rating\": \"4.2\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆|餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"provider\": [], \"title\": \"酒店外观\", \"url\": \"https://store.is.autonavi.com/showpic/e9a841eeae4361b250ccfe15a9d3a387\"}, {\"provider\": [], \"title\": \"酒店附近\", \"url\": \"https://store.is.autonavi.com/showpic/7206e957b48e13a6605dbcfc5fde9ec4\"}, {\"provider\": [], \"title\": \"外观\", \"url\": \"https://store.is.autonavi.com/showpic/eaed3f4edf846c3b209c2c113885b915\"}], \"building\": [], \"typecode\": \"100103|050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"浦东新区\", \"featured_reviews_remake\": [], \"tel\": \"021-31012228;021-58081888\", \"id\": \"B0015511ZG\", \"address\": \"大团镇南芦公路888号\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"开元大酒店\", \"location\": \"121.736079,30.964886\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"三星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"3\", \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;四星级宾馆\", \"photos\": [{\"provider\": [], \"title\": \"大堂\", \"url\": \"http://store.is.autonavi.com/showpic/609197c611f1716a162c4867aac86af7\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B00152032B/comment/5d7148a4cee31cb616a618161d6955fb_2048_2048_80.jpg\"}, {\"provider\": [], \"title\": \"家庭房\", \"url\": \"https://store.is.autonavi.com/showpic/2bff3bb527b9b13010bd1af8f78c30e4\"}], \"building\": [], \"typecode\": \"100103\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"黄浦区\", \"featured_reviews_remake\": [], \"tel\": \"021-53529897;021-53529898\", \"id\": \"B00152032B\", \"address\": \"南京西路108号(人民广场地铁站8号口步行130米)\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": [], \"atag\": [], \"name\": \"金门大酒店\", \"location\": \"121.472543,31.234270\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B00155HZ3M\", \"distance\": [], \"keytag\": \"三星级酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": \"3\", \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;三星级宾馆\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/7486063d591030d57a7fe6a9fa89662f\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/comment/content_service__1770273554403_43756423_1770273565379_60778464.jpg\"}, {\"provider\": [], \"title\": \"客房\", \"url\": \"https://store.is.autonavi.com/showpic/10ece3a60e12918db8224f86a8ef6de3\"}], \"building\": [], \"typecode\": \"100104\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"黄浦区\", \"featured_reviews_remake\": [], \"tel\": \"021-54619668\", \"id\": \"B00151C927\", \"address\": \"淮海中路795号(东方商厦对面)\", \"space_num\": [], \"pname\": \"上海市\", \"biz_type\": \"hotel\", \"cityname\": \"上海市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"金辰大酒店\", \"location\": \"121.463194,31.218259\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}], \"status\": \"1\", \"info\": \"OK\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T10:52:24.872592</span>
+                <span class="event-type">session_end</span>
+                <span class="expandable" onclick="toggleDetails('details-12')">[▼ 详情]</span>
+            </div>
+            <div id="details-12" class="details">
+                <pre>{
+  "duration": 13.388789,
+  "total_steps": 3,
+  "final_answer": "```json\n[\n    {\n        \"name\": \"上海世博洲际酒店\",\n        \"address\": \"雪野路1188号\",\n        \"location\": {\"longitude\": 121.505347, \"latitude\": 31.198853},\n        \"price_range\": \"800-1200元/晚\",\n        \"rating\": \"4.7\",\n        \"type\": \"五星级酒店\",\n        \"distance\": \"距离世博园区约500米\",\n        \"estimated_cost\": 1000\n    },\n    {\n        \"name\": \"上海银星皇冠假日酒店\",\n        \"address\": \"番禺路400号\",\n        \"location\": {\"longitude\": 121.429638, \"latitude\": 31.203028},\n        \"price_range\": \"700-1000元/晚\",\n        \"rating\": \"4.6\",\n        \"type\": \"五星级酒店\",\n        \"distance\": \"距离徐家汇商圈约1公里\",\n        \"estimated_cost\": 850\n    },\n    {\n        \"name\": \"上海浦东丽晟假日酒店\",\n        \"address\": \"环龙路55号\",\n        \"location\": {\"longitude\": 121.528512, \"latitude\": 31.206460},\n        \"price_range\": \"500-700元/晚\",\n        \"rating\": \"4.5\",\n        \"type\": \"四星级酒店\",\n        \"distance\": \"距离陆家嘴金融区约3公里\",\n        \"estimated_cost\": 600\n    },\n    {\n        \"name\": \"东怡大酒店\",\n        \"address\": \"丁香路555号\",\n        \"location\": {\"longitude\": 121.542661, \"latitude\": 31.224013},\n        \"price_range\": \"500-700元/晚\",\n        \"rating\": \"4.6\",\n        \"type\": \"四星级酒店\",\n        \"distance\": \"距离世纪公园约500米\",\n        \"estimated_cost\": 600\n    },\n    {\n        \"name\": \"城市酒店\",\n        \"address\": \"陕西南路5-7号\",\n        \"location\": {\"longitude\": 121.457346, \"latitude\": 31.222726},\n        \"price_range\": \"400-600元/晚\",\n        \"rating\": \"4.3\",\n        \"type\": \"四星级酒店\",\n        \"distance\": \"距离淮海路商圈约200米\",\n        \"estimated_cost\": 500\n    }\n]\n```",
+  "status": "success"
+}</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stats-panel">
+        <h2>📊 会话统计</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">总步骤数</span>
+                <span class="stat-value">3</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总 Token</span>
+                <span class="stat-value">6,172</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总成本</span>
+                <span class="stat-value">$0.0000</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">会话时长</span>
+                <span class="stat-value">13.4s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">模型调用次数</span>
+                <span class="stat-value">3</span>
+            </div>
+        </div>
+
+        <h3>🔧 工具调用统计</h3>
+        <table class="tool-stats">
+            <tr><th>工具名称</th><th>调用次数</th></tr>
+            <tr><td>amap</td><td>3</td></tr>
+
+        </table>
+
+        
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

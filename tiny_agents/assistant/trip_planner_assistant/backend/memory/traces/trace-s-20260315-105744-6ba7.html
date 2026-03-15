@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260315-105744-6ba7</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260315-105744-6ba7</h1>
+        <p>生成时间: 2026-03-15 10:57:44</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T10:57:44.219349</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "酒店推荐专家",
+  "agent_type": "SimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T10:57:44.219566</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "请搜索北京的经济型酒店酒店"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T10:57:46.753749</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 2413,
+    "completion_tokens": 96,
+    "total_tokens": 2509
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T10:57:46.754074</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-4')">[▼ 详情]</span>
+            </div>
+            <div id="details-4" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806909139942105591",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "amap_maps_text_search",
+    "arguments": {
+      "keywords": "经济酒店 便宜",
+      "city": "北京"
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T10:57:47.137842</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-5')">[▼ 详情]</span>
+            </div>
+            <div id="details-5" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806909139942105591",
+  "result": "❌ 错误 [UNKNOWN]: 工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T10:57:47.875331</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-6')">[▼ 详情]</span>
+            </div>
+            <div id="details-6" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 2514,
+    "completion_tokens": 21,
+    "total_tokens": 2535
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T10:57:47.875625</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-7')">[▼ 详情]</span>
+            </div>
+            <div id="details-7" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806920238137605734",
+  "args": {
+    "action": "list_tools"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T10:57:48.254288</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-8')">[▼ 详情]</span>
+            </div>
+            <div id="details-8" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806920238137605734",
+  "result": "找到 6 个工具:\n- maps_text_search: 搜索POI（兴趣点），支持按关键词搜索景点、酒店、餐厅等\n- maps_weather: 查询指定城市的天气信息\n- maps_direction_walking_by_address: 规划步行路线（通过地址）\n- maps_direction_driving_by_address: 规划驾车路线（通过地址）\n- maps_direction_transit_integrated_by_address: 规划公交路线（通过地址）\n- maps_geo: 地理编码：将地址转换为经纬度坐标\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T10:57:50.035546</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-9')">[▼ 详情]</span>
+            </div>
+            <div id="details-9" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 2641,
+    "completion_tokens": 76,
+    "total_tokens": 2717
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T10:57:50.035884</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-10')">[▼ 详情]</span>
+            </div>
+            <div id="details-10" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806921818685570683",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "maps_text_search",
+    "arguments": {
+      "keywords": "经济酒店 便宜",
+      "city": "北京"
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T10:57:50.797670</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-11')">[▼ 详情]</span>
+            </div>
+            <div id="details-11" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806921818685570683",
+  "result": "工具 'maps_text_search' 执行结果:\n{\"suggestion\": {\"keywords\": [], \"cities\": []}, \"count\": \"450\", \"infocode\": \"10000\", \"pois\": [{\"parent\": \"B0FFF8M49Q\", \"distance\": [], \"keytag\": \"快捷酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/3a1b019f010c71ef27e54c993f287e63\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/5320693ee77f641f2eb27c0c74b0005a\"}, {\"provider\": [], \"title\": \"商务大床房\", \"url\": \"https://store.is.autonavi.com/showpic/a0d9c041d8ecd48615c281509662884a\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"朝阳区\", \"featured_reviews_remake\": [], \"tel\": \"010-67049122\", \"id\": \"B000ABBX3R\", \"address\": \"华威南路弘善家园304号\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"如家酒店(北京潘家园店)\", \"location\": \"116.452186,39.871213\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"高档型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.6\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;宾馆酒店\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/0f7433df86e57bc53ae631818533ca13\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0HAOON5IB/comment/content_media_external_file_17539483_ss__1767614747206_20892384.jpg\"}, {\"provider\": [], \"title\": \"舒适大床房\", \"url\": \"https://store.is.autonavi.com/showpic/53e03cac1f6da98d18ccdefcfd168a29\"}], \"building\": [], \"typecode\": \"100100\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"通州区\", \"featured_reviews_remake\": [], \"tel\": \"010-80828863\", \"id\": \"B0HAOON5IB\", \"address\": \"中关村科技园区通州园光机电一体化产业基地嘉创二路甲2号\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"北京亦庄经济开发区希尔顿欢朋酒店\", \"location\": \"116.557455,39.829255\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.6\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"酒店外观\", \"url\": \"https://store.is.autonavi.com/showpic/899339910da7e72730590479caa0bfc4\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/b6e3907acd586b5304790679d7ca3aab\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/3620e69163a6135c13c1684eb79733ec\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"丰台区\", \"featured_reviews_remake\": [], \"tel\": \"010-65918787\", \"id\": \"B000A9Q3OV\", \"address\": \"丰葆路19号\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"汉庭酒店(北京总部基地店)\", \"location\": \"116.289726,39.817674\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"快捷酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.7\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;宾馆酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/5b7c0eea16328a6c6de2821a4cbf7256\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/81c3b66d202babda8a648baf6c22a050\"}, {\"provider\": [], \"title\": \"客房\", \"url\": \"https://store.is.autonavi.com/showpic/b9adc3991368e82a2c187ba072a679b6\"}], \"building\": [], \"typecode\": \"100100\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"丰台区\", \"featured_reviews_remake\": [], \"tel\": \"010-59258858\", \"id\": \"B0HK1Z6Q92\", \"address\": \"海户屯165号1-2栋(地铁站D西南口步行170米)\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"汉庭酒店(北京南站木樨园店)\", \"location\": \"116.398648,39.851034\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.8\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"客房\", \"url\": \"https://store.is.autonavi.com/showpic/5a50a229a19850681688ada94919ece2\"}, {\"provider\": [], \"title\": \"20190507135444050\", \"url\": \"https://store.is.autonavi.com/showpic/59a93e452b99a4fbc79508df28910972\"}, {\"provider\": [], \"title\": \"家庭间\", \"url\": \"http://store.is.autonavi.com/showpic/d728edaf8e68c388fc46b578250ccc79\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"西城区\", \"featured_reviews_remake\": [], \"tel\": \"010-63021998\", \"id\": \"B000A9ZXN0\", \"address\": \"广安门内大街狮子店胡同11号\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"格林豪泰智选酒店(北京菜市口宣武医院店)\", \"location\": \"116.370315,39.889878\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"快捷酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.7\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"封面\", \"url\": \"https://store.is.autonavi.com/showpic/18fc9d38c5ca53f8b961977260bd1590\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/6f7d9ad9d6d24333d8aa6d582654422a\"}, {\"provider\": [], \"title\": \"大床房A\", \"url\": \"https://store.is.autonavi.com/showpic/78a173c2905493430b575d5b2e3b4b15\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"朝阳区\", \"featured_reviews_remake\": [], \"tel\": \"010-65005588\", \"id\": \"B000A84CVL\", \"address\": \"延静里中街3号院11号楼\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"汉庭酒店(北京华贸远洋中心店)\", \"location\": \"116.488737,39.918581\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.6\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"客房\", \"url\": \"https://store.is.autonavi.com/showpic/5503d999d3c0278b5ba7602e9a59c7be\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFFAHPFN/comment/24486c8ae986cd0942fca917e5814470_2048_2048_80.jpg\"}, {\"provider\": [], \"title\": \"大床房\", \"url\": \"https://store.is.autonavi.com/showpic/e62a28c6b7dd79d347254ab012b52312\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"朝阳区\", \"featured_reviews_remake\": [], \"tel\": \"010-65766699;13260167735\", \"id\": \"B0FFFAHPFN\", \"address\": \"定福庄东街2号(传媒大学地铁站A西北口步行480米)\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"如家酒店(北京传媒大学西门传媒大学地铁站店)\", \"location\": \"116.553845,39.912716\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B000A60A41\", \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.7\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/7cbc280587fdbff3d7342aaf36e3ce7d\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFH982D6/comment/2777e7666b8f8337b8eac46b28dfcfed_2048_2048_80.jpg\"}, {\"provider\": [], \"title\": \"公共区域\", \"url\": \"https://store.is.autonavi.com/showpic/ee7fb25118f0c3fbb4e6193f4934c224\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"丰台区\", \"featured_reviews_remake\": [], \"tel\": \"010-63170888;010-63482211\", \"id\": \"B0FFH982D6\", \"address\": \"西三环南路6号\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"iu酒店(六里桥东地铁站店)\", \"location\": \"116.312263,39.882620\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.8\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/170accb0a91411a4a18e9ba01dd08708\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B000A80S6A/comment/4A785E26_ACBA_4ED3_8B29_BBB6585E726F_L0_001_1440_96_1763081458902_83373732.jpg\"}, {\"provider\": [], \"title\": \"星选标准双床房\", \"url\": \"https://store.is.autonavi.com/showpic/2dd06bb8a61bc74d22eb1c2d8cc2e661\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"大兴区\", \"featured_reviews_remake\": [], \"tel\": \"010-67856363\", \"id\": \"B000A80S6A\", \"address\": \"大兴区经济技术开发区景园北街2号楼25-1座\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"锦江之星酒店(北京亦庄荣昌东街地铁站店)\", \"location\": \"116.522839,39.777723\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/9bae84c73f5fe98b3342ab33307fe7bb\"}, {\"provider\": [], \"title\": \"外观\", \"url\": \"https://store.is.autonavi.com/showpic/5a0befc3245fcaa9efea1e71da4447a7\"}, {\"provider\": [], \"title\": \"家庭房\", \"url\": \"https://store.is.autonavi.com/showpic/7771fe0d40e3300ecfa53b9921707b6b\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"海淀区\", \"featured_reviews_remake\": [], \"tel\": \"010-68197333\", \"id\": \"B0FFKZTLCJ\", \"address\": \"中关村南大街31号院东门\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"汉庭酒店(北京中关村国家图书馆地铁站店)\", \"location\": \"116.322967,39.947461\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.7\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;宾馆酒店|生活服务;生活服务场所;生活服务场所\", \"photos\": [{\"provider\": [], \"title\": \"酒店外观\", \"url\": \"https://store.is.autonavi.com/showpic/4281e1982a299590cef2572628358276\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/b3c84317b61fdd4b215321711c040ee4\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0IAG55K6U/comment/content_media_external_images_media_1000024686_ss__1732937032008_40418631.jpg\"}], \"building\": [], \"typecode\": \"100100|070000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"海淀区\", \"featured_reviews_remake\": [], \"tel\": \"010-62962299;010-62962299,9\", \"id\": \"B0IAG55K6U\", \"address\": \"上地创业路11号\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"如家商旅酒店(北京上地清河地铁站店)\", \"location\": \"116.308902,40.041806\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.7\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"酒店外观\", \"url\": \"https://store.is.autonavi.com/showpic/2856755505a433a45605ee6d8e27dd82\"}, {\"provider\": [], \"title\": \"公共区域\", \"url\": \"https://store.is.autonavi.com/showpic/b70a5465424b4329bfc9bc53c1a73cbd\"}, {\"provider\": [], \"title\": \"餐厅\", \"url\": \"https://store.is.autonavi.com/showpic/b004dc8c4864d1d497412d9e2403ffd6\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"朝阳区\", \"featured_reviews_remake\": [], \"tel\": \"010-85833388;010-85833388,9\", \"id\": \"B000A7YEZU\", \"address\": \"石佛营东里105号院西门北80米\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"如家酒店·neo(北京朝阳火车站石佛营地铁站店)\", \"location\": \"116.502898,39.935133\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"快捷酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.6\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/3f7cd7570182092d68c7ab72ade0f5ec\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0G0P5DZUJ/comment/content_media_external_file_100008577_1762357788698_68829505.jpg\"}, {\"provider\": [], \"title\": \"公共区域\", \"url\": \"https://store.is.autonavi.com/showpic/4012e939a51f5dcc4758a614663b3fc2\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"海淀区\", \"featured_reviews_remake\": [], \"tel\": \"010-88288669\", \"id\": \"B0G0P5DZUJ\", \"address\": \"翠微路乙2号院\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"汉庭酒店(北京五棵松万寿路店)\", \"location\": \"116.300147,39.911582\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"快捷酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;宾馆酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/3e20c93bf804fc8d65afe60b75acaf6f\"}, {\"provider\": [], \"title\": \"外观\", \"url\": \"https://store.is.autonavi.com/showpic/b7439c5910019d29e972b2b62602a7a6\"}, {\"provider\": [], \"title\": \"高级三人间\", \"url\": \"https://store.is.autonavi.com/showpic/4844f31a0fd4590fb5f941c9ac4055a6\"}], \"building\": [], \"typecode\": \"100100\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"通州区\", \"featured_reviews_remake\": [], \"tel\": \"010-80820008\", \"id\": \"B0HAB7ON6L\", \"address\": \"台湖镇次渠嘉创二路2号\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"速8酒店(北京亦庄东区店)\", \"location\": \"116.557396,39.809368\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.7\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;宾馆酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/c2ffa82a3998fae2b2a2a1aab6d3805c\"}, {\"provider\": [], \"title\": \"封面\", \"url\": \"https://store.is.autonavi.com/showpic/b3f0af4044bbc0140a77d3559fa67380\"}, {\"provider\": [], \"title\": \"公共区域\", \"url\": \"https://store.is.autonavi.com/showpic/93c4a598e7094db8e9d438c0c1349162\"}], \"building\": [], \"typecode\": \"100100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"海淀区\", \"featured_reviews_remake\": [], \"tel\": \"010-62980588;010-62980596;13718978952\", \"id\": \"B0LG1U4XPC\", \"address\": \"东北旺乡唐家岭村36幢\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"汉庭酒店(北京中关村软件园店)\", \"location\": \"116.293363,40.063104\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/de72f9ec84795e63d29be4ad293f2d3c\"}, {\"provider\": [], \"title\": [], \"url\": \"https://img.alicdn.com/imgextra/i3/O1CN01bacGNG1vh1rlkuYio_!!6000000006203-2-tps-1011-1112.png\"}, {\"provider\": [], \"title\": \"封面\", \"url\": \"https://store.is.autonavi.com/showpic/dae5f6902171285a7edbbd631f6e1f9f\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"东城区\", \"featured_reviews_remake\": [], \"tel\": \"010-84050909;010-84050909,9\", \"id\": \"B000A845KO\", \"address\": \"交道口东大街113号\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"如家酒店·neo(北京什刹海鼓楼交道口店)\", \"location\": \"116.410124,39.941624\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;三星级宾馆\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/7f8ff914d381acfefd1dc68c7deda12f\"}, {\"provider\": [], \"title\": \"封面\", \"url\": \"https://store.is.autonavi.com/showpic/fe8dc2ba31b4c9b2aaf0d6e9352b1b5e\"}, {\"provider\": [], \"title\": \"商旅大床房\", \"url\": \"https://store.is.autonavi.com/showpic/d88b782232f71be675f3df52015e932b\"}], \"building\": [], \"typecode\": \"100104\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"东城区\", \"featured_reviews_remake\": [], \"tel\": \"010-67072299;010-67072299,1001\", \"id\": \"B000A81BJA\", \"address\": \"珠市口西草市街(珠市口地铁站C东南口步行130米)\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"贯通现代酒店(前门店)\", \"location\": \"116.398963,39.890636\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.5\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/399fa7388f48bf20047ef00421d2938f\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/5a4a0b7e93f54bbab124853833f26f9a\"}, {\"provider\": [], \"title\": \"高级大床房\", \"url\": \"https://store.is.autonavi.com/showpic/015aaf62ce916d7c3406824c973280ab\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"西城区\", \"featured_reviews_remake\": [], \"tel\": \"010-88370080\", \"id\": \"B0FFLGSXI6\", \"address\": \"车公庄大街北里55号6号楼\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"汉庭优佳酒店(北京动物园展览馆店)\", \"location\": \"116.345891,39.935285\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFH137KQ\", \"distance\": [], \"keytag\": \"经济型\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.4\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/90396f239e17e47883f99c0e1d6cdbda\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFJWEA0W/comment/64843D96_4593_42E1_A8C0_57BB32113A52_L0_001_1512_2016__1675246290805_6e8518c6.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/f12483a6f2a1a40d13d8dd331b46105e\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"丰台区\", \"featured_reviews_remake\": [], \"tel\": \"010-67649998\", \"id\": \"B0FFJWEA0W\", \"address\": \"东铁营横一条2号\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"格林豪泰酒店(北京方庄刘家窑地铁站店)\", \"location\": \"116.434576,39.858366\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"快捷酒店\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": [], \"rating\": \"4.6\", \"lowest_price\": [], \"hotel_ordering\": \"1\", \"open_time\": []}, \"type\": \"住宿服务;宾馆酒店;经济型连锁酒店\", \"photos\": [{\"provider\": [], \"title\": \"Logo\", \"url\": \"https://store.is.autonavi.com/showpic/0a9a56375916e63490b1cdd97f61dfdf\"}, {\"provider\": [], \"title\": \"外观\", \"url\": \"https://store.is.autonavi.com/showpic/46b4c8f04bf66addce6f765af035dd56\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/8c4b3fd4c5cca26454e76cce1d2189c5\"}], \"building\": [], \"typecode\": \"100105\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"西城区\", \"featured_reviews_remake\": [], \"tel\": \"13321122512\", \"id\": \"B0I6R4SSBD\", \"address\": \"陶然亭黑窑厂18号楼\", \"space_num\": [], \"pname\": \"北京市\", \"biz_type\": \"hotel\", \"cityname\": \"北京市\", \"childtype\": [], \"atag\": [], \"name\": \"汉庭酒店(北京前门陶然亭店)\", \"location\": \"116.382163,39.881024\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}], \"status\": \"1\", \"info\": \"OK\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T10:58:01.916960</span>
+                <span class="event-type">session_end</span>
+                <span class="expandable" onclick="toggleDetails('details-12')">[▼ 详情]</span>
+            </div>
+            <div id="details-12" class="details">
+                <pre>{
+  "duration": 17.698533,
+  "total_steps": 3,
+  "final_answer": "```json\n[\n    {\n        \"name\": \"如家酒店(北京潘家园店)\",\n        \"address\": \"华威南路弘善家园304号\",\n        \"location\": {\"longitude\": 116.452186, \"latitude\": 39.871213},\n        \"price_range\": \"200-400元/晚\",\n        \"rating\": \"4.5\",\n        \"type\": \"经济型连锁酒店\",\n        \"distance\": \"靠近潘家园旧货市场\",\n        \"estimated_cost\": 300\n    },\n    {\n        \"name\": \"汉庭酒店(北京总部基地店)\",\n        \"address\": \"丰葆路19号\",\n        \"location\": {\"longitude\": 116.289726, \"latitude\": 39.817674},\n        \"price_range\": \"200-400元/晚\",\n        \"rating\": \"4.6\",\n        \"type\": \"经济型连锁酒店\",\n        \"distance\": \"位于丰台科技园附近\",\n        \"estimated_cost\": 320\n    },\n    {\n        \"name\": \"汉庭酒店(北京南站木樨园店)\",\n        \"address\": \"海户屯165号1-2栋(地铁站D西南口步行170米)\",\n        \"location\": {\"longitude\": 116.398648, \"latitude\": 39.851034},\n        \"price_range\": \"200-400元/晚\",\n        \"rating\": \"4.7\",\n        \"type\": \"经济型连锁酒店\",\n        \"distance\": \"距离北京南站约1公里\",\n        \"estimated_cost\": 350\n    },\n    {\n        \"name\": \"格林豪泰智选酒店(北京菜市口宣武医院店)\",\n        \"address\": \"广安门内大街狮子店胡同11号\",\n        \"location\": {\"longitude\": 116.370315, \"latitude\": 39.889878},\n        \"price_range\": \"200-400元/晚\",\n        \"rating\": \"4.8\",\n        \"type\": \"经济型连锁酒店\",\n        \"distance\": \"距离宣武医院约300米\",\n        \"estimated_cost\": 330\n    },\n    {\n        \"name\": \"汉庭酒店(北京华贸远洋中心店)\",\n        \"address\": \"延静里中街3号院11号楼\",\n        \"location\": {\"longitude\": 116.488737, \"latitude\": 39.918581},\n        \"price_range\": \"200-400元/晚\",\n        \"rating\": \"4.7\",\n        \"type\": \"经济型连锁酒店\",\n        \"distance\": \"距离华贸中心约500米\",\n        \"estimated_cost\": 360\n    }\n]\n```",
+  "status": "success"
+}</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stats-panel">
+        <h2>📊 会话统计</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">总步骤数</span>
+                <span class="stat-value">3</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总 Token</span>
+                <span class="stat-value">7,761</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总成本</span>
+                <span class="stat-value">$0.0000</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">会话时长</span>
+                <span class="stat-value">17.7s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">模型调用次数</span>
+                <span class="stat-value">3</span>
+            </div>
+        </div>
+
+        <h3>🔧 工具调用统计</h3>
+        <table class="tool-stats">
+            <tr><th>工具名称</th><th>调用次数</th></tr>
+            <tr><td>amap</td><td>3</td></tr>
+
+        </table>
+
+        
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

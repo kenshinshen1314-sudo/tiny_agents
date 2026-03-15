@@ -7,9 +7,11 @@
             <span class="logo-icon">✈️</span>
             <span class="logo-text">探索下一站</span>
           </div>
-          <div class="header-tag">
-            <span class="tag-dot"></span>
-            <span class="tag-text">AI-Powered</span>
+          <div class="header-actions">
+            <div class="header-tag">
+              <span class="tag-dot"></span>
+              <span class="tag-text">AI-Powered</span>
+            </div>
           </div>
         </div>
       </a-layout-header>
@@ -79,6 +81,13 @@
   background-clip: text;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ========== Header Tag ========== */
 .header-tag {
   display: flex;
   align-items: center;

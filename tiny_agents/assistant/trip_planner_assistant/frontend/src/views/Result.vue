@@ -506,6 +506,168 @@ const handleImageError = (e: Event, dayIndex: number, attrIndex: number) => {
   delete attractionPhotos.value[photoKey]
 }
 
+// 杂志风格占位图 - 根据景点名称返回对应的精美占位图
+const getPlaceholderImage = (name: string): string | null => {
+  if (!name) return null
+  const nameLower = name.toLowerCase()
+
+  // 杂志风格占位图映射 - 使用Unsplash高质量图片
+  const placeholders: Record<string, string> = {
+    // 著名景点
+    '故宫': 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80',
+    '长城': 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80',
+    '天坛': 'https://images.unsplash.com/photo-1537410856881-6c5a0f81b0e1?w=800&q=80',
+    '颐和园': 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80',
+    '西湖': 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80',
+    '黄山': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
+    '桂林': 'https://images.unsplash.com/photo-1537531383496-f4749a4b8590?w=800&q=80',
+    '张家界': 'https://images.unsplash.com/photo-1537531383496-f4749a4b8590?w=800&q=80',
+    '九寨沟': 'https://images.unsplash.com/photo-1537531383496-f4749a4b8590?w=800&q=80',
+    '丽江': 'https://images.unsplash.com/photo-1527838832700-5059252407fa?w=800&q=80',
+    '大理': 'https://images.unsplash.com/photo-1527838832700-5059252407fa?w=800&q=80',
+    '凤凰': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '乌镇': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '周庄': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '西塘': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '平遥': 'https://images.unsplash.com/photo-1565193351677-443995a00d43?w=800&q=80',
+    '拉萨': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
+    '布达拉宫': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
+    '泰山': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
+    '华山': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
+    '峨眉山': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
+    '普陀山': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
+    '九华山': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
+    '少林寺': 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
+    '兵马俑': 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80',
+    '大雁塔': 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80',
+    '钟楼': 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80',
+    '鼓楼': 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80',
+    '回民街': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '洪崖洞': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '解放碑': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '磁器口': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '宽窄巷子': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '锦里': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '春熙路': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '都江堰': 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80',
+    '青城山': 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80',
+    '大熊猫': 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=800&q=80',
+    '熊猫': 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=800&q=80',
+    '外滩': 'https://images.unsplash.com/photo-1548266652-99cf277df5c8?w=800&q=80',
+    '东方明珠': 'https://images.unsplash.com/photo-1548266652-99cf277df5c8?w=800&q=80',
+    '豫园': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '城隍庙': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '田子坊': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '新天地': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '静安寺': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '中山陵': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '明孝陵': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '夫子庙': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '秦淮河': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '总统府': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '玄武湖': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '拙政园': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '狮子林': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '虎丘': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '寒山寺': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '留园': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '周庄': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '同里': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+    '鼓浪屿': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '南普陀': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '厦门大学': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '环岛路': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '曾厝垵': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '栈桥': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '八大关': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '崂山': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '五四广场': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '金沙滩': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '亚龙湾': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    '天涯海角': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    '蜈支洲岛': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    '南山': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    '大东海': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    '广州塔': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '小蛮腰': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '陈家祠': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '沙面': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '白云山': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '世界之窗': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '欢乐谷': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '东部华侨城': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '黄鹤楼': 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80',
+    '东湖': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '户部巷': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '橘子洲': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '岳麓山': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '太平老街': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '石林': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '滇池': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '翠湖': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '云南民族村': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '西山': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '滕王阁': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '三坊七巷': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '甲秀楼': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '黔灵山': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '青秀山': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '骑楼老街': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '假日海滩': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    '塔尔寺': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '青海湖': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    '西夏王陵': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '沙湖': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    '大召寺': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '天津之眼': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '古文化街': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '五大道': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '沈阳故宫': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    '张氏帅府': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+  }
+
+  // 精确匹配
+  for (const key in placeholders) {
+    if (nameLower.includes(key.toLowerCase())) {
+      return placeholders[key]
+    }
+  }
+
+  // 根据关键词类别返回对应图片
+  if (nameLower.includes('寺') || nameLower.includes('庙') || nameLower.includes('塔')) {
+    return 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80'
+  }
+  if (nameLower.includes('山') || nameLower.includes('峰') || nameLower.includes('岭')) {
+    return 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80'
+  }
+  if (nameLower.includes('湖') || nameLower.includes('江') || nameLower.includes('河')) {
+    return 'https://images.unsplash.com/photo-1537531383496-f4749a4b8590?w=800&q=80'
+  }
+  if (nameLower.includes('海') || nameLower.includes('湾') || nameLower.includes('滩')) {
+    return 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80'
+  }
+  if (nameLower.includes('园') || nameLower.includes('林') || nameLower.includes('公园')) {
+    return 'https://images.unsplash.com/photo-1598326061335-626a103a9919?w=800&q=80'
+  }
+  if (nameLower.includes('城') || nameLower.includes('镇') || nameLower.includes('古')) {
+    return 'https://images.unsplash.com/photo-1527838832700-5059252407fa?w=800&q=80'
+  }
+  if (nameLower.includes('楼') || nameLower.includes('阁') || nameLower.includes('殿')) {
+    return 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80'
+  }
+  if (nameLower.includes('博物馆') || nameLower.includes('展览馆')) {
+    return 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80'
+  }
+
+  // 默认返回高质量风景图
+  return 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80'
+}
+
+// 图片加载完成回调
+const onImageLoad = (dayIndex: number, attrIndex: number) => {
+  console.log(`[Result] ✅ 图片加载成功: day-${dayIndex}-attr-${attrIndex}`)
+}
+
 const exportAsImage = async () => {
   try {
     message.loading({ content: '正在生成图片...', key: 'export' })

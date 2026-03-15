@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260315-131811-f9ba</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260315-131811-f9ba</h1>
+        <p>生成时间: 2026-03-15 13:18:11</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T13:18:11.384827</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "景点搜索专家",
+  "agent_type": "SimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T13:18:11.384967</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "我已经使用高德地图搜索了杭州的景点，以下是搜索结果：\n\n\n搜索关键词 '景点' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n搜索关键词 '风景区' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n搜索关键词 '旅游' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n搜索关键词 '名胜古迹' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n请从以上搜索结果中筛选出最热门、评分最高的8-10个景点。\n\n用户偏好: 历史文化\n\n对于每个选中的景点，请提供 JSON 格式的输出，包含：\n- name: 景点名称\n- address: 详细地址\n- location: {longitude: 经度, latitude: 纬度}\n- rating: 评分（如果没有，估算为 4.0-4.8）\n- description: 简要描述（20-50字）\n- category: 景点类别（如：历史文化、自然风光、公园、博物馆等）\n- visit_duration: 建议游览时间（分钟，如 120-180）\n- ticket_price: 门票价格（估算，免费景点为 0）"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T13:18:13.867799</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 2629,
+    "completion_tokens": 104,
+    "total_tokens": 2733
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T13:18:13.868279</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-4')">[▼ 详情]</span>
+            </div>
+            <div id="details-4" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806899072538767026",
+  "args": {
+    "action": "list_tools"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T13:18:14.268539</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-5')">[▼ 详情]</span>
+            </div>
+            <div id="details-5" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806899072538767026",
+  "result": "找到 6 个工具:\n- maps_text_search: 搜索POI（兴趣点），支持按关键词搜索景点、酒店、餐厅等\n- maps_weather: 查询指定城市的天气信息\n- maps_direction_walking_by_address: 规划步行路线（通过地址）\n- maps_direction_driving_by_address: 规划驾车路线（通过地址）\n- maps_direction_transit_integrated_by_address: 规划公交路线（通过地址）\n- maps_geo: 地理编码：将地址转换为经纬度坐标\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T13:18:15.948225</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-6')">[▼ 详情]</span>
+            </div>
+            <div id="details-6" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 2756,
+    "completion_tokens": 78,
+    "total_tokens": 2834
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T13:18:15.948596</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-7')">[▼ 详情]</span>
+            </div>
+            <div id="details-7" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806900859245159465",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "maps_text_search",
+    "arguments": {
+      "keywords": "西湖",
+      "city": "杭州",
+      "citylimit": true
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T13:18:16.632285</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-8')">[▼ 详情]</span>
+            </div>
+            <div id="details-8" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806900859245159465",
+  "result": "工具 'maps_text_search' 执行结果:\n{\"suggestion\": {\"keywords\": [], \"cities\": []}, \"count\": \"100\", \"infocode\": \"10000\", \"pois\": [{\"parent\": [], \"distance\": [], \"keytag\": \"5A景区\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": \"AAAAA\", \"rating\": \"4.9\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;国家级景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/046f7db069e380fdc29375807debee83\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/28440e82934e69436f458b567d35fcb5\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/44a8bfa45e118d5e37adf558bfcf0d82\"}], \"building\": [], \"typecode\": \"110202\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87179617\", \"id\": \"B023B13L9M\", \"address\": \"西湖街道龙井路1号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": [], \"name\": \"杭州西湖风景名胜区\", \"location\": \"120.121358,30.222692\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"湖泊\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"rating\": [], \"open_time\": []}, \"type\": \"地名地址信息;自然地名;湖泊\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFFEDKS3/comment/content_media_external_file_48915_ss__1756518432580_81772613.jpg\"}, {\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/d05fbdaa02271d7b01533401b8864fdf\"}, {\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/2dbcfb61c912fbd7c441cd438fed7219\"}], \"building\": [], \"typecode\": \"190205\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0FFFEDKS3\", \"address\": \"西湖区\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": [], \"cityname\": \"杭州市\", \"childtype\": \"601\", \"atag\": [], \"name\": \"西湖\", \"location\": \"120.144302,30.246255\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"景区\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": \"AAAAA\", \"rating\": \"4.9\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;国家级景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/478ddbbf592df9e88466a3e10c5d6b70\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/69e9b2188cacb3f4eb1eacde29b7787e\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/291127f3f2d2ceba0de575038ad6c885\"}], \"building\": [], \"typecode\": \"110202\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87179539\", \"id\": \"B023B01EE6\", \"address\": \"龙井路1号杭州西湖风景名胜区内(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-断桥残雪\", \"location\": \"120.151347,30.258151\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"自然风光\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.7\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;公园广场;公园\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/04A76AB46308410FBDAF3C8577E67275\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/b16eef9ee2b70e46b4aaf314ee111a47\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/c2e01bcb710be83244954c6a0f3b2bea\"}], \"building\": [], \"typecode\": \"110101\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B023B05MLT\", \"address\": \"龙井路1号杭州西湖风景名胜区内(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-湖滨公园\", \"location\": \"120.158818,30.256583\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"景区\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.7\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": \"春季-spring\", \"url\": \"http://store.is.autonavi.com/showpic/866654ed2f61e2bd67457c0f179baf04\"}, {\"provider\": [], \"title\": \"春季-spring\", \"url\": \"http://store.is.autonavi.com/showpic/b11def4d9f9080efdad7772e4fe7009d\"}, {\"provider\": [], \"title\": \"春季-spring\", \"url\": \"http://store.is.autonavi.com/showpic/c44ed47d20c0263d11aa7a3a251fa879\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87179539\", \"id\": \"B023B02070\", \"address\": \"杭州西湖风景名胜区内(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-苏堤春晓\", \"location\": \"120.137960,30.243880\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"游轮游船\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"09月29日至10月31日09:00-21:30\", \"rating\": \"4.7\", \"open_time\": []}, \"type\": \"交通设施服务;港口码头;港口码头\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFG03EXP/comment/content_media_external_file_147266_ss__1765803006874_62381306.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFG03EXP/comment/content_media_external_file_100000601_1761493130826_15943314.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFG03EXP/comment/EF08A583_F351_423D_8AA2_23710F1A735A_L0_001_2000_150_1759107522914_38022993.jpg\"}], \"building\": [], \"typecode\": \"150300\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0FFG03EXP\", \"address\": \"西湖街道龙井路1号杭州西湖风景名胜区(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": [], \"cityname\": \"杭州市\", \"childtype\": \"302\", \"atag\": [], \"name\": \"西湖游船-二公园码头\", \"location\": \"120.162016,30.252504\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B05MLT\", \"distance\": [], \"keytag\": \"公园\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.6\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;公园广场;公园\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/b0997036a83403a275c888fe2b017738\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/1d2565bc3e4f117060e977b7b2511046\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/bc463a0f117bd88365bfd14a060a76af\"}], \"building\": [], \"typecode\": \"110101\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87179539\", \"id\": \"B023B13YJB\", \"address\": \"杭州西湖风景名胜区内(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-六公园\", \"location\": \"120.157770,30.258607\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B05MLT\", \"distance\": [], \"keytag\": \"公园\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"全年 07:30-16:30开放；全年 08:00-16:00开放\", \"level\": [], \"rating\": \"4.2\", \"open_time\": \"07:30-16:30 08:00-16:00\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;公园广场;公园\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/602cd0cd24c0e5d5badbf8be1da66c5b\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/C5D408EBC4C243989F8DD69593151CED\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/92cbd78e5d66b3f4697ad4d4059a1833\"}], \"building\": [], \"typecode\": \"110101\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87179539\", \"id\": \"B023B1EQES\", \"address\": \"杭州西湖风景名胜区内(龙翔桥地铁站B出口步行430米)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-五公园\", \"location\": \"120.159631,30.256228\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"湖泊河流\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.7\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;风景名胜\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/f19d171a36dfad3ba9aff4d943d15513\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/32b9cf5444f151c2335ca8b35850fa8a\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/624644d00b7e825a6293737c9ccb55da\"}], \"building\": [], \"typecode\": \"110200\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B023B0AC72\", \"address\": \"龙井路1号杭州西湖风景名胜区内(东侧)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"601\", \"atag\": [], \"name\": \"西湖风景区-苏堤\", \"location\": \"120.144497,30.228700\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"景区\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.7\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;风景名胜\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/f3fbc2aeaba1df9085cb07562e5cc8c0\"}, {\"provider\": [], \"title\": \"秋季-autumn\", \"url\": \"http://store.is.autonavi.com/showpic/11ba3e3c977ce53520e25bb64d2577c5\"}, {\"provider\": [], \"title\": \"春季-spring\", \"url\": \"http://store.is.autonavi.com/showpic/6ce974f26cfd42ec3ed8125af73a6089\"}], \"building\": [], \"typecode\": \"110200\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0FFFTYEG4\", \"address\": \"西湖街道龙井路1号杭州西湖风景名胜区内(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-白堤\", \"location\": \"120.149189,30.255701\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"区县\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"rating\": [], \"open_time\": []}, \"type\": \"地名地址信息;普通地名;区县级地名\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B023B1HB9H/comment/content_media_external_images_media_13_1735469292238_66814853.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B023B1HB9H/comment/content_media_external_images_media_100007223_1730337093645_83446246.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B023B1HB9H/comment/39F68D3B_EB83_4045_A305_BABA154C2B61_L0_001_1500_2000_1744189320823_35910454.jpg\"}], \"building\": [], \"typecode\": \"190105\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B023B1HB9H\", \"address\": \"西湖区\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": [], \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": [], \"name\": \"西湖区\", \"location\": \"120.130396,30.259242\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"特色景点\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"4月至8月 周一至周日 08:00-17:00；游船40分钟一班，环湖游览线到16:30，具体停运时间以现场为准! 02-16至03-31 周一至周日 08:00-16:30；09-01至11-15 周一至周日 08:00-16:30；11-16至02-15 周一至周日 08:00-16:00；游船40分钟一班，环湖游览线到16:30，具体停运时间以现场为准!\", \"level\": [], \"rating\": \"4.3\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;风景名胜\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/18d860908f60021c5ce4f4bed45dc16d\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/91052566ca019285242e710af6307d19\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/57b6036f5c4dac4c0fceceb12500b36f\"}], \"building\": [], \"typecode\": \"110200\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B023B0ACMF\", \"address\": \"杭州西湖风景名胜区南山路北山路\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"601\", \"atag\": [], \"name\": \"杭州西湖风景名胜区西湖游船\", \"location\": \"120.144955,30.229472\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"景区\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.0\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://aos-cdn-image.amap.com/sns/ugccomment/ead59a30-f3ee-4aa3-88d8-0a2e52ee6456.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFF9YVLU/comment/content_media_external_file_1000129068_ss__1766075180182_16401654.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFF9YVLU/comment/content_media_external_file_1000006376_ss__1765673951224_51620911.jpg\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87969691\", \"id\": \"B0FFF9YVLU\", \"address\": \"西湖街道龙井路1号杭州西湖风景名胜区(西北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-小西天\", \"location\": \"120.101680,30.234737\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"景区\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.7\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/e9219d541e22397ff3306be9f4f6301b\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B082T5/comment/C1CAC9D6_8FBB_4396_B46C_9B9AE60FB520_L0_001_1500_200_1749364413189_87765563.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B082T5/comment/176795556782_1767955568806_69757646.jpg\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87026161\", \"id\": \"B023B082T5\", \"address\": \"南山路147号9C\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"西湖天地\", \"location\": \"120.159282,30.247034\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"景区\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"4.1\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFJ22OVP/comment/content_media_external_images_media_95600_ss__1765901290705_90496958.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/8c29ad05626023b8d94572a7e6180b97\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFJ22OVP/comment/60b85f66949588493d2353a59a08df82_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87179539\", \"id\": \"B0FFJ22OVP\", \"address\": \"龙井路1号杭州西湖风景名胜区(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"302\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-西湖手摇船景点(不对外开放)\", \"location\": \"120.132629,30.242770\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"景区\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 10:00-21:00\", \"level\": [], \"rating\": \"3.9\", \"open_time\": \"10:00-21:00\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/9F1870252A7B497593E1E4F3144DEF5F\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/a9ee32c9798740d64c532aa4de17dc6d\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/8ff24cf2ca8c5909fa8a5eab451e5f97\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"13588832180\", \"id\": \"B0FFGS8T0N\", \"address\": \"西湖街道龙井路1号杭州西湖风景名胜区\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-云谷\", \"location\": \"120.138125,30.224622\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"公园\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.6\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;公园广场;公园\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B01D2F/comment/content_media_external_file_108419_ss__1770214875398_19046876.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B01D2F/comment/c4fa61e00102534d34713e03d702b4ff_2048_2048_80.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B01D2F/comment/content_media_external_file_1000010332_ss__1761267113325_09193785.jpg\"}], \"building\": [], \"typecode\": \"110101\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87179539\", \"id\": \"B023B01D2F\", \"address\": \"杭州西湖风景名胜区内(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"601\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-涌金公园\", \"location\": \"120.160139,30.245915\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"城市公园\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.2\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;公园广场;公园\", \"photos\": [{\"provider\": [], \"title\": \"春季\", \"url\": \"http://store.is.autonavi.com/showpic/fe4cc4a97a7c01006f0fac6e38137912\"}, {\"provider\": [], \"title\": \"夏季\", \"url\": \"http://store.is.autonavi.com/showpic/3095bb38662a66321e43e34698ee2c88\"}, {\"provider\": [], \"title\": \"冬季\", \"url\": \"http://store.is.autonavi.com/showpic/a7a80d16c0a1f418b4a11ada85ffa0d4\"}], \"building\": [], \"typecode\": \"110101\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87179539\", \"id\": \"B023B0A6F5\", \"address\": \"西湖街道龙井路1号杭州西湖风景名胜区内(东侧)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-学士公园\", \"location\": \"120.155772,30.235885\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 09:00-23:00\", \"level\": [], \"rating\": \"4.1\", \"open_time\": \"09:00-23:00\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;风景名胜\", \"photos\": [{\"provider\": [], \"title\": \"夏季-summer\", \"url\": \"http://store.is.autonavi.com/showpic/9488171d3e8c7fb188269049a18eb753\"}, {\"provider\": [], \"title\": \"秋季-autumn\", \"url\": \"http://store.is.autonavi.com/showpic/ce7acfcd4c464dfe68045da8afb14ffa\"}, {\"provider\": [], \"title\": \"冬季-winter\", \"url\": \"http://store.is.autonavi.com/showpic/82bbf243814539408beb71c348ab8da1\"}], \"building\": [], \"typecode\": \"110200\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B023B17X8T\", \"address\": \"西湖街道龙井路1号杭州西湖风景名胜区(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-湖心亭牌坊\", \"location\": \"120.144665,30.246381\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"景区\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 00:00-24:00\", \"level\": [], \"rating\": \"4.2\", \"open_time\": \"24小时营业\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/EC0D9FB5E18E45E5BA3B13370F6D3287\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/F566217333D049EBB641159D217A1078\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/8E8FB75D7F2141A1BF61EB9631487AEE\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0FFF9THZE\", \"address\": \"龙井路龙井八景景区振鹭亭\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-西湖龙井茶文化景区\", \"location\": \"120.118620,30.225230\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}], \"status\": \"1\", \"info\": \"OK\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T13:18:18.684079</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-9')">[▼ 详情]</span>
+            </div>
+            <div id="details-9" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 10970,
+    "completion_tokens": 83,
+    "total_tokens": 11053
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T13:18:18.684443</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-10')">[▼ 详情]</span>
+            </div>
+            <div id="details-10" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806894743211735825",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "maps_text_search",
+    "arguments": {
+      "keywords": "灵隐寺",
+      "city": "杭州",
+      "citylimit": true
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T13:18:19.287229</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-11')">[▼ 详情]</span>
+            </div>
+            <div id="details-11" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806894743211735825",
+  "result": "工具 'maps_text_search' 执行结果:\n{\"suggestion\": {\"keywords\": [], \"cities\": []}, \"count\": \"99\", \"infocode\": \"10000\", \"pois\": [{\"parent\": \"B023B05MJE\", \"distance\": [], \"keytag\": \"寺庙\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 07:00-18:00\", \"level\": [], \"rating\": \"4.9\", \"open_time\": \"07:00-18:00\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;国家级景点\", \"photos\": [{\"provider\": [], \"title\": \"夏季\", \"url\": \"http://store.is.autonavi.com/showpic/4aa0a6a1b6ee72c9833441f363cbb43a\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/c7cccce2249dbb7aa013ee0b06888e9d\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/69e2dbe5322886d53ed57057e9ab5514\"}], \"building\": [], \"typecode\": \"110202\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87969691\", \"id\": \"B023B02842\", \"address\": \"法云弄1号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺\", \"location\": \"120.101406,30.240826\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"4.2\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;寺庙道观\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B17XAC/comment/content_media_external_file_1000054697_ss__1765442893792_49326912.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B17XAC/comment/content_media_external_file_1000172492_ss__1770509685916_33814858.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B17XAC/comment/content_media_external_file_1000172491_ss__1770509685911_64953344.jpg\"}], \"building\": [], \"typecode\": \"110205\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B023B17XAC\", \"address\": \"西湖街道法云弄1号灵隐寺内(南侧)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-天王殿\", \"location\": \"120.101695,30.240103\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"人文景观\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 06:30-16:00\", \"level\": [], \"rating\": \"4.7\", \"open_time\": \"06:30-16:00\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;风景名胜\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/e0ef200bdb2d7c2b468ea904f2db4525\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/3f97855c12fb0bcae0ea0a13e7d3d64f\"}, {\"provider\": [], \"title\": \"灵隐景区\", \"url\": \"http://store.is.autonavi.com/showpic/79863e056e54d35f59b56789d70d9b5c\"}], \"building\": [], \"typecode\": \"110200\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87973280;0571-87977767\", \"id\": \"B023B14CB8\", \"address\": \"灵隐路法云弄1号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"601\", \"atag\": [], \"name\": \"灵隐景区\", \"location\": \"120.100804,30.240882\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"寺庙\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.4\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;寺庙道观\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/1EC7AAA036944648A5AD2A616230C41F\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/A4980434905642CF9332828597302C28\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/B6FD0181F63E414CB27738944DEE841A\"}], \"building\": [], \"typecode\": \"110205\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B023B17XB8\", \"address\": \"法云弄1号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-念佛堂\", \"location\": \"120.102195,30.241488\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.4\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B17X7V/comment/content_media_external_file_37188_1767864448966_51620538.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B17X7V/comment/content_media_external_file_1000054716_ss__1765442282095_60550934.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B023B17X7V/comment/content_media_external_file_1000054718_ss__1765442282089_74177028.jpg\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B023B17X7V\", \"address\": \"法云弄1号灵隐寺\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-两石塔\", \"location\": \"120.101245,30.240511\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B05MJE\", \"distance\": [], \"keytag\": \"售票处\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"rating\": [], \"open_time\": []}, \"type\": \"生活服务;售票处;公园景点售票处\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/a1db7175fdeed7cbc0f70f369468f97e\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK0MZY9/comment/content_media_external_file_100003304_1770536342676_14770315.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK0MZY9/comment/content_media_external_images_media_1000180504_ss__1766817741738_85982118.jpg\"}], \"building\": [], \"typecode\": \"070306\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0FFK0MZY9\", \"address\": \"灵隐路法云弄1号灵隐-飞来峰\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": [], \"cityname\": \"杭州市\", \"childtype\": \"306\", \"atag\": [], \"name\": \"灵隐寺飞来峰灵隐支路售票处\", \"location\": \"120.100163,30.239325\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"4.2\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGM01T6/comment/DB948A64_BCB1_493A_875E_CF60ACCB552A_L0_001_2000_150_1750161108504_52972252.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGM01T6/comment/CD336BE4_077A_4C27_859B_467260EF0593_L0_001_2000_150_1750161108505_36209058.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/4eeca78688fdf8ac77d60d9c9c586cd2\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B0FFGM01T6\", \"address\": \"法云弄1号灵隐寺(东北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-方丈楼\", \"location\": \"120.102420,30.241448\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 06:00-18:00\", \"level\": [], \"rating\": \"3.9\", \"open_time\": \"06:00-18:00\", \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;寺庙道观\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0LKXBJ3A9/comment/content_media_external_file_1000172399_ss__1770181421874_88593757.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0LKXBJ3A9/comment/content_media_external_file_1000172398_ss__1770181421876_01882913.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0LKXBJ3A9/comment/content_media_external_file_1000177086_ss__1772260448233_47471085.jpg\"}], \"building\": [], \"typecode\": \"110205\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0LKXBJ3A9\", \"address\": \"法云弄1号灵隐寺\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-大雄宝殿\", \"location\": \"120.101497,30.240611\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B14CB8\", \"distance\": [], \"keytag\": \"寺庙\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.5\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFG05UFM/comment/content_media_external_file_1000054700_ss__1765443059411_06624733.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFG05UFM/comment/content_media_external_file_1000054701_ss__1765443059359_83647313.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/ca5345c9c7bd3c476f9de1a46ce82627\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0FFG05UFM\", \"address\": \"灵隐支路附近\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"杭州西湖风景名胜区-灵隐寺两经幢\", \"location\": \"120.101288,30.239809\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.9\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;寺庙道观\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGM00FC/comment/81B40B94_AF80_42D5_B66B_62E2C5A771DB_L0_001_2000_150_1768049784003_90814272.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGM00FC/comment/AFA3765B_117E_4F7E_B7AB_C51CE5397950_L0_001_2000_150_1768049784111_09991956.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGM00FC/comment/74943461_61A9_48D5_A33F_E8B8A7404FBB_L0_001_1536_204_1768049784021_64909399.jpg\"}], \"building\": [], \"typecode\": \"110205\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B0FFGM00FC\", \"address\": \"法云弄1号灵隐寺\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-伽蓝殿\", \"location\": \"120.101946,30.240988\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"寺庙\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.5\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;寺庙道观\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/7a0fba079e3618c7ffd28c45cfeebf36\"}], \"building\": [], \"typecode\": \"110205\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B0FFGM15CB\", \"address\": \"法云弄1号灵隐寺(西北角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-禅堂\", \"location\": \"120.100355,30.242021\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.8\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHZR7AX/comment/B60B12D0_99B6_4B73_83D8_BBDEF9024C3C_L0_001_1500_200_1771676594170_47928947.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/d5c9bdfe2a8711bfc0ea5d748cd1fae5\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHZR7AX/comment/97227293_F6F2_47A1_808C_D5EF5058C4DE_L0_001_1500_200_1771676594173_90413398.jpg\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B0FFHZR7AX\", \"address\": \"法云弄1号灵隐寺内(北侧)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-重建云林寺大殿碑\", \"location\": \"120.101372,30.239752\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B14CB8\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.6\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/8fccffd10af0edfcf02c0fa46c09a422\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87967425\", \"id\": \"B0FFFXVOV5\", \"address\": \"灵隐路法云弄1号灵隐景区(东南角)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-钟楼\", \"location\": \"120.102381,30.240092\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"寺庙\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.7\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGLZZXN/comment/34e8a42235b2bbaaf9e058afb0a4787b_2048_2048_80.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGLZZXN/comment/1daad6e0f852f730d50d3cfb8ee5ad92_2048_2048_80.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGLZZXN/comment/de9fe8bc5866279f0cc82d14e15e4801_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B0FFGLZZXN\", \"address\": \"法云弄1号灵隐寺内(北侧)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-直指堂\", \"location\": \"120.101106,30.241664\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"生活服务,生活服务场所,生活服务场所\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"rating\": \"4.0\", \"open_time\": []}, \"type\": \"生活服务;生活服务场所;生活服务场所\", \"photos\": [{\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/0b67abb5c3981ae0b606d21b8142c7d8\"}], \"building\": [], \"typecode\": \"070000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0FFFF9EC4\", \"address\": \"法云弄1号灵隐寺内(北侧)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": [], \"cityname\": \"杭州市\", \"childtype\": \"302\", \"atag\": [], \"name\": \"灵隐寺游客休息处\", \"location\": \"120.101485,30.241367\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"寺庙\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.8\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/AE0937952F514F93A60530167AC32152\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/comment/content_service_1201ab38f5b080d3b35681e2d4ab915c_1768482598601_07965735.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFG05UCJ/comment/content_media_external_file_1000172520_ss__1770613564589_18651853.jpg\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B0FFG05UCJ\", \"address\": \"灵竺路一线天附近\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-东南第一山\", \"location\": \"120.104048,30.240391\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.7\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/aec2bd024f8c1edc075cef4b5d5c7d95\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/5c0bc7d281f6794f78b3073ecea86c70\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/8f1c59824fa1425720e0e056adec1461\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87967425\", \"id\": \"B0FFGM01T7\", \"address\": \"法云弄1号灵隐寺内(东侧)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-大悲楼\", \"location\": \"120.102118,30.241113\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.4\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFI00DHC/comment/content_media_external_file_1000058611_ss__1770611173763_35714266.jpg\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B0FFI00DHC\", \"address\": \"法云弄1号灵隐寺内(北侧)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-洗心亭\", \"location\": \"120.101488,30.241785\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"寺庙\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.1\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜相关;旅游景点\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHZUCO8/comment/content_media_external_file_1000172447_ss__1770005239547_98255535.jpg\"}], \"building\": [], \"typecode\": \"110000\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87968665\", \"id\": \"B0FFHZUCO8\", \"address\": \"法云弄1号灵隐寺内(北侧)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-梵音堂\", \"location\": \"120.100875,30.240641\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B02842\", \"distance\": [], \"keytag\": \"文物古迹\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": [], \"level\": [], \"rating\": \"3.3\", \"open_time\": [], \"ticket_ordering\": \"0\"}, \"type\": \"风景名胜;风景名胜;风景名胜\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0L33AA00C/comment/content_media_external_file_1000172389_ss__1770509547912_45412307.jpg\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/adcffc75a20fc0466986947312cbdc86\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0L33AA00C/comment/content_media_external_file_1000058507_ss__1769860466370_21676719.jpg\"}], \"building\": [], \"typecode\": \"110200\", \"shopinfo\": \"2\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0L33AA00C\", \"address\": \"法云弄1号灵隐寺\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"tour\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": [], \"name\": \"灵隐寺-多闻天王\", \"location\": \"120.103385,30.239877\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}], \"status\": \"1\", \"info\": \"OK\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T13:18:22.470931</span>
+                <span class="event-type">session_end</span>
+                <span class="expandable" onclick="toggleDetails('details-12')">[▼ 详情]</span>
+            </div>
+            <div id="details-12" class="details">
+                <pre>{
+  "duration": 11.086542,
+  "total_steps": 3,
+  "final_answer": "<tool_call>amap<arg_key>action</arg_key><arg_value>call_tool</arg_value><arg_key>tool_name</arg_key><arg_value>maps_text_search</arg_value><arg_key>arguments</arg_key><arg_value>{\"keywords\": \"雷峰塔\", \"city\": \"杭州\", \"citylimit\": true}</arg_value></tool_call>",
+  "status": "success"
+}</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stats-panel">
+        <h2>📊 会话统计</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">总步骤数</span>
+                <span class="stat-value">3</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总 Token</span>
+                <span class="stat-value">16,620</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总成本</span>
+                <span class="stat-value">$0.0000</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">会话时长</span>
+                <span class="stat-value">11.1s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">模型调用次数</span>
+                <span class="stat-value">3</span>
+            </div>
+        </div>
+
+        <h3>🔧 工具调用统计</h3>
+        <table class="tool-stats">
+            <tr><th>工具名称</th><th>调用次数</th></tr>
+            <tr><td>amap</td><td>3</td></tr>
+
+        </table>
+
+        
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

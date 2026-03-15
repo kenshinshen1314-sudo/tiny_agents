@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260315-131823-a62a</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260315-131823-a62a</h1>
+        <p>生成时间: 2026-03-15 13:18:23</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T13:18:23.489767</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "美食搜索专家",
+  "agent_type": "SimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T13:18:23.489897</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "我已经使用高德地图搜索了杭州的特色美食，以下是搜索结果：\n\n\n搜索关键词 '美食' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n搜索关键词 '特色小吃' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n搜索关键词 '本地美食' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n请从搜索结果中筛选出最受欢迎的10-15个餐厅和美食。\n\n用户偏好: 清淡\n\n对于每个餐厅，请提供 JSON 格式的输出，包含：\n- name: 餐厅名称\n- address: 地址\n- rating: 评分\n- 特色菜品"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T13:18:25.430253</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "content": "我看到您提供的搜索结果中工具调用失败了。让我先查看可用的工具，然后为您搜索杭州的美食。",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 2986,
+    "completion_tokens": 104,
+    "total_tokens": 3090
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T13:18:25.430719</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-4')">[▼ 详情]</span>
+            </div>
+            <div id="details-4" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806898007386879607",
+  "args": {
+    "action": "list_tools"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T13:18:25.769966</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-5')">[▼ 详情]</span>
+            </div>
+            <div id="details-5" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806898007386879607",
+  "result": "找到 6 个工具:\n- maps_text_search: 搜索POI（兴趣点），支持按关键词搜索景点、酒店、餐厅等\n- maps_weather: 查询指定城市的天气信息\n- maps_direction_walking_by_address: 规划步行路线（通过地址）\n- maps_direction_driving_by_address: 规划驾车路线（通过地址）\n- maps_direction_transit_integrated_by_address: 规划公交路线（通过地址）\n- maps_geo: 地理编码：将地址转换为经纬度坐标\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T13:18:27.678854</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-6')">[▼ 详情]</span>
+            </div>
+            <div id="details-6" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 3137,
+    "completion_tokens": 78,
+    "total_tokens": 3215
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T13:18:27.679286</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-7')">[▼ 详情]</span>
+            </div>
+            <div id="details-7" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806906769120164619",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "maps_text_search",
+    "arguments": {
+      "keywords": "美食",
+      "city": "杭州",
+      "citylimit": true
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T13:18:28.364804</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-8')">[▼ 详情]</span>
+            </div>
+            <div id="details-8" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806906769120164619",
+  "result": "工具 'maps_text_search' 执行结果:\n{\"suggestion\": {\"keywords\": [], \"cities\": []}, \"count\": \"450\", \"infocode\": \"10000\", \"pois\": [{\"parent\": \"B0FFH2VWTH\", \"distance\": [], \"keytag\": \"自助餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"172.00\", \"opentime2\": \"周一至周日 11:00-14:30,16:30-22:00\", \"rating\": \"4.7\", \"open_time\": \"11:00-14:30 16:30-22:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;外国餐厅;日本料理\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/0f208dbc58ae734a71f6acb33b539168\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/3950c0d586d5aeec42fd6979ab03ac45\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0I1ODBA7N/comment/e48067061671c43812099e0a5f948f54_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050202\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-86022015\", \"id\": \"B0I1ODBA7N\", \"address\": \"新业路228号杭州来福士中心六楼\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"渣渣牛肉锅,云南风味酸菜牛肉锅,热卤猪蹄,虎皮凤爪,椒麻大虾,小龙虾,牛肉,自助餐\", \"name\": \"牛New寿喜烧(来福士店)\", \"location\": \"120.212943,30.249170\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFH2VWTH\", \"distance\": [], \"keytag\": \"小吃快餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"29.00\", \"opentime2\": \"周一至周日 10:00-22:00\", \"rating\": \"4.6\", \"open_time\": \"10:00-22:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;快餐厅;肯德基\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/62e8c0ce15bcc103e31e666dae763967\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHWNPT3/comment/%5B2026-03-08-12-11-39%5D7990E7BD-6DE8-4C45-9C09-EDEFEAE7D83_1772943100043_44662601.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHWNPT3/comment/CE914582_7C61_4CD4_B6D3_766E02BE7749_L0_001_1500_2000_1726067476125_77773913.jpg\"}], \"building\": [], \"typecode\": \"050301\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-88307533\", \"id\": \"B0FFHWNPT3\", \"address\": \"民心路来福士广场B1-09/10\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"201\", \"atag\": \"葡式蛋挞,KFC香辣（劲脆）鸡腿堡,鸡米花,现磨咖啡,吮指原味鸡,新奥尔良烤鸡腿堡,薯条,可乐,香辣鸡翅,小食拼盘,玉米沙拉,红豆派,KFC芋缘花淇淋,芋缘花淇淋,海苔岩烧大鸡腿饭,醇香土豆泥,KFC老北京鸡肉卷,肯大大鸡排,伴柠伴桔鲜果茶,黄金鸡块,蔬菜沙拉,下午茶,汉堡,鸡肉\", \"name\": \"肯德基(杭州来福士店)\", \"location\": \"120.212986,30.248204\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFMGPTGP\", \"distance\": [], \"keytag\": \"米粉\", \"importance\": [], \"biz_ext\": {\"cost\": \"35.00\", \"opentime2\": \"周一至周日 10:30-21:30\", \"rating\": \"4.4\", \"open_time\": \"10:30-21:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0JA55OIA7/comment/content_media_external_file_1000059011_ss__1768829398225_11771427.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0JA55OIA7/comment/327f009bb9b977db3cb93e4b0727a482_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0JA55OIA7/comment/93D462AF_9EEA_4184_85F3_31C043E6EF56_L0_001_2001_134_1769142180232_98898994.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"13216160101\", \"id\": \"B0JA55OIA7\", \"address\": \"解放东路8号砂之船天鹅街049号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"猪肝,小酥肉,米粉,米线\", \"name\": \"曾三仙米线(砂之船店)\", \"location\": \"120.212627,30.245228\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0H07X5CU0\", \"distance\": [], \"keytag\": \"面馆\", \"importance\": [], \"biz_ext\": {\"cost\": \"25.00\", \"opentime2\": \"周一至周日 10:30-21:30 2026-02-16至2026-02-18 周一至周日 全天关闭\", \"rating\": \"4.6\", \"open_time\": \"10:30-21:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0L1RHC11V/comment/content_media_external_file_1128_1758963993064_26263161.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0L1RHC11V/comment/55EB93F0_FB2A_4BE6_896F_69A0468E293D_L0_001_1500_200_1758794165589_65152753.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0L1RHC11V/comment/content_media_external_file_100011696_1756551793510_67913594.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"18969167090\", \"id\": \"B0L1RHC11V\", \"address\": \"新业路228号来福士中心T2栋负一楼\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"重庆小面\", \"name\": \"鸟鸟私房面(来福士臻选店)\", \"location\": \"120.213658,30.248443\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFL1FXBG\", \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"96.00\", \"opentime2\": \"10:30-21:00,2026年2月18日至2月23日10:30-14:00；16:30-21:30,2026年2月17日关闭\", \"rating\": \"4.6\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0G3AABXPX/comment/0216A4AF_F7E9_401E_80E5_5A6ABFF918EF_L0_001_1050_132_1769616840934_91907959.jpg\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/be097c4e8842b0ad01ffe313058b65d3\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0G3AABXPX/comment/ae7a30eaa0141edabaabfd78fce6000e_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-82537017\", \"id\": \"B0G3AABXPX\", \"address\": \"解放东路45号高德置地广场购物中心3层308室\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"土馒头配大块肉,四川人都嫌辣的鸭掌煲,小柒家的煎豆腐,酸萝卜爆炒黄牛肉,酸菜鱼,鱼头,点心,豆腐,堂食\", \"name\": \"7017浙菜·建德味((钱江新城店)\", \"location\": \"120.208255,30.243954\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0G3DL3IY3\", \"distance\": [], \"keytag\": \"西式快餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"27.00\", \"opentime2\": \"周一至周日 07:00-23:00\", \"rating\": \"4.6\", \"open_time\": \"07:00-23:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;快餐厅;快餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/bb02ce51287ae9dd713f7aa64d7b53ff\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0HAU4R3UG/comment/bdd5bbc68b410dca7e81f05d1aaebae6_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0HAU4R3UG/comment/3bb10831c998ca8d4af65593ab5dac03_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050300\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"4009200205\", \"id\": \"B0HAU4R3UG\", \"address\": \"解放路45号高德置地广场3幢101室一层L125单元\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"人气美味尽享套餐,板烧美味三件套,原味板烧鸡腿麦满分组合,大脆鸡扒麦满分组合,麦辣美味三件套,麦当劳超值嗨餐,（2-3人餐）,家有金桶（汉堡版）,可乐鸡翅,巨无霸汉堡,麦辣鸡腿堡,家有金桶（脆鸡版）,安格斯系列,薯条,汉堡,牛肉\", \"name\": \"麦当劳(杭州高德置地广场餐厅)\", \"location\": \"120.208035,30.242421\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFH2VWTH\", \"distance\": [], \"keytag\": \"烧烤\", \"importance\": [], \"biz_ext\": {\"cost\": \"87.00\", \"opentime2\": \"周一至周五 11:30-14:30,17:00-23:00；周六至周日 11:00-24:00\", \"rating\": \"4.7\", \"open_time\": \"11:00-24:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;特色/地方风味餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/query_pic?id=stf288507f-56db-446e-ba64-9e18bb8d0b72&user=search&operate=original\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0I07DLSY0/comment/AAE83120_96DF_44CF_8BFB_B11620A039E4_L0_001_2000_150_1765424607863_64403334.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0I07DLSY0/comment/8a3ffd6c113762485cf822812938f84e_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050118\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"17280744194\", \"id\": \"B0I07DLSY0\", \"address\": \"新业路228号来福士6层\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"201\", \"atag\": \"呼伦贝尔羊肉串,就是呼伦贝尔羊肉串,羊肉,羊肉串,烤肉,五花肉\", \"name\": \"很久以前羊肉串(杭州来福士店)\", \"location\": \"120.212917,30.249512\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0J26CYRI7\", \"distance\": [], \"keytag\": \"牛肉火锅\", \"importance\": [], \"biz_ext\": {\"cost\": \"111.00\", \"opentime2\": \"11:00-22:00,2026-02-15至2026-02-23休息\", \"rating\": \"4.7\", \"open_time\": \"11:00-22:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LUCUSXJV/comment/995412A7_6FFF_407D_B1C7_70EF5E8108FA_L0_001_1498_199_1753600908022_40045564.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LUCUSXJV/comment/1CB16BD4_7BC7_46A8_B56D_496ED6ACDF98_L0_001_1502_200_1753600908021_00467073.jpg\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/4316ce76b879ddf8fbbcf121376cf466\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"19705029822\", \"id\": \"B0LUCUSXJV\", \"address\": \"民心路与新业路交叉路口往东北约150米中国人寿大厦2号楼2层206室\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"泉市鲜活牛肉店(钱江新城店)\", \"location\": \"120.212096,30.250237\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFH2VWTH\", \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"54.00\", \"opentime2\": \"10:00-21:00,2026-02-16休息2026-02-1711:00-20:00\", \"rating\": \"4.6\", \"open_time\": \"10:00-21:00 11:00-20:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LRBCNOXD/comment/66AD3B1D_DCDA_4F08_B7C5_57A10E0AC7CC_L0_001_1179_85_1769474889550_70840808.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LRBCNOXD/comment/content_media_external_file_535088_ss__1770126835948_31020039.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LRBCNOXD/comment/20260313-54da7848590974bdf99b9f8f-7xY4wEk731b9Oa2UoGPFhy.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"18157159089\", \"id\": \"B0LRBCNOXD\", \"address\": \"新业路228号杭州来福士中心7F层\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"201\", \"atag\": \"双人餐\", \"name\": \"王胜利长沙家菜馆(杭州首店)\", \"location\": \"120.213261,30.248366\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0JB162GFA\", \"distance\": [], \"keytag\": \"中餐\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"opentime2\": \"周一至周日 10:00-14:00,15:30-21:00\", \"rating\": \"4.6\", \"open_time\": \"10:00-14:00 15:30-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/query_pic?id=st1ef630c8-39ef-4d63-93ce-ba3a9732851e&user=search&operate=original\"}, {\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/182d40e8aa35a057cf0adfcd7c3f8d16\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LRZD1GZF/comment/B57A3A95_E860_4D85_8DFC_FB6A687149D0_L0_001_1500_200_1760857739768_59042845.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-86839799;19357517779\", \"id\": \"B0LRZD1GZF\", \"address\": \"新业路300号中国人寿大厦商业裙房二层201室\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"东大方(杭州来福士店)\", \"location\": \"120.211962,30.249533\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFKOEPES\", \"distance\": [], \"keytag\": \"日本料理\", \"importance\": [], \"biz_ext\": {\"cost\": \"349.00\", \"opentime2\": \"周一至周日 11:00-14:00,17:00-22:00\", \"rating\": \"4.7\", \"open_time\": \"11:00-14:00 17:00-22:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;外国餐厅;日本料理\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK0IPH0/comment/B207048E_94D8_4AAB_8FB4_A4BC6D0ACF08_L0_001_2001_118_1759020149355_63410046.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK0IPH0/comment/867bcde2c56b75fb443264ec42d62336_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK0IPH0/comment/d57e76069f2206d60426b9c3fe6985cf_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050202\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-86891889\", \"id\": \"B0FFK0IPH0\", \"address\": \"民心路280号平安金融中心悦坊商场4楼401、402\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"鹅肝,龙虾,寿司,刺身,自助餐,三文鱼,芝士,牛肉\", \"name\": \"月龙吟(悦坊商场店)\", \"location\": \"120.213225,30.251446\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B14BN0\", \"distance\": [], \"keytag\": \"西式快餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"35.00\", \"opentime2\": \"周一至周日 07:00-23:00\", \"rating\": \"4.6\", \"open_time\": \"07:00-23:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;快餐厅;麦当劳\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHIAHF9/comment/content_media_external_images_media_68487.png\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHIAHF9/comment/content_media_external_file_1000070056_ss__1769909789420_41876302.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHIAHF9/comment/0F73F95F_B7E3_4275_B422_3B4293172F41_L0_001_2142_214_1764066437604_37173416.jpg\"}], \"building\": [], \"typecode\": \"050302\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-86439382\", \"id\": \"B0FFHIAHF9\", \"address\": \"解放东路29号(市民中心地铁站N1口步行100米)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"不素之霸双层牛肉堡精选套餐,不素之霸双层牛肉堡,优品豆浆,原味板烧鸡腿麦满分配脆薯饼,双层阿拉斯加狭鳕鱼堡,培根蛋麦煎饼配脆薯饼,墨西哥烧烤风味鸡腿堡,奥利奥原味麦旋风,奥利奥草莓麦旋风,奶油坚果酱蛋牛堡,小食纷享盒,开心乐园餐,开心乐园餐配小薯条,悠享早晨全餐配配鲜煮咖啡,薯条,汉堡,双人餐,鸡肉,下午茶\", \"name\": \"麦当劳(钱江新城迪凯银座)\", \"location\": \"120.211276,30.241721\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFH2VWTH\", \"distance\": [], \"keytag\": \"中餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"95.00\", \"opentime2\": \"周一 11:00-14:00,16:30-23:00；周二至周日 11:00-14:00,16:30-24:00\", \"rating\": \"4.5\", \"open_time\": \"11:00-14:00 16:30-24:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/query_pic?id=stef3d1ae3-f1b5-48f4-8857-f3a7af69fb92&user=search&operate=original\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0KK5N7OB5/comment/content_media_external_file_18292_ss__1760265006161_36704078.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0KK5N7OB5/comment/071CC338_36D0_4AA5_AFE4_C78456972964_L0_001_2048_153_1758670520781_27541537.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"18868441034\", \"id\": \"B0KK5N7OB5\", \"address\": \"新业路404号来福士广场南庭4楼03号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"201\", \"atag\": [], \"name\": \"哥哥の深夜食堂(杭州来福士中心店)\", \"location\": \"120.213088,30.248079\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFJJ45ER\", \"distance\": [], \"keytag\": \"浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"703.00\", \"opentime2\": \"周一至周日 11:30-14:00,17:30-22:00\", \"rating\": \"4.4\", \"open_time\": \"11:30-14:00 17:30-22:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;浙江菜\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK670XW/comment/78DE3FC8_51DD_4D5D_ABC1_A606502B98A1_L0_001_1170_135_1769421027682_48132294.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK670XW/comment/a465ef5f758be379e000d4cb2ca35257_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/4884fd33c3a80b80364cd2e6ecfc3f35\"}], \"building\": [], \"typecode\": \"050106\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-56966666\", \"id\": \"B0FFK670XW\", \"address\": \"新业路228号杭州康莱德酒店50层\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"312\", \"atag\": \"鸡肉,龙虾\", \"name\": \"杭州康莱德酒店·里安(新业路店)\", \"location\": \"120.213481,30.249091\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFKOEPES\", \"distance\": [], \"keytag\": \"粤菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"208.00\", \"opentime2\": \"11:00-14:00；17:00-21:00,2026年2月16日至2月23日11:00-14:00；17:00-21:00\", \"rating\": \"4.6\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFKYZAL2/comment/BE3FACF2_6DF7_4763_9AD7_EB911C9147ED_L0_001_2144_146_1767110157448_14158568.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFKYZAL2/comment/7c7f131cb75a441018d545d19c0cb16c_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFKYZAL2/comment/d1cbb2256091589a57856dcd9172418a_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"19032001555\", \"id\": \"B0FFKYZAL2\", \"address\": \"民心路280号平安金融中心悦坊商场3层301\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"鸡肉,点心,牛肉,豆腐,双人餐,椰皇桃胶双皮奶,秋粤台烧鹅,蜜汁叉烧,家常菜\", \"name\": \"秋粤台(江锦路店)\", \"location\": \"120.212814,30.250713\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFH2VWTH\", \"distance\": [], \"keytag\": \"火锅\", \"importance\": [], \"biz_ext\": {\"cost\": \"121.00\", \"opentime2\": \"周一至周日 10:30-22:00\", \"rating\": \"4.5\", \"open_time\": \"10:30-22:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;火锅店\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/query_pic?id=ste375ae94-fd8f-40b3-8c86-276a53440be5&user=search&operate=original\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHTLLV3/comment/3099afae6bd2d9346c1865745f294e01_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFHTLLV3/comment/content_media_external_file_55658_ss__1762581835731_58778154.jpg\"}], \"building\": [], \"typecode\": \"050117\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-81965617\", \"id\": \"B0FFHTLLV3\", \"address\": \"新业路228号来福士广场4楼L4-20号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"鲜牛杂鸳鸯锅,吊龙,牛肉饼,炸腐皮,嫩肉,风味牛舌,薏米马蹄水,五花腱,匙皮肉,双丸拼盘,脚趾肉,肥胼,箭笋片,牛肉春卷,潮汕牛肉片,牛肉\", \"name\": \"左庭右院鲜牛肉火锅(来福士店)\", \"location\": \"120.212938,30.249633\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFH2VWTH\", \"distance\": [], \"keytag\": \"烤肉\", \"importance\": [], \"biz_ext\": {\"cost\": \"123.00\", \"opentime2\": \"周一至周日 11:00-22:30\", \"rating\": \"4.5\", \"open_time\": \"11:00-22:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;外国餐厅;日本料理\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LU5PO09W/comment/C51F8CB6_6F25_4A1B_B534_F1076C69E5FA_L0_001_1500_200_1763722651799_93861513.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LU5PO09W/comment/63D68FF5_54A0_446D_B145_7140B72548DC_L0_001_1500_200_1763722651796_23262028.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/comment/content_service__1770215832492_41982368_1770215888406_73691051.jpg\"}], \"building\": [], \"typecode\": \"050202\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"19106580532\", \"id\": \"B0LU5PO09W\", \"address\": \"富春路与丹桂街交叉口西160米杭州来福士广场5F层\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"201\", \"atag\": \"日式烧肉\", \"name\": \"厚贞日式烧肉(杭州来福士中心店)\", \"location\": \"120.212799,30.249224\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFKOEPES\", \"distance\": [], \"keytag\": \"西式快餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"32.00\", \"opentime2\": \"周一至周日 07:00-23:00\", \"rating\": \"4.6\", \"open_time\": \"07:00-23:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0L36ZA6ZK/comment/content_media_external_file_1159_1764217414918_05250918.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0L36ZA6ZK/comment/content_media_external_file_1005739879_ss__1772893211913_98531158.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/comment/content_service__1769926267665_50480923_1769926348834_82782663.jpg\"}], \"building\": [], \"typecode\": \"050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0L36ZA6ZK\", \"address\": \"平安悦坊\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"麦当劳(悦坊商场店)\", \"location\": \"120.212838,30.250812\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0H07X5CU0\", \"distance\": [], \"keytag\": \"肉蟹煲\", \"importance\": [], \"biz_ext\": {\"cost\": \"77.00\", \"opentime2\": \"10:30-21:00,2026-02-15至2026-02-23休息\", \"rating\": \"4.5\", \"open_time\": \"10:30-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://img.alicdn.com/imgextra/i1/O1CN01LyLj9e1ayKwfJbgMT_!!6000000003398-0-tps-640-640.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LKG51PJG/comment/content_media_external_file_1000055529_ss__1765967009936_56877543.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LKG51PJG/comment/D900DCF2_01EE_42B2_AD1E_E141BBF9CB3C_L0_001_1500_200_1765525787859_70036269.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": [], \"id\": \"B0LKG51PJG\", \"address\": \"新业路294号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": [], \"name\": \"胖哥俩肉蟹煲(杭州来福士店)\", \"location\": \"120.212998,30.249516\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"自助餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"527.00\", \"opentime2\": \"周一至周日 11:30-22:00\", \"rating\": \"4.6\", \"open_time\": \"11:30-22:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LU1GFGEV/comment/20260303-b3e805de8302bf9769d995c2-8CeIiLufW5v9U874qvctTi.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LU1GFGEV/comment/20260303-b3e805de8302bf9769d995c2-2T3eGkanyY989UW0qK1LtP.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LU1GFGEV/comment/20260303-b3e805de8302bf9769d995c2-o5Ewr6SIZcA8cPFKl4pUU.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"18667083559\", \"id\": \"B0LU1GFGEV\", \"address\": \"万象城(江锦路地铁站B3口旁)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"自助餐\", \"name\": \"雍容荟活龙虾自助餐(杭州万象城黑金店)\", \"location\": \"120.215725,30.251175\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}], \"status\": \"1\", \"info\": \"OK\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T13:18:31.580436</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-9')">[▼ 详情]</span>
+            </div>
+            <div id="details-9" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 13037,
+    "completion_tokens": 165,
+    "total_tokens": 13202
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T13:18:31.580776</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-10')">[▼ 详情]</span>
+            </div>
+            <div id="details-10" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806895670924670970",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "maps_text_search",
+    "arguments": {
+      "keywords": "杭帮菜",
+      "city": "杭州",
+      "citylimit": true
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T13:18:32.291795</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-11')">[▼ 详情]</span>
+            </div>
+            <div id="details-11" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_-7806895670924670970",
+  "result": "工具 'maps_text_search' 执行结果:\n{\"suggestion\": {\"keywords\": [], \"cities\": []}, \"count\": \"450\", \"infocode\": \"10000\", \"pois\": [{\"parent\": \"B0FFLDA3H0\", \"distance\": [], \"keytag\": \"杭帮菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"140.00\", \"opentime2\": \"周一至周日 11:00-14:00,17:00-21:00\", \"rating\": \"4.8\", \"open_time\": \"11:00-14:00 17:00-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": \"用户\", \"url\": \"http://store.is.autonavi.com/showpic/8588ca7db8932bbbf90c52c0ecc4e16a\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFIJ5DXL/comment/29CD7C61_51AA_4A3F_B066_286253853A7E_L0_001_1170_1631_1730357288592_93880066.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFIJ5DXL/comment/789F0E3F_95F0_4D97_B689_CE0C30D9CAF4_L0_001_1440_1920_1728380641532_68371893.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"萧山区\", \"featured_reviews_remake\": [], \"tel\": \"0571-82218017\", \"id\": \"B0FFIJ5DXL\", \"address\": \"盈丰街道左右商务中心2幢\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"菌皇清鸡汤,芝士板栗南瓜配鱼子酱,山泉牛肉,养胃的胡椒猪肚鸡,菜脯焗大黄鱼,牛油果三文鱼沙律,绍兴臭豆腐,传承经典之臭豆腐,牛肉\", \"name\": \"乔村二十八道(钱江世纪城店)\", \"location\": \"120.255346,30.236941\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"中餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"135.00\", \"opentime2\": \"周二至周日 10:00-14:00,16:00-22:30\", \"rating\": \"4.7\", \"open_time\": \"10:00-14:00 16:00-22:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/b9d1881df9d3d1fece0e3bd1422e16da\"}, {\"title\": \"中国杭帮菜博物馆\", \"url\": \"http://store.is.autonavi.com/showpic/ddfcb650eca657df741b0892ce260fe4\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/1ef78da56d9c7e4b547f7b4c654e7f7a\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87921117;0571-87922227\", \"id\": \"B0FFGAQZD8\", \"address\": \"虎玉路9号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"301\", \"atag\": \"龙井虾仁,西湖醋鱼皇,干炸响铃,东坡肉,松子鲈鱼,手撕香酥鸭,虾爆鳝背,定胜糕,杭三鲜,宋嫂鱼羹,酱香牛肋骨,小笼包,九曲茶香鸡,油闷春笋,杭州酱鸭,糖醋里脊,家常菜,堂食,豆腐,虾仁,红烧肉,鸡汤,胡辣汤\", \"name\": \"中国杭帮菜博物馆(虎玉路店)\", \"location\": \"120.142503,30.207933\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B0644G\", \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"102.00\", \"opentime2\": \"周一至周日 10:30-22:00\", \"rating\": \"4.7\", \"open_time\": \"10:30-22:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;浙江菜\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/289dd1459ce9d69325b19eff8cc77c60\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/30ef9715e1432ab77a5775d516887f27\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/53c4d56f2bb85bfbb3ece6478b7efb74\"}], \"building\": [], \"typecode\": \"050106\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"拱墅区\", \"featured_reviews_remake\": [], \"tel\": \"0571-85225980\", \"id\": \"B0I67ANJ5X\", \"address\": \"湖墅南路228号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"320\", \"atag\": \"招牌干炸臭豆腐,葱油钱江大白条,脆皮大肠头,酒酿馒头红烧肉,熟醉湖蟹（一只）,川味臭鳜鱼,脆皮大肠,鲍鱼烧猪脚,熟醉沼虾,富贵连连桂鱼捞粉,馋嘴蛙,石锅虾仁豆腐,红烧肉,大肠,酸菜鱼,家常菜,脆皮大肠头,私房菜,双人餐,卤鸭\", \"name\": \"四灶儿·地道杭帮菜(湖墅南路店)\", \"location\": \"120.152887,30.283523\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B13L9M\", \"distance\": [], \"keytag\": \"浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"98.00\", \"opentime2\": \"周一至周日 10:30-23:30\", \"rating\": \"4.7\", \"open_time\": \"10:30-23:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/d86559be29842ee3061002e3daaa5b70\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/d4dc7f531160cebc0b293c88338e9991\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/fe49f707665ebb9175e03f2d8c6e3831\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-86070806\", \"id\": \"B0FFF4XZMX\", \"address\": \"十五奎巷2-3号(近鼓楼城门)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"302\", \"atag\": \"油爆虾,手撕包心菜,招牌鱼头,招牌豉油虾,特色红糖麻糍,碳烤鲈鱼,青柠冰桔茶,娇滴滴的美蛙,川府凉皮,招牌卤鸡爪,葱油秋葵,蒜泥油麦菜,包心菜炒农家粉丝,老成都豆花鱼,芝士焗南瓜,西湖牛肉羹,老杭州东坡肉,周记卤鸭,无骨宋嫂鱼羹,龙井手剥虾仁,桂花糯米藕,酸菜鱼,虾球,龙井虾仁,牛肉\", \"name\": \"新周记·巷子里的江南味(鼓楼店)\", \"location\": \"120.170957,30.237695\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"杭帮菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"69.00\", \"opentime2\": \"周一至周日 10:00-24:00\", \"rating\": \"4.8\", \"open_time\": \"10:00-24:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;浙江菜\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0KR0UN1M0/comment/F8688D25_50CA_412B_BFE4_24B5D4CE67A3_L0_001_2000_150_1768113640902_93862702.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0KR0UN1M0/comment/content_media_external_file_1601_1768268468886_47815443.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0KR0UN1M0/comment/4731B77D_467E_4AFD_8B59_A0748442C480_L0_001_1320_111_1772618416939_28548218.jpg\"}], \"building\": [], \"typecode\": \"050106\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"13685768766\", \"id\": \"B0KR0UN1M0\", \"address\": \"学士路92号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"双人餐,东坡肉,豆腐,小酥肉,特色菜,脆皮大肠,龙井手剥虾仁,鸡肉,龙井虾仁,鱼头\", \"name\": \"赵府私厨·老杭帮菜(西湖老店)\", \"location\": \"120.161265,30.255517\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"杭帮菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"99.00\", \"opentime2\": \"周一至周日 10:00-21:00\", \"rating\": \"4.6\", \"open_time\": \"10:00-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/query_pic?id=stdcc12055-8642-4c5c-ad45-41aa171d70c3&user=search&operate=original\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0JBCCFEXB/comment/b64a1a80198108bb508f793b69a364a8_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0JBCCFEXB/comment/2bd3f64572339734986190d094f5ebd4_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"0571-88326706\", \"id\": \"B0JBCCFEXB\", \"address\": \"灵隐路1号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"状元芋头煲,鲍鱼红烧肉,招牌粉丝裹虾,鲜肉红油抄手,绿茶酸奶,家烧黄鱼年糕,白灼鲜小管,石锅鸡汤豆腐,面包诱惑,绿茶烤鸡,鲍鱼,江南卤鸭儿,西湖牛肉羹,双人餐,烤鸡,红烧肉,鸡肉,牛肉\", \"name\": \"绿茶餐厅(灵隐路店·品牌旗舰店)\", \"location\": \"120.128859,30.252428\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"152.00\", \"opentime2\": \"周一至周日 11:00-14:00,17:00-21:00\", \"rating\": \"4.8\", \"open_time\": \"11:00-14:00 17:00-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0HGPRTULC/comment/content_media_external_file_1000001835_ss__1772714457954_26582484.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0HGPRTULC/comment/9473A546_6867_4C3E_A11B_E732C27A091E_L0_001_1500_200_1769071051541_59954138.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/comment/content_service__1769019375726_02063275_1769019438465_97652126.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"余杭区\", \"featured_reviews_remake\": [], \"tel\": \"19157857008\", \"id\": \"B0HGPRTULC\", \"address\": \"良睦路鼎创财富中心1幢A2座1楼\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"榨菜肉丝饼,乔村大汤圆,古法蒸东星斑,山泉牛肉,菌皇清鸡汤,养胃的胡椒猪肚鸡,菜脯焗大黄鱼,牛油果三文鱼沙律,堂灼东星斑,招牌乳鸽,生腌红膏蟹,芝士板栗南瓜配鱼子酱,六宫粉黛,墨色流沙包,豆腐,牛肉,榨菜鲜肉月饼,鸡肉\", \"name\": \"乔村二十八道(未来科技城店)\", \"location\": \"120.008170,30.281973\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"杭帮菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"66.00\", \"opentime2\": \"周一至周日 10:00-24:00\", \"rating\": \"4.8\", \"open_time\": \"10:00-24:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0K6H69PDU/comment/content_media_external_file_100021372_1769118462701_47272725.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0K6H69PDU/comment/content_media_external_file_8923_1770729469257_67145236.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0K6H69PDU/comment/content_media_external_file_100003896_1769135847625_40135025.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"17300930599\", \"id\": \"B0K6H69PDU\", \"address\": \"高银街111号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"鱼头,古法杭式酱鸭,酸菜鱼,东坡肉,西湖醋鱼,古法东坡肉,豆腐,双人餐,小酥肉\", \"name\": \"赵府私厨·老杭帮菜(河坊街店)\", \"location\": \"120.168733,30.240555\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B06LQB\", \"distance\": [], \"keytag\": \"中餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"79.00\", \"opentime2\": \"10:00-21:00,2026-02-1610:00-20:00\", \"rating\": \"4.7\", \"open_time\": \"10:00-21:00 10:00-20:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/c0649a40b2c49bf13ae32e96b1ef760f\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/8458d6b9bfd1ac89d8ea4ddab56faa85\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/615e87927d9fd718da7e6b5c5078a7df\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-85376882\", \"id\": \"B0G0AZTG34\", \"address\": \"延安路22号(吴山古玩城对面)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"招牌干炸臭豆腐,葱油钱江大白条,石锅虾仁豆腐,脆皮大肠,鲍鱼烧猪脚,熟醉沼虾,富贵连连桂鱼捞粉,馋嘴蛙,酒酿馒头红烧肉,熟醉湖蟹（一只）,脆皮大肠头,私房菜,红烧肉,大肠,脆皮大肠,双人餐\", \"name\": \"四灶儿·地道杭帮菜(西湖景区·吴山广场店)\", \"location\": \"120.164931,30.241211\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"103.00\", \"opentime2\": \"周一至周日 10:30-23:30\", \"rating\": \"4.7\", \"open_time\": \"10:30-23:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/8eee3da2419d3e3e5d0d923e8fc4730d\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0HGBSORPI/comment/8E0516A8_43DB_4B2C_A982_942766C36DBA_L0_001_1270_642_1737848172234_14163227.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0HGBSORPI/comment/2b9f263f8094be8cb862bd99ff401c49_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87292636\", \"id\": \"B0HGBSORPI\", \"address\": \"平海路36号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"香茅手撕脆皮鸡,十年花雕熟醉大闸蟹,萧山土三鲜,陈年花雕醉湖蟹,文火谷饲牛肉配荷叶饼,椒麻牛舌,金华火腿蒸老鸭,手工鲜肉煎饺,招牌豉油虾,芝士焗南瓜,鳕鱼杨梅虾球,特色湖蟹煲,雪笋大汤笋壳鱼,传奇卤大肠,XO浆状元萝卜糕,香炸东海小黄鱼,三鲜手工石磨豆腐,暖胃胡椒猪肚菌菇汤,老卤牛腩炖牛筋,特色红糖麻糍,鲜香椒麻脆舌尖,砂锅鲍鱼焖猪脚,周记卤鸭,文火古饲牛肉配荷叶饼,招牌红烧鱼头,虾球,鸡肉,豆腐,点心,牛肉\", \"name\": \"新周记·巷子里的江南味(平海路店)\", \"location\": \"120.168323,30.254314\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"108.00\", \"opentime2\": \"周一至周日 10:30-22:30\", \"rating\": \"4.8\", \"open_time\": \"10:30-22:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LAYU04B8/comment/content_media_external_file_1000000673_ss__1771155523823_91456424.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LAYU04B8/comment/CC964337_47DC_40C3_865B_13383F1031B5_L0_001_1279_170_1769324401498_06568728.jpg\"}, {\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/0630b279b58fd8275479f1ecbeeb93e1?operate=original\"}], \"building\": [], \"typecode\": \"050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"19032003299\", \"id\": \"B0LAYU04B8\", \"address\": \"虎跑路四眼井228号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"非遗杭式酱鸭,牛肉,绍兴臭豆腐,双人餐,西湖醋鱼一鱼两吃,龙井虾仁,油炸绍兴非遗臭豆腐,桂花糯米藕,江南珍品东坡肉\", \"name\": \"入江南·金奖杭帮菜·浙江菜(虎跑店)\", \"location\": \"120.136067,30.216913\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"63.00\", \"opentime2\": \"周一至周日 10:30-21:00\", \"rating\": \"4.7\", \"open_time\": \"10:30-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;浙江菜\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/query_pic?id=stdcc12055-8642-4c5c-ad45-41aa171d70c3&user=search&operate=original\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LAORMGUE/comment/11F3C073_DEF1_443D_A167_C59AB072282A_L0_001_1179_133_1761380052031_90889305.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0LAORMGUE/comment/content_media_external_file_36893_1770340821405_05098393.jpg\"}], \"building\": [], \"typecode\": \"050106\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-86977817\", \"id\": \"B0LAORMGUE\", \"address\": \"西湖街道圣塘景区2号-1\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"双人餐\", \"name\": \"绿茶餐厅(三潭印月·西湖总店)\", \"location\": \"120.157824,30.257779\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFJRBZLA\", \"distance\": [], \"keytag\": \"海鲜\", \"importance\": [], \"biz_ext\": {\"cost\": [], \"star\": [], \"opentime2\": \"周一至周日 10:00-21:00\", \"rating\": \"4.7\", \"lowest_price\": [], \"hotel_ordering\": \"0\", \"open_time\": \"10:00-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;海鲜酒楼|住宿服务;宾馆酒店;宾馆酒店\", \"photos\": [{\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/68eb2e9ead84bf248a787b69c4647540\"}, {\"provider\": [], \"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/9728f1e65db39bb4cbb9c5e3cfe3de1e\"}, {\"provider\": [], \"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFJRHZTY/comment/content_media_external_file_742_1770873533187_02115173.jpg\"}], \"building\": [], \"typecode\": \"050119|100100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"滨江区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87171197;15669925788;18106585677\", \"id\": \"B0FFJRHZTY\", \"address\": \"滨盛路1766号星光大道二期5楼\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"201\", \"atag\": \"鸡肉,双人餐,牛肉\", \"name\": \"德悦海鲜·包厢宴会(杭州滨江店)\", \"location\": \"120.206897,30.210998\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B1DN2U\", \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"87.00\", \"opentime2\": \"周一至周日 10:30-21:30\", \"rating\": \"4.6\", \"open_time\": \"10:30-21:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/e98642bfefdadf02af799b47d81e970b\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/d262f5cf54db983cec5ca6f54443d712\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/b78feaf5cf218cd2770fa76ad19ff419\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-85101859\", \"id\": \"B0FFHMVEAY\", \"address\": \"秋涛路252号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"招牌干炸臭豆腐,馋嘴牛蛙,酒酿馒头配红烧肉,酒酿馒头红烧肉,熟醉湖蟹（一只）,四灶儿小炒王,脆皮大肠头,石锅虾仁豆腐,脆皮大肠,鲍鱼烧猪脚,熟醉沼虾,富贵连连桂鱼捞粉,酸菜鱼,生炒鸡,私房菜,双人餐,鸡肉,干炸响铃,家常菜,红烧肉\", \"name\": \"四灶儿·地道杭帮菜(望江店)\", \"location\": \"120.188348,30.234043\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFG75GG0\", \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"72.00\", \"opentime2\": \"周一至周日 10:00-23:30\", \"rating\": \"4.6\", \"open_time\": \"10:00-23:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;浙江菜|餐饮服务;中餐厅;特色/地方风味餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/0117b06c9ab768866a2beb85a57d984e\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/2833f9404790a778831badcd4e7def4c\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/4249aff90814cb4551af847ec4bde82a\"}], \"building\": [], \"typecode\": \"050106|050118\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87379578\", \"id\": \"B0FFFAC4XP\", \"address\": \"湖滨街道学士路77号(龙翔桥地铁站B出口步行170米)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"320\", \"atag\": \"金牌猪蹄,松板肉,东坡肉,小炒黄牛肉,龙井虾仁,香酥鸭,西湖醋鱼,葱爆虾,冰激凌烤布蕾,蒜蓉粉丝蒸扇贝,招牌猪手,铁锅焗汉虾,剁椒臭豆腐,桂花糕,鸡肉,双人餐,西湖醋鱼,龙井虾仁,江南桂花米糕,东坡肉,干炸响铃,虾仁,牛肉,私房菜\", \"name\": \"吴记餐厅·杭帮菜·私房菜(西湖湖滨店)\", \"location\": \"120.161840,30.255573\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B06P06\", \"distance\": [], \"keytag\": \"杭帮菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"298.00\", \"opentime2\": \"周一至周日 10:00-21:00\", \"rating\": \"4.6\", \"open_time\": \"10:00-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;餐饮相关场所;餐饮相关|体育休闲服务;体育休闲服务场所;体育休闲服务场所\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFKN273M/comment/%5B2025-02-21-08-22-58%5DE9C43855-14EE-4221-A88A-98FE425DBED_1740097380321_89683386.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFKN273M/comment/content_media_external_images_media_67847_1741013023201_25794984.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFKN273M/comment/177003914119_1770039166656_05782624.jpg\"}], \"building\": [], \"typecode\": \"050000|080000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"西湖区\", \"featured_reviews_remake\": [], \"tel\": \"13967171009\", \"id\": \"B0FFKN273M\", \"address\": \"西溪国家湿地公园内河渚街C1-31号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"302\", \"atag\": \"大波龙川香辣子鸡一斤,海肠捞饭,金枕榴莲夜香花泉水汤一位,芙蓉泰国大虾菇,米汤花胶拆骨土鸡,手拆大闸蟹麻婆豆腐,香茅咖喱大虾配芝麻法棍,海肠捞饭,私房菜,双人餐,单人餐\", \"name\": \"西隐\", \"location\": \"120.069939,30.271543\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"96.00\", \"opentime2\": \"周一至周日 10:30-21:00\", \"rating\": \"4.7\", \"open_time\": \"10:30-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/query_pic?id=st1ef630c8-39ef-4d63-93ce-ba3a9732851e&user=search&operate=original\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFJO3FUO/comment/content_media_external_file_32612_ss__1760835525343_84061239.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFJO3FUO/comment/fef730d4c3a21c859fb996f1d2fd5562_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"拱墅区\", \"featured_reviews_remake\": [], \"tel\": \"0571-88753977\", \"id\": \"B0FFJO3FUO\", \"address\": \"延安路346号(凤起路地铁站C3口旁)\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"红烧肉,料理,特色菜,豆腐\", \"name\": \"東大方(杭州延安路店)\", \"location\": \"120.164109,30.260563\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"杭帮菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"75.00\", \"opentime2\": \"周一至周日 10:00-22:00\", \"rating\": \"4.7\", \"open_time\": \"10:00-22:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0I6BZEJZE/comment/ca0981a5b40bf0142a558e0148dec86e_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/0d8fe1f4f2efca0f544901ac7aa4e776\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0I6BZEJZE/comment/11f9a9235951d7a7e1a1d6a59bcfbfae_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"萧山区\", \"featured_reviews_remake\": [], \"tel\": \"0571-82378805\", \"id\": \"B0I6BZEJZE\", \"address\": \"城厢街道滨康路55号1幢1层101-7\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"土烧千岛湖大鱼头,油条,鸡爪,鱼头,豆腐,小炒黄牛肉,小炒肉,鸡肉,笋烧肉,富春笋干老鸭煲,毛笋干烧肉,羊排,牛肉,羊肉串,羊肉\", \"name\": \"桐湾大院·桐庐菜·夜宵烧烤(滨康路店)\", \"location\": \"120.227812,30.181526\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"79.00\", \"opentime2\": \"周一至周日 10:30-21:00\", \"rating\": \"4.6\", \"open_time\": \"10:30-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0J19X7PVK/comment/EC3024BF_6259_4C3D_B5E3_2333E8347D77_L0_001_1179_119_1772630070151_35623043.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0J19X7PVK/comment/D6C6E7CA_FCAD_4573_913A_45A8B27549B9_L0_001_1500_2000_1733919779850_60242063.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0J19X7PVK/comment/content_media_external_images_media_35134_1725723874780_63031035.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"拱墅区\", \"featured_reviews_remake\": [], \"tel\": \"18158111119\", \"id\": \"B0J19X7PVK\", \"address\": \"和平德信中心6幢南楼201室\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": [], \"atag\": \"酒酿馒头红烧肉,响油鳝丝,家烧大陈黄鱼,脆皮大肠头,鲍鱼烧猪脚,脆皮大肠,富贵连连桂鱼捞粉,熟醉沼虾,八宝酱丁,白胡椒猪肚鸡,石锅虾仁豆腐,本帮酥鱼,私房菜,红烧肉,双人餐\", \"name\": \"四灶儿·地道杭帮菜(和平德信店)\", \"location\": \"120.169269,30.297286\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B023B06HYE\", \"distance\": [], \"keytag\": \"江浙菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"90.00\", \"opentime2\": \"11:00-14:00；17:00-20:30,2026年春节期间16:30-20:30\", \"rating\": \"4.7\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/ef334e14fd845449f25f1fc343d7854c\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFL3B9WC/comment/BF50AF75_BEF0_46D2_96CD_E7B58488AB06_L0_001_2000_150_1763418427497_00146057.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFL3B9WC/comment/920F9058_2CCD_478D_9BD8_516E51576F67_L0_001_2000_150_1756313177306_43620017.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"上城区\", \"featured_reviews_remake\": [], \"tel\": \"0571-87803978\", \"id\": \"B0FFL3B9WC\", \"address\": \"小营街道庆春路149-1号\", \"space_num\": [], \"pname\": \"浙江省\", \"biz_type\": \"diner\", \"cityname\": \"杭州市\", \"childtype\": \"202\", \"atag\": \"芝士闷骚南瓜,炙烤小牛,木瓜酿酪乳,杭三鲜,全家福砂锅,咖喱大虾,芝士,西湖醋鱼,干炸响铃\", \"name\": \"杭州酒家(庆春路店)\", \"location\": \"120.173026,30.257647\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}], \"status\": \"1\", \"info\": \"OK\"}"
+}</pre>
+            </div>
+        </div>

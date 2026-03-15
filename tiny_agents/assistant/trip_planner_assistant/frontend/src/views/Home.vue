@@ -458,7 +458,7 @@ const handleSubmit = async () => {
       // 只在收到有效进度时更新（step >= 1）
       if (progress.step && progress.step >= 1) {
         loadingProgress.value = progress.progress || 0
-        currentStep.value = progress.step || 0
+        currentStep.value = (progress.step || 1) - 1
         loadingStatus.value = progress.message || ''
         console.log('📊 进度更新:', progress)
       }

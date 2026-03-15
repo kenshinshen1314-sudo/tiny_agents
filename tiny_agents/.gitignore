@@ -9,6 +9,10 @@ wandb/
 tensorboard/
 checkpoints/
 
+assistant/trip_planner_assistant/frontend/node_modules/
+assistant/trip_planner_assistant/frontend/.env
+assistant/trip_planner_assistant/backend/.env
+
 # 模型文件
 *.safetensors
 *.bin
