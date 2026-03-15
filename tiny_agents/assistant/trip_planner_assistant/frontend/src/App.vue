@@ -19,7 +19,7 @@
         <router-view />
       </a-layout-content>
       <a-layout-footer class="app-footer">
-        <p>🌍 由 HelloAgents 驱动 · 让每一次旅行都难忘</p>
+        <p>🌍 由 TinyAgents 驱动 · 让每一次旅行都难忘</p>
       </a-layout-footer>
     </a-layout>
   </div>

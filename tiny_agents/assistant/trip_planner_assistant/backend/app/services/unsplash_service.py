@@ -4,9 +4,37 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import hashlib
+import time
 from typing import List, Optional, Dict, Tuple
 from difflib import SequenceMatcher
 from ..config import get_settings
+
+
+# ========== 景点类型 → 搜索关键词映射 ==========
+TYPE_KEYWORDS: Dict[str, List[str]] = {
+    "自然风光": ["nature landscape scenic", "natural scenery", "landscape photography"],
+    "历史文化": ["ancient historical heritage", "historical site", "cultural heritage"],
+    "现代建筑": ["modern architecture skyline", "contemporary building", "cityscape"],
+    "古镇": ["ancient town water village", "traditional village", "old town China"],
+    "海滩": ["tropical beach coastline", "seaside beach", "coastal scenery"],
+    "山水": ["mountain lake landscape", "mountain scenery", "river landscape"],
+    "寺庙": ["Buddhist temple Chinese", "ancient temple", "temple architecture"],
+    "园林": ["Chinese garden classical", "traditional garden", "Suzhou garden"],
+    "博物馆": ["museum exhibition", "art gallery", "cultural museum"],
+    "公园": ["public park Chinese", "urban park", "garden landscape"],
+    "美食": ["Chinese food cuisine", "local delicacies", "food street"],
+    "夜景": ["night view cityscape", "night lights", "illumination"],
+}
+
+# ========== 旅行图片备用源 ==========
+FALLBACK_SOURCES = [
+    "https://source.unsplash.com/1600x900/?{query},travel,china",
+    "https://loremflickr.com/1600/900/{query},travel,tourism",
+]
+
+# ========== 图片缓存机制 ==========
+_image_cache: Dict[Tuple[str, str], Tuple[str, float]] = {}  # {(name, city): (url, timestamp)}
+CACHE_EXPIRE_HOURS = 24
 
 
 # ========== 城市名称映射 ==========
@@ -823,6 +851,64 @@ CATEGORY_TO_KEYWORDS: Dict[str, List[str]] = {
     "桥": ["Chinese bridge", "ancient Chinese bridge", "traditional bridge China"],
 }
 
+# ========== 热门景点白名单（提高搜索权重）==========
+POPULAR_ATTRACTIONS: Dict[str, float] = {
+    # 北京
+    "Forbidden City": 5.0,
+    "Great Wall": 5.0,
+    "Summer Palace": 4.5,
+    "Temple of Heaven": 4.5,
+    "Tiananmen Square": 4.0,
+    "Bird's Nest": 4.0,
+    # 西安
+    "Terracotta Warriors": 5.0,
+    "Terracotta Army": 5.0,
+    "Big Wild Goose Pagoda": 4.5,
+    "Xi'an City Wall": 4.0,
+    # 上海
+    "The Bund": 4.5,
+    "Oriental Pearl Tower": 4.5,
+    "Yu Garden": 4.0,
+    # 杭州
+    "West Lake": 4.5,
+    "Lingyin Temple": 4.0,
+    # 成都
+    "Chengdu Panda Base": 5.0,
+    "Dujiangyan": 4.5,
+    "Mount Qingcheng": 4.5,
+    # 桂林
+    "Li River": 4.5,
+    "Elephant Trunk Hill": 4.5,
+    "Yangshuo": 4.0,
+    # 丽江
+    "Lijiang Old Town": 4.5,
+    "Jade Dragon Snow Mountain": 5.0,
+    # 拉萨
+    "Potala Palace": 5.0,
+    "Jokhang Temple": 4.5,
+    # 三亚
+    "Yalong Bay": 4.0,
+    # 苏州
+    "Humble Administrator's Garden": 4.5,
+    "Lion Grove Garden": 4.0,
+    # 张家界
+    "Zhangjiajie": 5.0,
+    "Tianmen Mountain": 4.5,
+    # 黄山
+    "Yellow Mountain": 5.0,
+    # 九寨沟
+    "Jiuzhaigou": 5.0,
+    # 厦门
+    "Gulangyu": 4.0,
+    # 青岛
+    "Zhanqiao Pier": 3.5,
+    # 重庆
+    "Hongya Cave": 4.0,
+}
+
+# 全局已使用图片URL记录（用于去重）
+_used_image_urls: set = set()
+
 
 class UnsplashService:
     """Unsplash图片服务类 - 优化版"""
@@ -838,15 +924,26 @@ class UnsplashService:
         retries = Retry(total=5, backoff_factor=1, status_forcelist=[500, 502, 503, 504])
         self.session.mount('https://', HTTPAdapter(max_retries=retries))
 
-    def _get_fallback_image(self, query: str) -> Optional[str]:
-        """获取备用图片（当 Unsplash API 不可用时）"""
+    def _get_fallback_image(self, query: str, category: str = None) -> Optional[str]:
+        """获取备用图片（当 Unsplash API 不可用时）- 使用旅行相关图源"""
         try:
-            seed = hashlib.md5(query.encode()).hexdigest()[:8]
-            width, height = 800, 600
-            url = f"https://picsum.photos/seed/{seed}/{width}/{height}"
+            # 清理查询关键词
+            clean_query = query.replace(" ", ",").replace("'", "")
+            if category and category in TYPE_KEYWORDS:
+                # 添加类别关键词
+                type_kw = TYPE_KEYWORDS[category][0] if TYPE_KEYWORDS[category] else ""
+                clean_query = f"{clean_query},{type_kw}"
+            
+            # 尝试使用 source.unsplash.com（更专业的旅行图源）
+            url = f"https://source.unsplash.com/1600x900/?{clean_query}"
+            
+            # 验证 URL 是否可访问（简单检查）
+            # 返回 URL，实际加载由前端处理
             return url
         except Exception:
-            return None
+            # 最后备用：使用 picsum 但带上旅行相关的 seed
+            seed = hashlib.md5(query.encode()).hexdigest()[:8]
+            return f"https://picsum.photos/seed/{seed}/800/600"
 
     def _translate_city_name(self, city: str) -> str:
         """翻译城市名称为英文"""
@@ -874,14 +971,14 @@ class UnsplashService:
         # 如果没有匹配，返回原名称（可能是英文或已翻译）
         return name
 
-    def _calculate_relevance_score(self, photo: dict, search_keywords: List[str]) -> float:
-        """计算图片相关性评分"""
+    def _calculate_relevance_score(self, photo: dict, search_keywords: List[str], attraction_name: str = None) -> float:
+        """计算图片相关性评分 - 增强版"""
         score = 0.0
         description = photo.get("description", "") or ""
         alt_desc = photo.get("alt_description", "") or ""
         combined_text = f"{description} {alt_desc}".lower()
 
-        # 关键词匹配加分
+        # 1. 关键词匹配加分
         for keyword in search_keywords:
             keyword_lower = keyword.lower()
             # 完全匹配
@@ -892,14 +989,33 @@ class UnsplashService:
                 if word in combined_text and len(word) > 3:
                     score += 0.5
 
-        # 优先选择有描述的图片
+        # 2. 优先选择有描述的图片
         if description or alt_desc:
             score += 1.0
+
+        # 3. 中国相关加权（关键优化）
+        if "china" in combined_text or "chinese" in combined_text:
+            score += 3.0
+
+        # 4. 图片质量评分（基于Unsplash的likes数）
+        likes = photo.get("likes", 0)
+        score += min(likes / 1000, 2.0)  # 最多加2分
+
+        # 5. 热门景点白名单加权
+        if attraction_name:
+            translated_name = self._translate_attraction_name(attraction_name)
+            if translated_name in POPULAR_ATTRACTIONS:
+                score += POPULAR_ATTRACTIONS[translated_name]
+
+        # 6. 避免重复图片（如果已使用过，降低分数）
+        photo_url = photo.get("urls", {}).get("regular", "")
+        if photo_url in _used_image_urls:
+            score -= 10.0  # 大幅降低重复图片分数
 
         return score
 
     def _get_search_queries(self, name: str, category: str = None, city: str = None) -> List[str]:
-        """获取多个搜索查询策略（按优先级排序）"""
+        """获取多个搜索查询策略（按优先级排序）- 优化版"""
         queries = []
         search_keywords = []
 
@@ -907,41 +1023,50 @@ class UnsplashService:
         translated_name = self._translate_attraction_name(name)
         search_keywords.append(translated_name.lower())
 
-        # 添加城市上下文
+        # 翻译城市名称
+        translated_city = None
         if city:
             translated_city = self._translate_city_name(city)
             if translated_city != city:
-                # 策略1: 城市 + 景点名（最佳）
-                queries.append(f"{translated_city} {translated_name}")
                 search_keywords.append(translated_city.lower())
 
-        # 策略2: 翻译后的景点名称
-        if translated_name != name:
-            queries.append(translated_name)
-            queries.append(f"{translated_name} China")
-            search_keywords.append("china")
+        # === 优化后的查询策略 ===
 
-        # 策略3: 景点类别相关
+        # 策略1: 城市 + 景点 + landmark（最高优先级）
+        if city and translated_city:
+            queries.append(f"{translated_city} {translated_name} landmark")
+            queries.append(f"{translated_city} {translated_name}")
+
+        # 策略2: 景点 + China + UNESCO/landmark
+        queries.append(f"{translated_name} China UNESCO")
+        queries.append(f"{translated_name} China landmark")
+
+        # 策略3: 景点 + travel photography
+        queries.append(f"{translated_name} travel photography")
+
+        # 策略4: 使用 TYPE_KEYWORDS 进行类型匹配
+        if category and category in TYPE_KEYWORDS:
+            type_keywords = TYPE_KEYWORDS[category]
+            queries.append(f"{translated_name} {type_keywords[0]}")
+            # 城市 + 类型
+            if translated_city:
+                queries.append(f"{translated_city} {type_keywords[0]}")
+            search_keywords.extend([kw.lower() for kw in type_keywords])
+
+        # 策略5: 原始的类别关键词
         if category and category in CATEGORY_TO_KEYWORDS:
             keywords = CATEGORY_TO_KEYWORDS[category]
             queries.extend(keywords[:2])
             for kw in keywords[:2]:
                 search_keywords.append(kw.lower())
 
-        # 策略4: 景点名 + 类别组合
-        if category and category in CATEGORY_TO_KEYWORDS:
-            category_keywords = CATEGORY_TO_KEYWORDS[category]
-            if category_keywords:
-                queries.append(f"{translated_name} {category_keywords[0]}")
-
-        # 策略5: 城市 + 类别
-        if city and category and category in CATEGORY_TO_KEYWORDS:
-            translated_city = self._translate_city_name(city)
+        # 策略6: 城市 + 类别组合
+        if translated_city and category and category in CATEGORY_TO_KEYWORDS:
             category_keyword = CATEGORY_TO_KEYWORDS[category][0]
             queries.append(f"{translated_city} {category_keyword}")
 
-        # 策略6: 通用备选
-        queries.append("Chinese landmark famous China")
+        # 策略7: 通用备选（保留）
+        queries.append("famous Chinese landmark")
         queries.append("China travel destination")
 
         # 去重
@@ -1016,7 +1141,7 @@ class UnsplashService:
 
     def get_photo_url(self, name: str, category: str = None, city: str = None) -> Optional[str]:
         """
-        获取单张图片URL - 使用多策略搜索 + 相关性评分
+        获取单张图片URL - 使用多策略搜索 + 增强版相关性评分 + 缓存
 
         Args:
             name: 景点名称
@@ -1026,6 +1151,17 @@ class UnsplashService:
         Returns:
             图片URL
         """
+        # === 检查缓存 ===
+        cache_key = (name, city or "")
+        current_time = time.time()
+        
+        if cache_key in _image_cache:
+            cached_url, cached_time = _image_cache[cache_key]
+            # 检查是否过期
+            if current_time - cached_time < CACHE_EXPIRE_HOURS * 3600:
+                print(f"📦 使用缓存图片: '{name}'")
+                return cached_url
+
         # 获取搜索策略和关键词
         queries, search_keywords = self._get_search_queries(name, category, city)
 
@@ -1033,25 +1169,34 @@ class UnsplashService:
 
         # 尝试每个查询策略
         for query in queries:
-            photos = self.search_photos(query, per_page=5)
+            photos = self.search_photos(query, per_page=10)  # 增加返回数量以提高选择质量
 
             if photos:
-                # 计算相关性评分并排序
+                # 计算相关性评分并排序（传递景点名称以进行热门景点加权）
                 for photo in photos:
-                    photo["score"] = self._calculate_relevance_score(photo, search_keywords)
+                    photo["score"] = self._calculate_relevance_score(photo, search_keywords, name)
 
                 # 按评分排序
                 photos.sort(key=lambda p: p["score"], reverse=True)
 
-                # 返回评分最高的图片
-                if photos[0].get("url") and photos[0]["score"] > 0:
-                    print(f"✅ 找到图片: '{name}' | 查询: '{query}' | 评分: {photos[0]['score']:.1f} | 照片师: {photos[0].get('photographer', 'N/A')}")
-                    return photos[0].get("url")
+                # 选择评分最高的非重复图片
+                for photo in photos:
+                    if photo.get("url"):
+                        # 记录并返回图片URL
+                        _used_image_urls.add(photo["url"])
+                        
+                        # 存入缓存
+                        _image_cache[cache_key] = (photo["url"], current_time)
+                        
+                        print(f"✅ 找到图片: '{name}' | 查询: '{query}' | 评分: {photo['score']:.1f} | 摄影师: {photo.get('photographer', 'N/A')}")
+                        return photo.get("url")
 
-                # 如果没有高分图片，但有图片结果，返回第一个
-                if photos[0].get("url"):
-                    print(f"⚠️ 使用低分图片: '{name}' | 查询: '{query}'")
-                    return photos[0].get("url")
+        # 如果所有策略都失败，尝试备用方案
+        print(f"⚠️ 尝试备用图片源: '{name}'")
+        fallback_url = self._get_fallback_image(name, category)
+        if fallback_url:
+            _image_cache[cache_key] = (fallback_url, current_time)
+            return fallback_url
 
         print(f"❌ 未找到 '{name}' 的图片（已尝试 {len(queries)} 个查询）")
         return None

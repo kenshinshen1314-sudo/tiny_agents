@@ -293,7 +293,7 @@
 
     <!-- 底部提示 -->
     <div class="footer-tip">
-      <p>🌟 由 HelloAgents AI 驱动，为你打造独一无二的旅行体验</p>
+      <p>🌟 由 TinyAgents AI 驱动，为你打造独一无二的旅行体验</p>
     </div>
   </div>
 </template>
