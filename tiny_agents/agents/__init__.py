@@ -5,11 +5,13 @@ from .plan_solve_agent import PlanAndSolveAgent
 from .simple_agent import SimpleAgent
 from .reflection_agent import ReflectionAgent
 from .function_call_agent import FunctionCallAgent
+from .tool_aware_simple_agent import ToolAwareSimpleAgent
 
 __all__ = [
     "ReActAgent",
     "PlanAndSolveAgent",
     "SimpleAgent",
     "ReflectionAgent",
-    "FunctionCallAgent"
+    "FunctionCallAgent",
+    "ToolAwareSimpleAgent"
 ]

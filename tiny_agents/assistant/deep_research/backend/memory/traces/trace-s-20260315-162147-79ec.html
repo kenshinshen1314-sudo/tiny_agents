@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260315-162147-79ec</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260315-162147-79ec</h1>
+        <p>生成时间: 2026-03-15 16:21:47</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T16:21:47.070922</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "研究规划专家",
+  "agent_type": "ToolAwareSimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T16:21:47.070970</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "\n\n<CONTEXT>\n当前日期：March 15, 2026\n研究主题：量子计算\n</CONTEXT>\n\n<FORMAT>\n请严格以 JSON 格式回复：\n{\n  \"tasks\": [\n    {\n      \"title\": \"任务名称（10字内，突出重点）\",\n      \"intent\": \"任务要解决的核心问题，用1-2句描述\",\n      \"query\": \"建议使用的检索关键词\"\n    }\n  ]\n}\n</FORMAT>\n\n如果主题信息不足以规划任务，请输出空数组：{\"tasks\": []}。必要时使用笔记工具记录你的思考过程。\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:21:54.627703</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "content": "{\n  \"tasks\": [\n    {\n      \"title\": \"量子比特研究\",\n      \"intent\": \"探究量子比特的基本特性和应用领域\",\n      \"query\": \"量子比特 基本特性 应用领域\"\n    },\n    {\n      \"title\": \"量子算法分析\",\n      \"intent\": \"分析现有量子算法的优缺点和适用场景\",\n      \"query\": \"量子算法 优缺点 适用场景\"\n    },\n    {\n      \"title\": \"量子计算机架构\",\n      \"intent\": \"研究量子计算机的硬件架构和关键技术\",\n      \"query\": \"量子计算机 架构 技术\"\n    },\n    {\n      \"title\": \"量子计算应用前景\",\n      \"intent\": \"探讨量子计算在各个领域的潜在应用\",\n      \"query\": \"量子计算 应用前景 领域\"\n    },\n    {\n      \"title\": \"量子计算挑战与机遇\",\n      \"intent\": \"分析量子计算面临的挑战及其带来的机遇\",\n      \"query\": \"量子计算 挑战 机遇\"\n    }\n  ]\n}",
+  "tool_calls": 0,
+  "usage": {
+    "prompt_tokens": 2264,
+    "completion_tokens": 219,
+    "total_tokens": 2483
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T16:21:54.644100</span>
+                <span class="event-type">session_end</span>
+                <span class="expandable" onclick="toggleDetails('details-4')">[▼ 详情]</span>
+            </div>
+            <div id="details-4" class="details">
+                <pre>{
+  "duration": 7.573354,
+  "total_steps": 1,
+  "final_answer": "{\n  \"tasks\": [\n    {\n      \"title\": \"量子比特研究\",\n      \"intent\": \"探究量子比特的基本特性和应用领域\",\n      \"query\": \"量子比特 基本特性 应用领域\"\n    },\n    {\n      \"title\": \"量子算法分析\",\n      \"intent\": \"分析现有量子算法的优缺点和适用场景\",\n      \"query\": \"量子算法 优缺点 适用场景\"\n    },\n    {\n      \"title\": \"量子计算机架构\",\n      \"intent\": \"研究量子计算机的硬件架构和关键技术\",\n      \"query\": \"量子计算机 架构 技术\"\n    },\n    {\n      \"title\": \"量子计算应用前景\",\n      \"intent\": \"探讨量子计算在各个领域的潜在应用\",\n      \"query\": \"量子计算 应用前景 领域\"\n    },\n    {\n      \"title\": \"量子计算挑战与机遇\",\n      \"intent\": \"分析量子计算面临的挑战及其带来的机遇\",\n      \"query\": \"量子计算 挑战 机遇\"\n    }\n  ]\n}",
+  "status": "success"
+}</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stats-panel">
+        <h2>📊 会话统计</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">总步骤数</span>
+                <span class="stat-value">1</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总 Token</span>
+                <span class="stat-value">2,483</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总成本</span>
+                <span class="stat-value">$0.0000</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">会话时长</span>
+                <span class="stat-value">7.6s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">模型调用次数</span>
+                <span class="stat-value">1</span>
+            </div>
+        </div>
+
+        <h3>🔧 工具调用统计</h3>
+        <table class="tool-stats">
+            <tr><th>工具名称</th><th>调用次数</th></tr>
+            <tr><td colspan="2">无工具调用</td></tr>
+        </table>
+
+        
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

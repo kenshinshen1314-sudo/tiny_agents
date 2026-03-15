@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260315-160815-b513</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260315-160815-b513</h1>
+        <p>生成时间: 2026-03-15 16:08:15</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T16:08:15.436455</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "研究规划专家",
+  "agent_type": "ToolAwareSimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T16:08:15.436513</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "\n\n<CONTEXT>\n当前日期：March 15, 2026\n研究主题：Python异步编程\n</CONTEXT>\n\n<FORMAT>\n请严格以 JSON 格式回复：\n{\n  \"tasks\": [\n    {\n      \"title\": \"任务名称（10字内，突出重点）\",\n      \"intent\": \"任务要解决的核心问题，用1-2句描述\",\n      \"query\": \"建议使用的检索关键词\"\n    }\n  ]\n}\n</FORMAT>\n\n如果主题信息不足以规划任务，请输出空数组：{\"tasks\": []}。必要时使用笔记工具记录你的思考过程。\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:08:28.141283</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "content": "我将为\"Python异步编程\"主题规划4个关键调研任务，并同步创建笔记记录。",
+  "tool_calls": 4,
+  "usage": {
+    "prompt_tokens": 2074,
+    "completion_tokens": 940,
+    "total_tokens": 3014
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:08:28.141695</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-4')">[▼ 详情]</span>
+            </div>
+            <div id="details-4" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806848288845462093",
+  "args": {
+    "action": "create",
+    "title": "任务 1: 核心原理",
+    "note_type": "task_state",
+    "tags": [
+      "deep_research",
+      "task_1"
+    ],
+    "content": "任务概览：理解Python异步编程的核心概念与底层原理\n\n系统提示：研究规划专家，负责拆解复杂主题为可执行的调研任务\n\n来源概览：用户提出\"Python异步编程\"研究主题\n\n任务总结：\n- 目标意图：掌握async/await语法、事件循环机制、协程工作原理等核心概念\n- 检索方向：Python asyncio官方文档、协程实现原理、事件循环机制\n- 预期产出：核心概念清单、原理图解、关键API说明"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:08:28.142911</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-5')">[▼ 详情]</span>
+            </div>
+            <div id="details-5" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806848288845462093",
+  "result": "❌ 工具调用失败：'ToolAwareSimpleAgent' object has no attribute '_parse_tool_parameters'"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:08:28.143122</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-6')">[▼ 详情]</span>
+            </div>
+            <div id="details-6" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806848288845462092",
+  "args": {
+    "action": "create",
+    "title": "任务 2: 应用场景",
+    "note_type": "task_state",
+    "tags": [
+      "deep_research",
+      "task_2"
+    ],
+    "content": "任务概览：探索Python异步编程的实际应用场景\n\n系统提示：研究规划专家，负责拆解复杂主题为可执行的调研任务\n\n来源概览：用户提出\"Python异步编程\"研究主题\n\n任务总结：\n- 目标意图：识别异步编程最适合的场景，如Web服务、网络爬虫、数据库操作等\n- 检索方向：异步编程应用案例、IO密集型任务、并发性能对比\n- 预期产出：场景分类清单、性能对比数据、典型代码示例"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:08:28.143408</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-7')">[▼ 详情]</span>
+            </div>
+            <div id="details-7" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806848288845462092",
+  "result": "❌ 工具调用失败：'ToolAwareSimpleAgent' object has no attribute '_parse_tool_parameters'"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:08:28.145223</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-8')">[▼ 详情]</span>
+            </div>
+            <div id="details-8" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806848288845462091",
+  "args": {
+    "action": "create",
+    "title": "任务 3: 最佳实践",
+    "note_type": "task_state",
+    "tags": [
+      "deep_research",
+      "task_3"
+    ],
+    "content": "任务概览：总结Python异步编程的最佳实践与常见陷阱\n\n系统提示：研究规划专家，负责拆解复杂主题为可执行的调研任务\n\n来源概览：用户提出\"Python异步编程\"研究主题\n\n任务总结：\n- 目标意图：收集异步编程的编码规范、性能优化技巧、调试方法及常见错误\n- 检索方向：异步编程最佳实践、常见错误案例、性能优化指南\n- 预期产出：实践清单、陷阱警示、优化建议"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:08:28.145452</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-9')">[▼ 详情]</span>
+            </div>
+            <div id="details-9" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806848288845462091",
+  "result": "❌ 工具调用失败：'ToolAwareSimpleAgent' object has no attribute '_parse_tool_parameters'"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:08:28.145528</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-10')">[▼ 详情]</span>
+            </div>
+            <div id="details-10" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806848288845462090",
+  "args": {
+    "action": "create",
+    "title": "任务 4: 生态工具",
+    "note_type": "task_state",
+    "tags": [
+      "deep_research",
+      "task_4"
+    ],
+    "content": "任务概览：调研Python异步编程生态中的主流工具与框架\n\n系统提示：研究规划专家，负责拆解复杂主题为可执行的调研任务\n\n来源概览：用户提出\"Python异步编程\"研究主题\n\n任务总结：\n- 目标意图：梳理asyncio生态中的核心库、框架及其适用场景\n- 检索方向：Python异步库对比、aiohttp/asyncpg等主流库、框架选型指南\n- 预期产出：工具清单、选型决策树、集成示例"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-15T16:08:28.145673</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-11')">[▼ 详情]</span>
+            </div>
+            <div id="details-11" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806848288845462090",
+  "result": "❌ 工具调用失败：'ToolAwareSimpleAgent' object has no attribute '_parse_tool_parameters'"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T16:09:00.544925</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-12')">[▼ 详情]</span>
+            </div>
+            <div id="details-12" class="details">
+                <pre>{
+  "content": "",
+  "tool_calls": 4,
+  "usage": {
+    "prompt_tokens": 2831,
+    "completion_tokens": 985,
+    "total_tokens": 3816
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T16:09:00.545378</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-13')">[▼ 详情]</span>
+            </div>
+            <div id="details-13" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806887699465366065",
+  "args": {
+    "action": "create",
+    "title": "任务 1: 核心原理",
+    "note_type": "task_state",
+    "tags": [
+      "deep_research",
+      "task_1"
+    ],
+    "content": "任务概览：理解Python异步编程的核心概念与底层原理\n\n系统提示：研究规划专家，负责拆解复杂主题为可执行的调研任务\n\n来源概览：用户提出\"Python异步编程\"研究主题\n\n任务总结：\n- 目标意图：掌握async/await语法、事件循环机制、协程工作原理等核心概念\n- 检索方向：Python asyncio官方文档、协程实现原理、事件循环机制\n- 预期产出：核心概念清单、原理图解、关键API说明"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T16:09:00.546181</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-14')">[▼ 详情]</span>
+            </div>
+            <div id="details-14" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806887699465366065",
+  "result": "❌ 工具调用失败：'ToolAwareSimpleAgent' object has no attribute '_parse_tool_parameters'"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T16:09:00.546300</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-15')">[▼ 详情]</span>
+            </div>
+            <div id="details-15" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806887699465366064",
+  "args": {
+    "action": "create",
+    "title": "任务 2: 应用场景",
+    "note_type": "task_state",
+    "tags": [
+      "deep_research",
+      "task_2"
+    ],
+    "content": "任务概览：探索Python异步编程的实际应用场景\n\n系统提示：研究规划专家，负责拆解复杂主题为可执行的调研任务\n\n来源概览：用户提出\"Python异步编程\"研究主题\n\n任务总结：\n- 目标意图：识别异步编程最适合的场景，如Web服务、网络爬虫、数据库操作等\n- 检索方向：异步编程应用案例、IO密集型任务、并发性能对比\n- 预期产出：场景分类清单、性能对比数据、典型代码示例"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T16:09:00.546540</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-16')">[▼ 详情]</span>
+            </div>
+            <div id="details-16" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806887699465366064",
+  "result": "❌ 工具调用失败：'ToolAwareSimpleAgent' object has no attribute '_parse_tool_parameters'"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T16:09:00.546633</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-17')">[▼ 详情]</span>
+            </div>
+            <div id="details-17" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806887699465366063",
+  "args": {
+    "action": "create",
+    "title": "任务 3: 最佳实践",
+    "note_type": "task_state",
+    "tags": [
+      "deep_research",
+      "task_3"
+    ],
+    "content": "任务概览：总结Python异步编程的最佳实践与常见陷阱\n\n系统提示：研究规划专家，负责拆解复杂主题为可执行的调研任务\n\n来源概览：用户提出\"Python异步编程\"研究主题\n\n任务总结：\n- 目标意图：收集异步编程的编码规范、性能优化技巧、调试方法及常见错误\n- 检索方向：异步编程最佳实践、常见错误案例、性能优化指南\n- 预期产出：实践清单、陷阱警示、优化建议"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T16:09:00.546799</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-18')">[▼ 详情]</span>
+            </div>
+            <div id="details-18" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806887699465366063",
+  "result": "❌ 工具调用失败：'ToolAwareSimpleAgent' object has no attribute '_parse_tool_parameters'"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T16:09:00.546875</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-19')">[▼ 详情]</span>
+            </div>
+            <div id="details-19" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806887699465366062",
+  "args": {
+    "action": "create",
+    "title": "任务 4: 生态工具",
+    "note_type": "task_state",
+    "tags": [
+      "deep_research",
+      "task_4"
+    ],
+    "content": "任务概览：调研Python异步编程生态中的主流工具与框架\n\n系统提示：研究规划专家，负责拆解复杂主题为可执行的调研任务\n\n来源概览：用户提出\"Python异步编程\"研究主题\n\n任务总结：\n- 目标意图：梳理asyncio生态中的核心库、框架及其适用场景\n- 检索方向：Python异步库对比、aiohttp/asyncpg等主流库、框架选型指南\n- 预期产出：工具清单、选型决策树、集成示例"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-15T16:09:00.547047</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-20')">[▼ 详情]</span>
+            </div>
+            <div id="details-20" class="details">
+                <pre>{
+  "tool_name": "note",
+  "tool_call_id": "call_-7806887699465366062",
+  "result": "❌ 工具调用失败：'ToolAwareSimpleAgent' object has no attribute '_parse_tool_parameters'"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-15T16:09:18.725105</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-21')">[▼ 详情]</span>
+            </div>
+            <div id="details-21" class="details">
+                <pre>{
+  "content": "```json\n{\n  \"tasks\": [\n    {\n      \"title\": \"核心原理\",\n      \"intent\": \"掌握async/await语法、事件循环机制、协程工作原理等核心概念\",\n      \"query\": \"Python asyncio async await 协程原理 事件循环\"\n    },\n    {\n      \"title\": \"应用场景\",\n      \"intent\": \"识别异步编程最适合的场景，如Web服务、网络爬虫、数据库操作等\",\n      \"query\": \"Python异步编程应用场景 IO密集型任务 并发性能对比\"\n    },\n    {\n      \"title\": \"最佳实践\",\n      \"intent\": \"收集异步编程的编码规范、性能优化技巧、调试方法及常见错误\",\n      \"query\": \"Python异步编程最佳实践 常见错误 性能优化 调试技巧\"\n    },\n    {\n      \"title\": \"生态工具\",\n      \"intent\": \"梳理asyncio生态中的核心库、框架及其适用场景\",\n      \"query\": \"Python异步库 aiohttp asyncpg 异步框架对比 选型指南\"\n    }\n  ]\n}\n```",
+  "tool_calls": 0,
+  "usage": {
+    "prompt_tokens": 3567,
+    "completion_tokens": 250,
+    "total_tokens": 3817
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T16:09:18.753447</span>
+                <span class="event-type">session_end</span>
+                <span class="expandable" onclick="toggleDetails('details-22')">[▼ 详情]</span>
+            </div>
+            <div id="details-22" class="details">
+                <pre>{
+  "duration": 63.317135,
+  "total_steps": 3,
+  "final_answer": "```json\n{\n  \"tasks\": [\n    {\n      \"title\": \"核心原理\",\n      \"intent\": \"掌握async/await语法、事件循环机制、协程工作原理等核心概念\",\n      \"query\": \"Python asyncio async await 协程原理 事件循环\"\n    },\n    {\n      \"title\": \"应用场景\",\n      \"intent\": \"识别异步编程最适合的场景，如Web服务、网络爬虫、数据库操作等\",\n      \"query\": \"Python异步编程应用场景 IO密集型任务 并发性能对比\"\n    },\n    {\n      \"title\": \"最佳实践\",\n      \"intent\": \"收集异步编程的编码规范、性能优化技巧、调试方法及常见错误\",\n      \"query\": \"Python异步编程最佳实践 常见错误 性能优化 调试技巧\"\n    },\n    {\n      \"title\": \"生态工具\",\n      \"intent\": \"梳理asyncio生态中的核心库、框架及其适用场景\",\n      \"query\": \"Python异步库 aiohttp asyncpg 异步框架对比 选型指南\"\n    }\n  ]\n}\n```",
+  "status": "success"
+}</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stats-panel">
+        <h2>📊 会话统计</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">总步骤数</span>
+                <span class="stat-value">3</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总 Token</span>
+                <span class="stat-value">10,647</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总成本</span>
+                <span class="stat-value">$0.0000</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">会话时长</span>
+                <span class="stat-value">63.3s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">模型调用次数</span>
+                <span class="stat-value">3</span>
+            </div>
+        </div>
+
+        <h3>🔧 工具调用统计</h3>
+        <table class="tool-stats">
+            <tr><th>工具名称</th><th>调用次数</th></tr>
+            <tr><td>note</td><td>8</td></tr>
+
+        </table>
+
+        
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

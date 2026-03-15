@@ -13,6 +13,10 @@ assistant/trip_planner_assistant/frontend/node_modules/
 assistant/trip_planner_assistant/frontend/.env
 assistant/trip_planner_assistant/backend/.env
 
+assistant/deep_research/backend/.env
+assistant/deep_research/frontend/node_modules/
+
+
 # 模型文件
 *.safetensors
 *.bin
