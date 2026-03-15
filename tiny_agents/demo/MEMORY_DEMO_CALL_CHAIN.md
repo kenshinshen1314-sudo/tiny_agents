@@ -71,7 +71,7 @@ agent.tool_registry = tool_registry
 │                            │       └── memory/storage/qdrant_store.py:QdrantVectorStore.__init__()
 │                            │           ├── self.client = QdrantClient(url, api_key)
 │                            │           └── self._ensure_collection()
-│                            │               └── 创建/获取 hello_agents_vectors 集合
+│                            │               └── 创建/获取 tiny_agents_vectors 集合
 │                            ├── self.graph_store = Neo4jGraphStore()
 │                            │   └── memory/storage/neo4j_store.py:Neo4jGraphStore.__init__()
 │                            │       └── 连接 Neo4j 图数据库
@@ -230,7 +230,7 @@ print("Agent Response:", result)
 │                           │           │   )]                                │
 │                           │           │                                     │
 │                           │           └── self.client.upsert(               │
-│                           │                   collection_name="hello_agents_vectors",│
+│                           │                   collection_name="tiny_agents_vectors",│
 │                           │                   points=points                  │
 │                           │               )                                 │
 │                           │               └── Qdrant HTTP API 调用           │
@@ -475,7 +475,7 @@ print(result)
 │                               │       │       │   ])                                 │
 │                               │       │       │                                       │
 │                               │       │       ├── self.client.query_points(          │
-│                               │       │       │       collection_name="hello_agents_vectors",│
+│                               │       │       │       collection_name="tiny_agents_vectors",│
 │                               │       │       │       query=query_vector,             │
 │                               │       │       │       query_filter=Filter,            │
 │                               │       │       │       limit=6                         │

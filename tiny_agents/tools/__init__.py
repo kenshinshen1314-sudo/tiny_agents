@@ -21,6 +21,10 @@ from .builtin.note_tool import NoteTool
 from .builtin.search_tool import SearchTool
 from .builtin.protocol_tools import MCPTool, A2ATool, ANPTool
 from .builtin.rl_training_tool import RLTrainingTool
+from .builtin.bfcl_evaluation_tool import BFCLEvaluationTool
+from .builtin.gaia_evaluation_tool import GAIAEvaluationTool
+from .builtin.win_rate_tool import WinRateTool, WinRateEvaluator
+
 
 
 # 子代理机制
@@ -63,6 +67,10 @@ __all__ = [
     "A2ATool",
     "ANPTool",
     "RLTrainingTool",
+    "BFCLEvaluationTool",
+    "GAIAEvaluationTool",
+    "WinRateTool",
+    "WinRateEvaluator",
 
     # 子代理机制
     "ToolFilter",

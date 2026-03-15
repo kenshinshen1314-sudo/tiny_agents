@@ -309,10 +309,10 @@ def grpo_training_config():
         "output_dir": "./models/grpo_model",
         
         # 使用较少样本进行快速测试
-        "max_samples": 100,
+        "max_samples": 200,
 
-        "num_epochs": 2,
-        "batch_size": 4,
+        "num_epochs": 1,
+        "batch_size": 2,
         "learning_rate": 1e-5,
         "warmup_ratio": 0.1,
 

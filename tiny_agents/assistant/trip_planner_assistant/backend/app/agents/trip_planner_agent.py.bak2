@@ -1,0 +1,606 @@
+"""多智能体旅行规划系统"""
+
+import json
+from typing import Dict, Any, List, Optional, Callable
+from hello_agents import SimpleAgent
+from hello_agents.tools import MCPTool
+from ..services.llm_service import get_llm
+from ..models.schemas import TripRequest, TripPlan, DayPlan, Attraction, Meal, WeatherInfo, Location, Hotel
+from ..config import get_settings
+
+# ============ 进度回调 ============
+
+class ProgressCallback:
+    """进度回调类，用于实时推送进度"""
+    
+    STEPS = [
+        {"step": 1, "title": "🔍 搜索景点", "message": "正在搜索相关景点...", "progress": 15},
+        {"step": 2, "title": "🌤️ 查询天气", "message": "正在查询目的地的天气情况...", "progress": 35},
+        {"step": 3, "title": "🏨 推荐酒店", "message": "正在搜索合适的酒店...", "progress": 55},
+        {"step": 4, "title": "📋 生成行程", "message": "正在生成详细的旅行计划...", "progress": 75},
+        {"step": 5, "title": "🚗 计算路线", "message": "正在计算每天的交通路线...", "progress": 90},
+    ]
+    
+    def __init__(self):
+        self._step = 0
+        self._progress = 0
+        self._message = "准备中..."
+        self._callback: Optional[Callable] = None
+    
+    def set_callback(self, callback: Callable):
+        """设置回调函数"""
+        self._callback = callback
+    
+    def update(self, step: int, message: str = "", progress: int = 0):
+        """更新进度"""
+        if step > 0 and step <= len(self.STEPS):
+            step_info = self.STEPS[step - 1]
+            self._step = step
+            self._progress = step_info["progress"]
+            self._message = step_info["message"]
+        else:
+            self._step = step
+            self._progress = progress
+            if message:
+                self._message = message
+        
+        if self._callback:
+            self._callback(self.get_progress())
+    
+    def get_progress(self) -> Dict[str, Any]:
+        """获取当前进度"""
+        return {
+            "step": self._step,
+            "progress": self._progress,
+            "message": self._message,
+            "status": "running"
+        }
+
+
+# ============ Agent提示词 ============
+
+ATTRACTION_AGENT_PROMPT = """你是景点搜索专家。你的任务是根据城市和用户偏好搜索合适的景点。
+
+**重要提示:**
+你必须使用工具来搜索景点!不要自己编造景点信息!
+
+**工具调用格式:**
+使用amap_maps_text_search工具时,必须严格按照以下格式:
+`[TOOL_CALL:amap_maps_text_search:keywords=景点关键词,city=城市名]`
+
+**示例:**
+用户: "搜索北京的历史文化景点"
+你的回复: [TOOL_CALL:amap_maps_text_search:keywords=历史文化,city=北京]
+
+用户: "搜索上海的公园"
+你的回复: [TOOL_CALL:amap_maps_text_search:keywords=公园,city=上海]
+
+**注意:**
+1. 必须使用工具,不要直接回答
+2. 格式必须完全正确,包括方括号和冒号
+3. 参数用逗号分隔
+"""
+
+WEATHER_AGENT_PROMPT = """你是天气查询专家。你的任务是查询指定城市的天气信息。
+
+**重要提示:**
+你必须使用工具来查询天气!不要自己编造天气信息!
+
+**工具调用格式:**
+使用maps_weather工具时,必须严格按照以下格式:
+`[TOOL_CALL:amap_maps_weather:city=城市名]`
+
+**示例:**
+用户: "查询北京天气"
+你的回复: [TOOL_CALL:amap_maps_weather:city=北京]
+
+用户: "上海的天气怎么样"
+你的回复: [TOOL_CALL:amap_maps_weather:city=上海]
+
+**注意:**
+1. 必须使用工具,不要直接回答
+2. 格式必须完全正确,包括方括号和冒号
+"""
+
+HOTEL_AGENT_PROMPT = """你是酒店推荐专家。你的任务是根据城市和景点位置推荐合适的酒店。
+
+**重要提示:**
+你必须使用工具来搜索酒店!不要自己编造酒店信息!
+
+**工具调用格式:**
+使用amap_maps_text_search工具搜索酒店时,必须严格按照以下格式:
+`[TOOL_CALL:amap_maps_text_search:keywords=酒店,city=城市名]`
+
+**示例:**
+用户: "搜索北京的酒店"
+你的回复: [TOOL_CALL:amap_maps_text_search:keywords=酒店,city=北京]
+
+**注意:**
+1. 必须使用工具,不要直接回答
+2. 格式必须完全正确,包括方括号和冒号
+3. 关键词使用"酒店"或"宾馆"
+"""
+
+PLANNER_AGENT_PROMPT = """你是行程规划专家。根据景点、天气、酒店信息，生成简洁的旅行计划JSON。
+
+要求：返回精简的JSON，越短越好，只需包含必要信息。
+```json
+{
+  "city": "城市",
+  "start_date": "YYYY-MM-DD",
+  "end_date": "YYYY-MM-DD",
+  "days": [
+    {
+      "date": "YYYY-MM-DD",
+      "day_index": 0,
+      "description": "行程简述",
+      "transportation": "交通方式",
+      "accommodation": "住宿类型",
+      "hotel": {"name": "酒店名", "address": "地址", "location": {"longitude": 116.4, "latitude": 39.9}, "price_range": "300-500元", "rating": "4.5", "type": "经济型", "estimated_cost": 400},
+      "attractions": [{"name": "景点名", "address": "地址", "location": {"longitude": 116.4, "latitude": 39.9}, "visit_duration": 120, "description": "简介", "category": "景点", "ticket_price": 60}],
+      "meals": [{"type": "breakfast", "name": "早餐", "estimated_cost": 30}, {"type": "lunch", "name": "午餐", "estimated_cost": 50}, {"type": "dinner", "name": "晚餐", "estimated_cost": 80}]
+    }
+  ],
+  "weather_info": [{"date": "YYYY-MM-DD", "day_weather": "晴", "night_weather": "多云", "day_temp": 25, "night_temp": 15}],
+  "overall_suggestions": "建议",
+  "budget": {"total_attractions": 180, "total_hotels": 1200, "total_meals": 480, "total_transportation": 200, "total": 2060}
+}
+```
+
+**简洁要求：**
+1. 描述(description)最多20字
+2. 景点只列名称和必要信息，不需要详细描述
+3. 餐饮只列名称和费用，不需要描述
+4. 每天2-3个景点即可
+5. 温度只要数字，不要单位
+"""
+
+ROUTE_AGENT_PROMPT = """你是交通路线规划专家。你的任务是根据酒店位置和每天的景点，计算最优的交通路线。
+
+**重要提示:**
+你必须使用工具来计算路线!不要自己编造距离和时间信息!
+
+**工具调用格式:**
+根据交通方式使用不同的工具:
+- 自驾: 使用amap_maps_direction_driving_by_address工具
+  `[TOOL_CALL:amap_maps_direction_driving_by_address:origin_address=起点地址,origin_city=城市名,destination_address=终点地址,destination_city=城市名]`
+- 步行: 使用amap_maps_direction_walking_by_address工具
+  `[TOOL_CALL:amap_maps_direction_walking_by_address:origin_address=起点地址,origin_city=城市名,destination_address=终点地址,destination_city=城市名]`
+- 公共交通: 使用amap_maps_direction_transit_integrated_by_address工具
+  `[TOOL_CALL:amap_maps_direction_transit_integrated_by_address:origin_address=起点地址,origin_city=城市名,destination_address=终点地址,destination_city=城市名]`
+
+**示例:**
+用户: "计算从北京天安门到故宫的驾车路线"
+你的回复: [TOOL_CALL:amap_maps_direction_driving_by_address:origin_address=天安门,origin_city=北京,destination_address=故宫,destination_city=北京]
+
+用户: "计算从天安门到景山公园的步行路线"
+你的回复: [TOOL_CALL:amap_maps_direction_walking_by_address:origin_address=天安门,origin_city=北京,destination_address=景山公园,destination_city=北京]
+
+**注意:**
+1. 必须使用工具,不要直接回答
+2. 格式必须完全正确,包括方括号和冒号
+3. 参数用逗号分隔
+4. origin_city和destination_city使用城市名称(如"北京")
+"""
+
+
+class MultiAgentTripPlanner:
+    """多智能体旅行规划系统"""
+
+    def __init__(self):
+        """初始化多智能体系统"""
+        print("🔄 开始初始化多智能体旅行规划系统...")
+
+        try:
+            settings = get_settings()
+            self.llm = get_llm()
+
+            # 创建共享的MCP工具(只创建一次)
+            print("  - 创建共享MCP工具...")
+            self.amap_tool = MCPTool(
+                name="amap",
+                description="高德地图服务",
+                server_command=["uvx", "amap-mcp-server"],
+                env={"AMAP_MAPS_API_KEY": settings.amap_api_key},
+                auto_expand=True
+            )
+
+            # 创建景点搜索Agent
+            print("  - 创建景点搜索Agent...")
+            self.attraction_agent = SimpleAgent(
+                name="景点搜索专家",
+                llm=self.llm,
+                system_prompt=ATTRACTION_AGENT_PROMPT
+            )
+            self.attraction_agent.add_tool(self.amap_tool)
+
+            # 创建天气查询Agent
+            print("  - 创建天气查询Agent...")
+            self.weather_agent = SimpleAgent(
+                name="天气查询专家",
+                llm=self.llm,
+                system_prompt=WEATHER_AGENT_PROMPT
+            )
+            self.weather_agent.add_tool(self.amap_tool)
+
+            # 创建酒店推荐Agent
+            print("  - 创建酒店推荐Agent...")
+            self.hotel_agent = SimpleAgent(
+                name="酒店推荐专家",
+                llm=self.llm,
+                system_prompt=HOTEL_AGENT_PROMPT
+            )
+            self.hotel_agent.add_tool(self.amap_tool)
+
+            # 创建交通路线规划Agent
+            print("  - 创建交通路线规划Agent...")
+            self.route_agent = SimpleAgent(
+                name="交通路线规划专家",
+                llm=self.llm,
+                system_prompt=ROUTE_AGENT_PROMPT
+            )
+            self.route_agent.add_tool(self.amap_tool)
+
+            # 创建行程规划Agent(不需要工具)
+            print("  - 创建行程规划Agent...")
+            self.planner_agent = SimpleAgent(
+                name="行程规划专家",
+                llm=self.llm,
+                system_prompt=PLANNER_AGENT_PROMPT
+            )
+
+            print(f"✅ 多智能体系统初始化成功")
+            print(f"   景点搜索Agent: {len(self.attraction_agent.list_tools())} 个工具")
+
+            # 打印可用的工具名称
+            tools = self.attraction_agent.list_tools()
+            print(f"   📋 可用工具列表:")
+            for tool in tools:
+                print(f"      - {tool}")
+            print(f"   天气查询Agent: {len(self.weather_agent.list_tools())} 个工具")
+            print(f"   酒店推荐Agent: {len(self.hotel_agent.list_tools())} 个工具")
+
+        except Exception as e:
+            print(f"❌ 多智能体系统初始化失败: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            raise
+    
+    def plan_trip(self, request: TripRequest, progress_callback: Optional[ProgressCallback] = None) -> TripPlan:
+        """
+        使用多智能体协作生成旅行计划
+
+        Args:
+            request: 旅行请求
+
+        Returns:
+            旅行计划
+        """
+        try:
+            print(f"\n{'='*60}")
+            print(f"🚀 开始多智能体协作规划旅行...")
+            print(f"目的地: {request.city}")
+            print(f"日期: {request.start_date} 至 {request.end_date}")
+            print(f"天数: {request.travel_days}天")
+            print(f"偏好: {', '.join(request.preferences) if request.preferences else '无'}")
+            print(f"{'='*60}\n")
+
+            # 步骤1: 景点搜索Agent搜索景点
+            print("📍 步骤1: 搜索景点...")
+            attraction_query = self._build_attraction_query(request)
+            attraction_response = self.attraction_agent.run(attraction_query)
+            print(f"景点搜索结果: {attraction_response[:200]}...\n")
+            if progress_callback:
+                progress_callback.update(1)
+
+            # 步骤2: 天气查询Agent查询天气
+            print("🌤️  步骤2: 查询天气...")
+            weather_query = f"请查询{request.city}的天气信息"
+            weather_response = self.weather_agent.run(weather_query)
+            print(f"天气查询结果: {weather_response[:200]}...\n")
+            if progress_callback:
+                progress_callback.update(2)
+
+            # 步骤3: 酒店推荐Agent搜索酒店
+            print("🏨 步骤3: 搜索酒店...")
+            hotel_query = f"请搜索{request.city}的{request.accommodation}酒店"
+            hotel_response = self.hotel_agent.run(hotel_query)
+            print(f"酒店搜索结果: {hotel_response[:200]}...\n")
+            if progress_callback:
+                progress_callback.update(3)
+
+            # 步骤4: 行程规划Agent整合信息生成计划
+            print("📋 步骤4: 生成行程计划...")
+            planner_query = self._build_planner_query(request, attraction_response, weather_response, hotel_response)
+            planner_response = self.planner_agent.run(planner_query)
+            print(f"行程规划结果: {planner_response[:300]}...\n")
+            if progress_callback:
+                progress_callback.update(4)
+
+            # 步骤5: 交通路线规划Agent计算每天的交通路线
+            print("🚗 步骤5: 计算交通路线...")
+            try:
+                # 先解析基本计划
+                trip_plan = self._parse_response(planner_response, request)
+                # 计算并添加路线信息
+                trip_plan = self._enrich_routes(trip_plan, request)
+            except Exception as route_error:
+                print(f"   ⚠️ 路线计算出错: {str(route_error)[:100]}")
+                # 创建一个空的路线信息
+                for day in trip_plan.days:
+                    day.routes = []
+                    day.total_distance = 0
+                    day.total_duration = 0
+                    day.transport_cost = 0
+
+            if progress_callback:
+                progress_callback.update(5)
+
+            print(f"{'='*60}")
+            print(f"✅ 旅行计划生成完成!")
+            print(f"{'='*60}\n")
+
+            return trip_plan
+
+        except Exception as e:
+            error_str = str(e)
+            # 检查是否是 MCP JSON-RPC 错误
+            if "Failed to parse JSONRPC" in error_str or "JSONRPCMessage" in error_str or "JSONRPC" in error_str:
+                print(f"⚠️ MCP服务器响应格式错误: {error_str[:100]}")
+                # 尝试返回部分结果
+                if 'trip_plan' in locals():
+                    return trip_plan
+            print(f"❌ 生成旅行计划失败: {error_str[:200]}")
+            import traceback
+            traceback.print_exc()
+            return self._create_fallback_plan(request)
+    
+    def _build_attraction_query(self, request: TripRequest) -> str:
+        """构建景点搜索查询 - 直接包含工具调用"""
+        keywords = []
+        if request.preferences:
+            # 只取第一个偏好作为关键词
+            keywords = request.preferences[0]
+        else:
+            keywords = "景点"
+
+        # 直接返回工具调用格式
+        query = f"请使用amap_maps_text_search工具搜索{request.city}的{keywords}相关景点。\n[TOOL_CALL:amap_maps_text_search:keywords={keywords},city={request.city}]"
+        return query
+
+    def _enrich_routes(self, trip_plan: TripPlan, request: TripRequest) -> TripPlan:
+        """为每天的行程添加交通路线信息"""
+        try:
+            # 由于MCP服务器存在JSON-RPC解析问题，暂时使用估算值
+            # 如需启用真实路线计算，需要修复amap-mcp-server的问题
+            
+            transportation = request.transportation
+            print(f"   DEBUG: Processing {len(trip_plan.days)} days")
+            
+            for day in trip_plan.days:
+                if not day.hotel:
+                    continue
+                
+                routes = []
+                total_distance = 0
+                total_duration = 0
+                
+                # 为每个路段创建估算值
+                # 假设每个路段平均2公里，15分钟
+                for i, attr in enumerate(day.attractions):
+                    from app.models.schemas import DayRouteInfo
+                    routes.append(DayRouteInfo(
+                        origin=day.hotel.address if i == 0 else day.attractions[i-1].address,
+                        destination=attr.address,
+                        distance=2.0,
+                        duration=15,
+                        mode=transportation
+                    ))
+                    total_distance += 2.0
+                    total_duration += 15
+                
+                # 添加返回酒店的路线
+                if day.attractions:
+                    from app.models.schemas import DayRouteInfo
+                    routes.append(DayRouteInfo(
+                        origin=day.attractions[-1].address,
+                        destination=day.hotel.address,
+                        distance=2.0,
+                        duration=15,
+                        mode=transportation
+                    ))
+                    total_distance += 2.0
+                    total_duration += 15
+                
+                # 添加路线信息到 day
+                day.routes = routes
+                day.total_distance = round(total_distance, 1)
+                day.total_duration = int(total_duration)
+                
+                # 更新交通费用估算
+                if transportation == "自驾":
+                    transport_cost = int(total_distance * 2)
+                else:
+                    transport_cost = int(total_duration * 0.5)
+                
+                day.transport_cost = transport_cost
+                
+            print(f"✅ 交通路线计算完成 (使用估算值)")
+            return trip_plan
+            
+        except Exception as e:
+            print(f"⚠️ 路线计算出错: {str(e)}")
+            return trip_plan
+    
+    def _parse_route_response(self, response: str) -> tuple:
+        """从路线响应中提取距离和时间"""
+        import re
+        
+        distance = 0
+        duration = 0
+        
+        # 尝试匹配距离 (公里)
+        distance_match = re.search(r'(\d+\.?\d*)\s*公里', response)
+        if distance_match:
+            distance = float(distance_match.group(1))
+        
+        # 尝试匹配时间 (分钟)
+        duration_match = re.search(r'(\d+)\s*分钟', response)
+        if duration_match:
+            duration = int(duration_match.group(1))
+        
+        # 尝试从 JSON 中提取
+        try:
+            import json
+            if '{' in response and '}' in response:
+                json_start = response.find('{')
+                json_end = response.rfind('}') + 1
+                json_str = response[json_start:json_end]
+                data = json.loads(json_str)
+                
+                if 'distance' in data:
+                    distance = float(data['distance'])
+                if 'duration' in data:
+                    duration = int(data['duration'])
+        except:
+            pass
+        
+        return distance, duration
+
+    def _build_planner_query(self, request: TripRequest, attractions: str, weather: str, hotels: str = "") -> str:
+        """构建行程规划查询"""
+        query = f"""请根据以下信息生成{request.city}的{request.travel_days}天旅行计划:
+
+**基本信息:**
+- 城市: {request.city}
+- 日期: {request.start_date} 至 {request.end_date}
+- 天数: {request.travel_days}天
+- 交通方式: {request.transportation}
+- 住宿: {request.accommodation}
+- 偏好: {', '.join(request.preferences) if request.preferences else '无'}
+
+**景点信息:**
+{attractions}
+
+**天气信息:**
+{weather}
+
+**酒店信息:**
+{hotels}
+
+**要求:**
+1. 每天安排2-3个景点
+2. 每天必须包含早中晚三餐
+3. 每天推荐一个具体的酒店(从酒店信息中选择)
+3. 考虑景点之间的距离和交通方式
+4. 返回完整的JSON格式数据
+5. 景点的经纬度坐标要真实准确
+"""
+        if request.free_text_input:
+            query += f"\n**额外要求:** {request.free_text_input}"
+
+        return query
+    
+    def _parse_response(self, response: str, request: TripRequest) -> TripPlan:
+        """
+        解析Agent响应
+        
+        Args:
+            response: Agent响应文本
+            request: 原始请求
+            
+        Returns:
+            旅行计划
+        """
+        try:
+            # 尝试从响应中提取JSON
+            # 查找JSON代码块
+            if "```json" in response:
+                json_start = response.find("```json") + 7
+                json_end = response.find("```", json_start)
+                json_str = response[json_start:json_end].strip()
+            elif "```" in response:
+                json_start = response.find("```") + 3
+                json_end = response.find("```", json_start)
+                json_str = response[json_start:json_end].strip()
+            elif "{" in response and "}" in response:
+                # 直接查找JSON对象
+                json_start = response.find("{")
+                json_end = response.rfind("}") + 1
+                json_str = response[json_start:json_end]
+            else:
+                raise ValueError("响应中未找到JSON数据")
+            
+            # 解析JSON
+            data = json.loads(json_str)
+            
+            # 转换为TripPlan对象
+            trip_plan = TripPlan(**data)
+            
+            return trip_plan
+            
+        except Exception as e:
+            print(f"⚠️  解析响应失败: {str(e)}")
+            print(f"   将使用备用方案生成计划")
+            return self._create_fallback_plan(request)
+    
+    def _create_fallback_plan(self, request: TripRequest) -> TripPlan:
+        """创建备用计划(当Agent失败时)"""
+        from datetime import datetime, timedelta
+        
+        # 解析日期
+        start_date = datetime.strptime(request.start_date, "%Y-%m-%d")
+        
+        # 创建每日行程
+        days = []
+        for i in range(request.travel_days):
+            current_date = start_date + timedelta(days=i)
+            
+            day_plan = DayPlan(
+                date=current_date.strftime("%Y-%m-%d"),
+                day_index=i,
+                description=f"第{i+1}天行程",
+                transportation=request.transportation,
+                accommodation=request.accommodation,
+                attractions=[
+                    Attraction(
+                        name=f"{request.city}景点{j+1}",
+                        address=f"{request.city}市",
+                        location=Location(longitude=116.4 + i*0.01 + j*0.005, latitude=39.9 + i*0.01 + j*0.005),
+                        visit_duration=120,
+                        description=f"这是{request.city}的著名景点",
+                        category="景点"
+                    )
+                    for j in range(2)
+                ],
+                meals=[
+                    Meal(type="breakfast", name=f"第{i+1}天早餐", description="当地特色早餐"),
+                    Meal(type="lunch", name=f"第{i+1}天午餐", description="午餐推荐"),
+                    Meal(type="dinner", name=f"第{i+1}天晚餐", description="晚餐推荐")
+                ]
+            )
+            days.append(day_plan)
+        
+        return TripPlan(
+            city=request.city,
+            start_date=request.start_date,
+            end_date=request.end_date,
+            days=days,
+            weather_info=[],
+            overall_suggestions=f"这是为您规划的{request.city}{request.travel_days}日游行程,建议提前查看各景点的开放时间。"
+        )
+
+
+# 全局多智能体系统实例
+_multi_agent_planner = None
+
+
+def get_trip_planner_agent() -> MultiAgentTripPlanner:
+    """获取多智能体旅行规划系统实例(单例模式)"""
+    global _multi_agent_planner
+
+    if _multi_agent_planner is None:
+        _multi_agent_planner = MultiAgentTripPlanner()
+
+    return _multi_agent_planner
+

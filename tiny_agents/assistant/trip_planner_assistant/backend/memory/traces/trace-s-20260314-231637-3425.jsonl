@@ -1,0 +1,4 @@
+{"ts": "2026-03-14T23:16:37.220828", "session_id": "s-20260314-231637-3425", "step": null, "event": "session_start", "payload": {"agent_name": "天气查询专家", "agent_type": "SimpleAgent"}}
+{"ts": "2026-03-14T23:16:37.220874", "session_id": "s-20260314-231637-3425", "step": null, "event": "message_written", "payload": {"role": "user", "content": "请查询长沙的天气信息"}}
+{"ts": "2026-03-14T23:16:37.221103", "session_id": "s-20260314-231637-3425", "step": 1, "event": "error", "payload": {"error_type": "LLM_ERROR", "message": "'HelloAgentsLLM' object has no attribute 'invoke_with_tools'"}}
+{"ts": "2026-03-14T23:16:37.221163", "session_id": "s-20260314-231637-3425", "step": null, "event": "session_end", "payload": {"duration": 0.000518, "total_steps": 1, "final_answer": "", "status": "success"}}

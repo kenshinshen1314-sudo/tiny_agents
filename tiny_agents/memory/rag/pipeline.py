@@ -468,7 +468,7 @@ def _create_default_vector_store(dimension: int = None) -> QdrantVectorStore:
     return QdrantConnectionManager.get_instance(
         url=qdrant_url,
         api_key=qdrant_api_key,
-        collection_name="hello_agents_rag_vectors",
+        collection_name="tiny_agents_rag_vectors",
         vector_size=dimension,
         distance="cosine"
     )
@@ -1130,7 +1130,7 @@ def tldr_summarize(text: str, bullets: int = 3) -> Optional[str]:
 def create_rag_pipeline(
     qdrant_url: Optional[str] = None,
     qdrant_api_key: Optional[str] = None,
-    collection_name: str = "hello_agents_rag_vectors",
+    collection_name: str = "tiny_agents_rag_vectors",
     rag_namespace: str = "default"
 ) -> Dict[str, Any]:
     """

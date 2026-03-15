@@ -1,18 +1,24 @@
 """HelloAgents统一LLM接口 - 基于OpenAI原生API"""
 
 import os
-from typing import Literal, Optional, Iterator
+from typing import Literal, Optional, Iterator, Any
 from openai import OpenAI
-from dotenv import load_dotenv
 
 from .exceptions import HelloAgentsException
 
-load_dotenv()  # 加载环境变量
-
 # 支持的LLM提供商
 SUPPORTED_PROVIDERS = Literal[
-    "openai", "deepseek", "qwen", "modelscope",
-    "kimi", "zhipu", "ollama", "vllm", "local", "auto"
+    "openai",
+    "deepseek",
+    "qwen",
+    "modelscope",
+    "kimi",
+    "zhipu",
+    "ollama",
+    "vllm",
+    "local",
+    "auto",
+    "custom",
 ]
 
 class HelloAgentsLLM:
@@ -59,10 +65,16 @@ class HelloAgentsLLM:
         self.kwargs = kwargs
 
         # 自动检测provider或使用指定的provider
+        requested_provider = (provider or "").lower() if provider else None
         self.provider = provider or self._auto_detect_provider(api_key, base_url)
 
-        # 根据provider确定API密钥和base_url
-        self.api_key, self.base_url = self._resolve_credentials(api_key, base_url)
+        if requested_provider == "custom":
+            self.provider = "custom"
+            self.api_key = api_key or os.getenv("LLM_API_KEY")
+            self.base_url = base_url or os.getenv("LLM_BASE_URL")
+        else:
+            # 根据provider确定API密钥和base_url
+            self.api_key, self.base_url = self._resolve_credentials(api_key, base_url)
 
         # 验证必要参数
         if not self.model:
@@ -152,7 +164,7 @@ class HelloAgentsLLM:
                         return "vllm"
                     else:
                         return "local"
-            elif any(port in base_url_lower for port in [":8080", ":7860", ":5123"]):
+            elif any(port in base_url_lower for port in [":8080", ":7860", ":5000"]):
                 # 常见的本地部署端口
                 return "local"
 
@@ -206,6 +218,11 @@ class HelloAgentsLLM:
             resolved_base_url = base_url or os.getenv("LLM_BASE_URL") or "http://localhost:8000/v1"
             return resolved_api_key, resolved_base_url
 
+        elif self.provider == "custom":
+            resolved_api_key = api_key or os.getenv("LLM_API_KEY")
+            resolved_base_url = base_url or os.getenv("LLM_BASE_URL")
+            return resolved_api_key, resolved_base_url
+
         else:
             # auto或其他情况：使用通用配置，支持任何OpenAI兼容的服务
             resolved_api_key = api_key or os.getenv("LLM_API_KEY")
@@ -233,13 +250,15 @@ class HelloAgentsLLM:
         elif self.provider == "kimi":
             return "moonshot-v1-8k"
         elif self.provider == "zhipu":
-            return "glm-4.7"
+            return "glm-4"
         elif self.provider == "ollama":
             return "llama3.2"  # Ollama常用模型
         elif self.provider == "vllm":
             return "meta-llama/Llama-2-7b-chat-hf"  # vLLM常用模型
         elif self.provider == "local":
             return "local-model"  # 本地模型占位符
+        elif self.provider == "custom":
+            return self.model or "gpt-3.5-turbo"
         else:
             # auto或其他情况：根据base_url智能推断默认模型
             base_url = os.getenv("LLM_BASE_URL", "")
@@ -314,6 +333,38 @@ class HelloAgentsLLM:
             return response.choices[0].message.content
         except Exception as e:
             raise HelloAgentsException(f"LLM调用失败: {str(e)}")
+
+    def invoke_with_tools(
+        self,
+        messages: list[dict[str, str]],
+        tools: list[dict],
+        tool_choice: str = "auto",
+        **kwargs
+    ) -> Any:
+        """
+        使用 Function Calling 调用 LLM
+
+        Args:
+            messages: 消息列表
+            tools: 工具列表（OpenAI 格式）
+            tool_choice: 工具选择策略，默认 "auto"
+            **kwargs: 其他参数
+
+        Returns:
+            OpenAI 响应对象（包含 tool_calls）
+        """
+        try:
+            response = self._client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                tools=tools,
+                tool_choice=tool_choice,
+                temperature=kwargs.get('temperature', self.temperature),
+                max_tokens=kwargs.get('max_tokens', self.max_tokens),
+            )
+            return response
+        except Exception as e:
+            raise HelloAgentsException(f"LLM工具调用失败: {str(e)}")
 
     def stream_invoke(self, messages: list[dict[str, str]], **kwargs) -> Iterator[str]:
         """

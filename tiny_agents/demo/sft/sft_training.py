@@ -316,7 +316,7 @@ def lora_training_config():
         "output_dir": "./models/sft_full",
         
         # 使用较少样本进行快速测试
-        "max_samples": 300,
+        "max_samples": 200,
 
         # 训练配置
         "num_epochs": 1,

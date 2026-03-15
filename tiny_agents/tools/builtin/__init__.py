@@ -25,6 +25,11 @@ from .note_tool import NoteTool
 from .terminal_tool import TerminalTool
 from .protocol_tools import ANPTool, A2ATool, MCPTool
 from .rl_training_tool import RLTrainingTool
+from .bfcl_evaluation_tool import BFCLEvaluationTool
+from .bfcl_evaluation_tool_v2 import BFCLEvaluationToolV2
+from .gaia_evaluation_tool import GAIAEvaluationTool
+from .win_rate_tool import WinRateTool, WinRateEvaluator
+
 
 __all__ = [
     "CalculatorTool",
@@ -49,5 +54,10 @@ __all__ = [
     "ANPTool",
     "A2ATool",
     "MCPTool",
-    "RLTrainingTool"
+    "RLTrainingTool",
+    "BFCLEvaluationTool",
+    "BFCLEvaluationToolV2",
+    "GAIAEvaluationTool",
+    "WinRateTool",
+    "WinRateEvaluator",
 ]

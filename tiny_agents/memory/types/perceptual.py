@@ -115,7 +115,7 @@ class PerceptualMemory(BaseMemory):
         from ..storage.qdrant_store import QdrantConnectionManager
         qdrant_url = os.getenv("QDRANT_URL")
         qdrant_api_key = os.getenv("QDRANT_API_KEY")
-        base_collection = os.getenv("QDRANT_COLLECTION", "hello_agents_vectors")
+        base_collection = os.getenv("QDRANT_COLLECTION", "tiny_agents_vectors")
         distance = os.getenv("QDRANT_DISTANCE", "cosine")
         
         self.vector_stores: Dict[str, QdrantVectorStore] = {}

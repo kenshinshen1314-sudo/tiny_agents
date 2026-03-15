@@ -1,12 +1,12 @@
 """ContextBuilder - GSSC流水线实现
 
 实现 Gather-Select-Structure-Compress 上下文构建流程：
-1. Gather: 从多源收集候选信息（历史、记忆、RAG、工具结果）
+1. Gather: 从多源收集候选信息（历史、工具结果）
 2. Select: 基于优先级、相关性、多样性筛选
 3. Structure: 组织成结构化上下文模板
 4. Compress: 在预算内压缩与规范化
 
-
+注意：MemoryTool 和 RAGTool 已被移除，如需使用请自行实现
 """
 
 from typing import Dict, Any, List, Optional, Tuple
@@ -16,21 +16,11 @@ import tiktoken
 import math
 
 from ..core.message import Message
-from ..tools import MemoryTool, RAGTool
 
 
 @dataclass
 class ContextPacket:
-    """上下文信息包
-    用于存储和管理上下文信息的数据包。
-    
-    Args:
-        content: 信息内容
-        timestamp: 时间戳（默认当前时间）
-        metadata: 额外元信息（如来源、类型等）
-        token_count: 预计算的token数（可选，默认为0，自动计算）
-        relevance_score: 相关性分数（0.0-1.0，可选，默认为0.0）
-    """
+    """上下文信息包"""
     content: str
     timestamp: datetime = field(default_factory=datetime.now)
     metadata: Dict[str, Any] = field(default_factory=dict)
@@ -45,19 +35,7 @@ class ContextPacket:
 
 @dataclass
 class ContextConfig:
-    """上下文构建配置
-    
-    用于配置上下文构建流程的参数。
-    
-    Args:   
-        max_tokens: 总预算（默认8000）
-        reserve_ratio: 生成余量（10-20%，默认0.15）
-        min_relevance: 最小相关性阈值（默认0.3）
-        enable_mmr: 启用最大边际相关性（多样性，默认True）
-        mmr_lambda: MMR平衡参数（0=纯多样性,默认0.7）   
-        system_prompt_template: 系统提示模板（默认空）
-        enable_compression: 启用压缩（默认True）    
-    """
+    """上下文构建配置"""
     max_tokens: int = 8000  # 总预算
     reserve_ratio: float = 0.15  # 生成余量（10-20%）
     min_relevance: float = 0.3  # 最小相关性阈值
@@ -73,15 +51,15 @@ class ContextConfig:
 
 class ContextBuilder:
     """上下文构建器 - GSSC流水线
-    
+
+    注意：MemoryTool 和 RAGTool 已被移除，此类暂时不可用
+
     用法示例：
     ```python
     builder = ContextBuilder(
-        memory_tool=memory_tool,
-        rag_tool=rag_tool,
         config=ContextConfig(max_tokens=8000)
     )
-    
+
     context = builder.build(
         user_query="用户问题",
         conversation_history=[...],
@@ -89,15 +67,11 @@ class ContextBuilder:
     )
     ```
     """
-    
+
     def __init__(
         self,
-        memory_tool: Optional[MemoryTool] = None,
-        rag_tool: Optional[RAGTool] = None,
         config: Optional[ContextConfig] = None
     ):
-        self.memory_tool = memory_tool
-        self.rag_tool = rag_tool
         self.config = config or ContextConfig()
         self._encoding = tiktoken.get_encoding("cl100k_base")
     
@@ -149,19 +123,7 @@ class ContextBuilder:
         system_instructions: Optional[str],
         additional_packets: List[ContextPacket]
     ) -> List[ContextPacket]:
-        """Gather: 收集候选信息
-        
-        从记忆、RAG和额外包中收集相关信息。
-        
-        Args:
-            user_query: 用户查询
-            conversation_history: 对话历史
-            system_instructions: 系统指令
-            additional_packets: 额外的上下文包
-            
-        Returns:
-            收集到的上下文包列表
-        """
+        """Gather: 收集候选信息"""
         packets = []
         
         # P0: 系统指令（强约束）
@@ -170,53 +132,10 @@ class ContextBuilder:
                 content=system_instructions,
                 metadata={"type": "instructions"}
             ))
-        
-        # P1: 从记忆中获取任务状态与关键结论
-        if self.memory_tool:
-            try:
-                # 搜索任务状态相关记忆
-                state_results = self.memory_tool.execute(
-                    "search",
-                    query="(任务状态 OR 子目标 OR 结论 OR 阻塞)",
-                    min_importance=0.7,
-                    limit=5
-                )
-                if state_results and "未找到" not in state_results:
-                    packets.append(ContextPacket(
-                        content=state_results,
-                        metadata={"type": "task_state", "importance": "high"}
-                    ))
-                
-                # 搜索与当前查询相关的记忆
-                related_results = self.memory_tool.execute(
-                    "search",
-                    query=user_query,
-                    limit=5
-                )
-                if related_results and "未找到" not in related_results:
-                    packets.append(ContextPacket(
-                        content=related_results,
-                        metadata={"type": "related_memory"}
-                    ))
-            except Exception as e:
-                print(f"⚠️ 记忆检索失败: {e}")
-        
-        # P2: 从RAG中获取事实证据
-        if self.rag_tool:
-            try:
-                rag_results = self.rag_tool.run({
-                    "action": "search",
-                    "query": user_query,
-                    "top_k": 5
-                })
-                if rag_results and "未找到" not in rag_results and "错误" not in rag_results:
-                    packets.append(ContextPacket(
-                        content=rag_results,
-                        metadata={"type": "knowledge_base"}
-                    ))
-            except Exception as e:
-                print(f"⚠️ RAG检索失败: {e}")
-        
+
+        # 注意：MemoryTool 和 RAGTool 已被移除
+        # 如需使用记忆和知识库功能，请自行实现
+
         # P3: 对话历史（辅助材料）
         if conversation_history:
             # 只保留最近N条
@@ -229,11 +148,10 @@ class ContextBuilder:
                 content=history_text,
                 metadata={"type": "history", "count": len(recent_history)}
             ))
-        
+
         # 添加额外包
         packets.extend(additional_packets)
-        print(f"🔍 [ContextBuilder] Gather阶段收集到 {len(packets)} 个候选上下文包")
-        
+
         return packets
     
     def _select(
@@ -291,9 +209,8 @@ class ContextBuilder:
             selected.append(p)
             used_tokens += p.token_count
         
-        print(f"🔍 [ContextBuilder] Select阶段筛选出 {len(selected)} 个上下文包, 共 {used_tokens} 个tokens")
         return selected
-
+    
     def _structure(
         self,
         selected_packets: List[ContextPacket],

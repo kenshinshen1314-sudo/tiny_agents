@@ -36,7 +36,7 @@ def diagnose_qdrant() -> Dict[str, Any]:
         logger.info("\n1️⃣ 检查 Qdrant 连接...")
         try:
             vector_store = QdrantConnectionManager.get_instance(
-                collection_name="hello_agents_vectors"
+                collection_name="tiny_agents_vectors"
             )
             results["qdrant_connection"] = True
             logger.info("   ✅ Qdrant 连接成功")
