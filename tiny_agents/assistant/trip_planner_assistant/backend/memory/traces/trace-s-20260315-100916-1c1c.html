@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260315-100916-1c1c</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260315-100916-1c1c</h1>
+        <p>生成时间: 2026-03-15 10:09:16</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T10:09:16.800018</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "行程规划专家",
+  "agent_type": "SimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T10:09:16.800326</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "请根据以下信息生成长沙的7天旅行计划:\n\n**基本信息:**\n- 城市: 长沙\n- 日期: 2026-03-16 至 2026-03-22\n- 天数: 7天\n- 交通方式: 公共交通\n- 兴趣标签: 休闲, 美食, 历史文化, 自然风光, 夜生活, 博物馆\n- 饮食偏好: 中辣, 微辣, 清淡\n- 交通方式偏好: 公共交通\n- 住宿偏好: 经济型酒店\n- 就餐环境偏好: ['苍蝇馆', '路边摊', '小吃街']\n\n\n**景点信息:**\n根据高德地图的搜索结果，我为您筛选出长沙最热门、评分最高的8个景点，涵盖您的所有偏好：\n\n```json\n[\n  {\n    \"name\": \"橘子洲风景名胜区\",\n    \"address\": \"橘子洲头2号\",\n    \"location\": {\"longitude\": 112.963081, \"latitude\": 28.196505},\n    \"rating\": 4.9,\n    \"description\": \"长沙地标性景点，湘江江心洲，风景秀丽，适合休闲散步和观赏烟花\",\n    \"category\": \"风景名胜\",\n    \"visit_duration\": 180,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"湖南省博物馆\",\n    \"address\": \"东风路50号\",\n    \"location\": {\"longitude\": 112.993499, \"latitude\": 28.211876},\n    \"rating\": 4.9,\n    \"description\": \"湖南省最大的综合性博物馆，收藏马王堆汉墓文物等珍贵藏品\",\n    \"category\": \"博物馆\",\n    \"visit_duration\": 180,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"五一广场\",\n    \"address\": \"黄兴中路88号\",\n    \"location\": {\"longitude\": 112.97734, \"latitude\": 28.1965},\n    \"rating\": 4.9,\n    \"description\": \"长沙市中心地标，周边商圈繁华，美食聚集，夜生活丰富\",\n    \"category\": \"城市广场\",\n    \"visit_duration\": 120,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"岳麓山风景名胜区\",\n    \"address\": \"登高路58号\",\n    \"location\": {\"longitude\": 112.936104, \"latitude\": 28.183601},\n    \"rating\": 4.8,\n    \"description\": \"国家5A级景区，自然风光与历史文化完美融合，登高望远的好去处\",\n    \"category\": \"自然风光\",\n    \"visit_duration\": 240,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"潮宗街区\",\n    \"address\": \"通泰街街道潮宗街22号\",\n    \"location\": {\"longitude\": 112.974319, \"latitude\": 28.202487},\n    \"rating\": 4.8,\n    \"description\": \"历史文化街区，保存完好的古建筑群，体验老长沙风情的绝佳去处\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 90,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"太平老街历史文化街区\",\n    \"address\": \"解放西路449号\",\n    \"location\": {\"longitude\": 112.972071, \"latitude\": 28.193573},\n    \"rating\": 4.8,\n    \"description\": \"长沙著名的历史文化街区，汇集特色小吃和手工艺品，美食与文化的完美结合\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 120,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"杜甫江阁\",\n    \"address\": \"湘江中路二段108号\",\n    \"location\": {\"longitude\": 112.968624, \"latitude\": 28.184442},\n    \"rating\": 4.8,\n    \"description\": \"为纪念唐代诗人杜甫而建，登阁可欣赏湘江两岸风光，夜景尤为迷人\",\n    \"category\": \"历史文化\",\n    \"visit_duration\": 60,\n    \"ticket_price\": 0\n  },\n  {\n    \"name\": \"长沙湘江风光带\",\n    \"address\": \"白沙路(灵官渡地铁站1号口步行150米)\",\n    \"location\": {\"longitude\": 112.968025, \"latitude\": 28.17906},\n    \"rating\": 4.7,\n    \"description\": \"沿江而建的休闲景观带，白天可散步骑行，夜晚可欣赏绚丽灯光秀\",\n    \"category\": \"自然风光\",\n    \"visit_duration\": 120,\n    \"ticket_price\": 0\n  }\n]\n```\n\n**景点推荐总结：**\n\n✅ **休闲**：橘子洲、湘江风光带、五一广场  \n✅ **美食**：太平老街、五一广场周边  \n✅ **历史文化**：湖南省博物馆、潮宗街、杜甫江阁、太平老街  \n✅ **自然风光**：岳麓山、橘子洲、湘江风光带  \n✅ **夜生活**：五一广场、湘江风光带、杜甫江阁  \n✅ **博物馆**：湖南省博物馆\n\n所有景点均为免费开放，评分均在4.7-4.9之间，是长沙最热门的旅游目的地！\n\n**美食信息:**\n根据高德地图的搜索结果，我为您筛选出了长沙最受欢迎的15个餐厅和美食，已按照您的口味偏好（中辣、微辣、清淡）进行分类整理：\n\n```json\n[\n    {\n        \"type\": \"breakfast\",\n        \"name\": \"公交新村粉店(太平街店)\",\n        \"address\": \"西牌楼43号(五一广场地铁站国金街3号口步行360米)\",\n        \"location\": {\"longitude\": 112.972702, \"latitude\": 28.193594},\n        \"description\": \"长沙特色米粉，主打牛肉粉、辣椒炒肉、牛杂粉，24小时营业\",\n        \"estimated_cost\": 23\n    },\n    {\n        \"type\": \"breakfast\",\n        \"name\": \"百年德园\",\n        \"address\": \"芙蓉中路三段98号(候家塘南侧)\",\n        \"location\": {\"longitude\": 112.984812, \"latitude\": 28.169555},\n        \"description\": \"长沙老字号面点，肉包、烧卖、春卷、油条、米粉\",\n        \"estimated_cost\": 10\n    },\n    {\n        \"type\": \"breakfast\",\n        \"name\": \"矮子粉店\",\n        \"address\": \"学院街17号(南门口地铁站1号口步行200米)\",\n        \"location\": {\"longitude\": 112.97486, \"latitude\": 28.185117},\n        \"description\": \"长沙地道米粉，煎蛋、擂辣椒皮蛋粉\",\n        \"estimated_cost\": 21\n    },\n    {\n        \"type\": \"lunch\",\n        \"name\": \"火宫殿\",\n        \"address\": \"坡子街号127号(黄兴广场地铁站1号口步行260米)\",\n        \"location\": {\"longitude\": 112.973865, \"latitude\": 28.190528},\n        \"description\": \"长沙百年老字号，糖油粑粑、葱油粑粑、毛氏红烧肉、臭豆腐、龙脂猪血\",\n        \"estimated_cost\": 50\n    },\n    {\n        \"type\": \"lunch\",\n        \"name\": \"火宫殿(东塘分店)\",\n        \"address\": \"韶山北路521号(东塘地铁站5号口步行200米)\",\n        \"location\": {\"longitude\": 112.995347, \"latitude\": 28.169887},\n        \"description\": \"糖油粑粑、开门红剁椒鱼头、毛氏红烧肉、臭豆腐、酸菜鱼\",\n        \"estimated_cost\": 47\n    },\n    {\n        \"type\": \"lunch\",\n        \"name\": \"新华楼(新开铺店)\",\n        \"address\": \"新开铺18号天翔新新家园商住楼A栋1层(近铁路桥)\",\n        \"location\": {\"longitude\": 112.971795, \"latitude\": 28.13983},\n        \"description\": \"炸酱刀削面、蒸饺、老北京炸酱面、麻油猪血、鸭血粉丝、糖饺子、葱油粑粑\",\n        \"estimated_cost\": 37\n    },\n    {\n        \"type\": \"lunch\",\n        \"name\": \"家常风味馆(营盘路店)\",\n        \"address\": \"寿星街81号正对面十米\",\n        \"location\": {\"longitude\": 112.974609, \"latitude\": 28.205567},\n        \"description\": \"醋炒蛋、酸萝卜牛肚丝、汽锅黄鸭叫、汽锅牛蛙、美辣凤爪、红烧猪脚\",\n        \"estimated_cost\": 54\n    },\n    {\n        \"type\": \"dinner\",\n        \"name\": \"王捌小院(红花坡店)\",\n        \"address\": \"长标巷30号\",\n        \"location\": {\"longitude\": 113.004656, \"latitude\": 28.165966},\n        \"description\": \"土烧鸡黄焖甲鱼、黄焖甲鱼、回锅肉炒鲍鱼、压锅田鸡烧鳝鱼、胡椒蒸土鸭\",\n        \"estimated_cost\": 90\n    },\n    {\n        \"type\": \"dinner\",\n        \"name\": \"解满嗲壹双好手\",\n        \"address\": \"大汉建材东湖路717号\",\n        \"location\": {\"longitude\": 113.080243, \"latitude\": 28.200251},\n        \"description\": \"手工双油烧卖、姜辣兔子、口味腰花、鱼籽鱼泡火锅、爆炒土鳝鱼、姜辣凤爪\",\n        \"estimated_cost\": 63\n    },\n    {\n        \"type\": \"dinner\",\n        \"name\": \"四方坪三十栋饭店(五一广场店)\",\n        \"address\": \"黄兴中路63-65号长沙春天3F07号\",\n        \"location\": {\"longitude\": 112.975672, \"latitude\": 28.193931},\n        \"description\": \"醋蒸鸡、大刀牛肉、金钱蛋、酸萝卜牛肚丝、蒜仔鸡爪、口味鸡\",\n        \"estimated_cost\": 54\n    },\n    {\n        \"type\": \"dinner\",\n        \"name\": \"耕渔雅院·湖南鱼鲜(雨花店)\",\n        \"address\": \"玉竹路27号\",\n        \"location\": {\"longitude\": 113.046763, \"latitude\": 28.133256},\n        \"description\": \"耕渔水煮活鱼、筒子骨炖黄鸭叫、豆辣蒸翘白、黄焖牛肝菌、深井烧鹅\",\n        \"estimated_cost\": 96\n    },\n    {\n        \"type\": \"dinner\",\n        \"name\": \"郝富贵.小炒肉\",\n        \"address\": \"怡长街17号(五一广场地铁站国金街3号口步行150米)\",\n        \"location\": {\"longitude\": 112.975291, \"latitude\": 28.194015},\n        \"description\": \"剁椒鱼头、拌饭、小炒肉、豆花\",\n        \"estimated_cost\": 61\n    },\n    {\n        \"type\": \"dinner\",\n        \"name\": \"喜座·湖南美食村落(总店)\",\n        \"address\": \"先锋街道先锋经济合作社杉坡组的易建华私宅(整栋)\",\n        \"location\": {\"longitude\": 112.997079, \"latitude\": 28.083502},\n        \"description\": \"荷叶粉蒸排骨、家烧五年汉寿甲鱼、深井烧鹅、浏阳黑山羊、水晶圣女果\",\n        \"estimated_cost\": 133\n    },\n    {\n        \"type\": \"night_snack\",\n        \"name\": \"大晴老板不在·锡纸烧烤大排档\",\n        \"address\": \"德雅路1281号\",\n        \"location\": {\"longitude\": 113.013883, \"latitude\": 28.231509},\n        \"description\": \"牛肉串、盲盒汽锅生蚝、口味虾、锡纸毛肚、锡纸手工肉丸、锡纸金针菇\",\n        \"estimated_cost\": 65\n    },\n    {\n        \"type\": \"night_snack\",\n        \"name\": \"文和友(海信广场)\",\n        \"address\": \"湘江中路36号海信广场1-6层\",\n        \"location\": {\"longitude\": 112.96966, \"latitude\": 28.189065},\n        \"description\": \"辣椒炒肉、文和友招牌虾、油爆虾、绝味牛蛙、长沙口味虾、臭豆腐\",\n        \"estimated_cost\": 88\n    }\n]\n```\n\n**推荐说明：**\n\n1. **早餐推荐**：以米粉、面点为主，口味清淡，如公交新村粉店、百年德园\n2. **午餐推荐**：选择老字号火宫殿、新华楼，有糖油粑粑等特色小吃\n3. **晚餐推荐**：王捌小院、耕渔雅院等湘菜餐厅，有甲鱼、黄鸭叫等特色菜\n4. **夜宵推荐**：文和友、大晴老板不在等烧烤店，适合喜欢中辣口味的食客\n\n**口味提示**：\n- 湘菜普遍偏辣，可根据个人喜好调整辣度\n- 糖油粑粑、葱油粑粑、龙脂猪血等小吃口味偏甜清淡\n- 甲鱼、黄鸭叫等汤菜相对清淡鲜美\n\n**天气信息:**\n```json\n[\n  {\n    \"date\": \"2026-03-15\",\n    \"day_weather\": \"小雨\",\n    \"night_weather\": \"小雨\",\n    \"day_temp\": 12,\n    \"night_temp\": 9,\n    \"wind_direction\": \"北风\",\n    \"wind_power\": \"1-3级\"\n  },\n  {\n    \"date\": \"2026-03-16\",\n    \"day_weather\": \"小雨\",\n    \"night_weather\": \"小雨\",\n    \"day_temp\": 10,\n    \"night_temp\": 8,\n    \"wind_direction\": \"北风\",\n    \"wind_power\": \"1-3级\"\n  },\n  {\n    \"date\": \"2026-03-17\",\n    \"day_weather\": \"小雨\",\n    \"night_weather\": \"小雨\",\n    \"day_temp\": 17,\n    \"night_temp\": 10,\n    \"wind_direction\": \"北风\",\n    \"wind_power\": \"1-3级\"\n  },\n  {\n    \"date\": \"2026-03-18\",\n    \"day_weather\": \"小雨\",\n    \"night_weather\": \"小雨\",\n    \"day_temp\": 14,\n    \"night_temp\": 10,\n    \"wind_direction\": \"北风\",\n    \"wind_power\": \"1-3级\"\n  }\n]\n```\n\n**酒店信息:**\n根据搜索结果，为您推荐长沙的5家经济型酒店：\n\n```json\n[\n    {\n        \"name\": \"汉庭酒店(长沙八一路火车站地铁站店)\",\n        \"address\": \"八一路169号(省公安厅对面)\",\n        \"location\": {\n            \"longitude\": 113.002996,\n            \"latitude\": 28.197067\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型连锁酒店\",\n        \"distance\": \"距离火车站地铁站较近\",\n        \"estimated_cost\": 250\n    },\n    {\n        \"name\": \"汉庭酒店(长沙贺龙体育馆店)\",\n        \"address\": \"东塘街道劳动西路380号\",\n        \"location\": {\n            \"longitude\": 112.987205,\n            \"latitude\": 28.171063\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型连锁酒店\",\n        \"distance\": \"靠近贺龙体育馆\",\n        \"estimated_cost\": 250\n    },\n    {\n        \"name\": \"汉庭酒店(长沙中南大学阳光地铁站店)\",\n        \"address\": \"惟盛园19栋\",\n        \"location\": {\n            \"longitude\": 112.936609,\n            \"latitude\": 28.146634\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"靠近中南大学阳光地铁站\",\n        \"estimated_cost\": 250\n    },\n    {\n        \"name\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n        \"address\": \"营盘东路31号\",\n        \"location\": {\n            \"longitude\": 112.989013,\n            \"latitude\": 28.203758\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"靠近中南大学湘雅医院\",\n        \"estimated_cost\": 250\n    },\n    {\n        \"name\": \"墨客悦庭酒店(长沙高铁南站吾悦广场店)\",\n        \"address\": \"劳动东路1058号吾悦华府4-2栋1层114\",\n        \"location\": {\n            \"longitude\": 113.058597,\n            \"latitude\": 28.157015\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"快捷酒店\",\n        \"distance\": \"靠近高铁南站吾悦广场\",\n        \"estimated_cost\": 250\n    }\n]\n```\n\n**推荐说明：**\n\n1. **汉庭酒店(长沙八一路火车站地铁站店)** - 评分4.9，位于芙蓉区，交通便利，靠近火车站地铁站\n2. **汉庭酒店(长沙贺龙体育馆店)** - 评分4.9，位于雨花区，靠近贺龙体育馆，地理位置优越\n3. **汉庭酒店(长沙中南大学阳光地铁站店)** - 评分4.9，位于岳麓区，靠近中南大学，适合学生或访客\n4. **米漾米居酒店(长沙五一大道中南大学湘雅医院店)** - 评分4.9，位于开福区，靠近湘雅医院，就医便利\n5. **墨客悦庭酒店(长沙高铁南站吾悦广场店)** - 评分4.9，位于雨花区，靠近高铁南站，适合高铁出行的旅客\n\n以上酒店均为经济型酒店，价格区间约为200-300元/晚，评分都在4.9分以上，性价比较高。根据您的出行需求（如靠近火车站、医院、学校等）可以选择合适的酒店。\n\n**JSON 输出要求:**\n1. 必须返回完整的 JSON 对象\n2. 景点必须包含: name, address, location, visit_duration, description, category\n3. 天气信息必须是 WeatherInfo 格式的对象数组，包含: date, day_weather, night_weather, day_temp, night_temp, wind_direction, wind_power\n4. 温度值只填数字，不要带°C单位\n5. 餐饮必须包含: type, name, description, estimated_cost\n6. 酒店必须包含: name, address, location, price_range, rating, type, estimated_cost\n\n**行程安排:**\n1. 每天安排2-3个景点\n2. 每天必须包含早中晚三餐，根据美食信息推荐当地特色餐厅\n3. 每天推荐一个具体的酒店(从酒店信息中选择)\n4. 考虑景点之间的距离和交通方式\n5. 景点和酒店的经纬度坐标(location)必须真实准确!\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-15T10:10:44.959027</span>
+                <span class="event-type">session_end</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "duration": 88.160176,
+  "final_answer": "```json\n{\n  \"city\": \"长沙\",\n  \"start_date\": \"2026-03-16\",\n  \"end_date\": \"2026-03-22\",\n  \"days\": [\n    {\n      \"date\": \"2026-03-16\",\n      \"day_index\": 0,\n      \"description\": \"抵达长沙，入住市中心酒店，游览五一广场和太平老街，感受长沙繁华夜生活。\",\n      \"transportation\": \"公共交通\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n        \"address\": \"营盘东路31号\",\n        \"location\": {\n          \"longitude\": 112.989013,\n          \"latitude\": 28.203758\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"距离五一广场约2公里\",\n        \"estimated_cost\": 250\n      },\n      \"attractions\": [\n        {\n          \"name\": \"五一广场\",\n          \"address\": \"黄兴中路88号\",\n          \"location\": {\n            \"longitude\": 112.97734,\n            \"latitude\": 28.1965\n          },\n          \"visit_duration\": 120,\n          \"description\": \"长沙市中心地标，周边商圈繁华，美食聚集，夜生活丰富\",\n          \"category\": \"城市广场\",\n          \"rating\": 4.9,\n          \"ticket_price\": 0\n        },\n        {\n          \"name\": \"太平老街历史文化街区\",\n          \"address\": \"解放西路449号\",\n          \"location\": {\n            \"longitude\": 112.972071,\n            \"latitude\": 28.193573\n          },\n          \"visit_duration\": 120,\n          \"description\": \"长沙著名的历史文化街区，汇集特色小吃和手工艺品，美食与文化的完美结合\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.8,\n          \"ticket_price\": 0\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"公交新村粉店(太平街店)\",\n          \"address\": \"西牌楼43号(五一广场地铁站国金街3号口步行360米)\",\n          \"location\": {\n            \"longitude\": 112.972702,\n            \"latitude\": 28.193594\n          },\n          \"description\": \"长沙特色米粉，主打牛肉粉、辣椒炒肉、牛杂粉，24小时营业\",\n          \"estimated_cost\": 23\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"火宫殿\",\n          \"address\": \"坡子街号127号(黄兴广场地铁站1号口步行260米)\",\n          \"location\": {\n            \"longitude\": 112.973865,\n            \"latitude\": 28.190528\n          },\n          \"description\": \"长沙百年老字号，糖油粑粑、葱油粑粑、毛氏红烧肉、臭豆腐、龙脂猪血\",\n          \"estimated_cost\": 50\n        },\n        {\n          \"type\": \"dinner\",\n          \"name\": \"郝富贵.小炒肉\",\n          \"address\": \"怡长街17号(五一广场地铁站国金街3号口步行150米)\",\n          \"location\": {\n            \"longitude\": 112.975291,\n            \"latitude\": 28.194015\n          },\n          \"description\": \"剁椒鱼头、拌饭、小炒肉、豆花\",\n          \"estimated_cost\": 61\n        },\n        {\n          \"type\": \"night_snack\",\n          \"name\": \"文和友(海信广场)\",\n          \"address\": \"湘江中路36号海信广场1-6层\",\n          \"location\": {\n            \"longitude\": 112.96966,\n            \"latitude\": 28.189065\n          },\n          \"description\": \"辣椒炒肉、文和友招牌虾、油爆虾、绝味牛蛙、长沙口味虾、臭豆腐\",\n          \"estimated_cost\": 88\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n          \"destination\": \"五一广场\",\n          \"distance\": 2.2,\n          \"duration\": 20,\n          \"mode\": \"transit\"\n        },\n        {\n          \"origin\": \"五一广场\",\n          \"destination\": \"太平老街历史文化街区\",\n          \"distance\": 0.5,\n          \"duration\": 6,\n          \"mode\": \"walking\"\n        }\n      ],\n      \"total_distance\": 2.7,\n      \"total_duration\": 26,\n      \"transport_cost\": 4\n    },\n    {\n      \"date\": \"2026-03-17\",\n      \"day_index\": 1,\n      \"description\": \"探索湖湘文化，上午参观湖南省博物馆，下午漫步潮宗街感受老长沙风情。\",\n      \"transportation\": \"公共交通\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n        \"address\": \"营盘东路31号\",\n        \"location\": {\n          \"longitude\": 112.989013,\n          \"latitude\": 28.203758\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"距离五一广场约2公里\",\n        \"estimated_cost\": 250\n      },\n      \"attractions\": [\n        {\n          \"name\": \"湖南省博物馆\",\n          \"address\": \"东风路50号\",\n          \"location\": {\n            \"longitude\": 112.993499,\n            \"latitude\": 28.211876\n          },\n          \"visit_duration\": 180,\n          \"description\": \"湖南省最大的综合性博物馆，收藏马王堆汉墓文物等珍贵藏品\",\n          \"category\": \"博物馆\",\n          \"rating\": 4.9,\n          \"ticket_price\": 0\n        },\n        {\n          \"name\": \"潮宗街区\",\n          \"address\": \"通泰街街道潮宗街22号\",\n          \"location\": {\n            \"longitude\": 112.974319,\n            \"latitude\": 28.202487\n          },\n          \"visit_duration\": 90,\n          \"description\": \"历史文化街区，保存完好的古建筑群，体验老长沙风情的绝佳去处\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.8,\n          \"ticket_price\": 0\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"百年德园\",\n          \"address\": \"芙蓉中路三段98号(候家塘南侧)\",\n          \"location\": {\n            \"longitude\": 112.984812,\n            \"latitude\": 28.169555\n          },\n          \"description\": \"长沙老字号面点，肉包、烧卖、春卷、油条、米粉\",\n          \"estimated_cost\": 10\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"家常风味馆(营盘路店)\",\n          \"address\": \"寿星街81号正对面十米\",\n          \"location\": {\n            \"longitude\": 112.974609,\n            \"latitude\": 28.205567\n          },\n          \"description\": \"醋炒蛋、酸萝卜牛肚丝、汽锅黄鸭叫、汽锅牛蛙、美辣凤爪、红烧猪脚\",\n          \"estimated_cost\": 54\n        },\n        {\n          \"type\": \"dinner\",\n          \"name\": \"四方坪三十栋饭店(五一广场店)\",\n          \"address\": \"黄兴中路63-65号长沙春天3F07号\",\n          \"location\": {\n            \"longitude\": 112.975672,\n            \"latitude\": 28.193931\n          },\n          \"description\": \"醋蒸鸡、大刀牛肉、金钱蛋、酸萝卜牛肚丝、蒜仔鸡爪、口味鸡\",\n          \"estimated_cost\": 54\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n          \"destination\": \"湖南省博物馆\",\n          \"distance\": 2.5,\n          \"duration\": 25,\n          \"mode\": \"transit\"\n        },\n        {\n          \"origin\": \"湖南省博物馆\",\n          \"destination\": \"潮宗街区\",\n          \"distance\": 2.0,\n          \"duration\": 15,\n          \"mode\": \"transit\"\n        }\n      ],\n      \"total_distance\": 4.5,\n      \"total_duration\": 40,\n      \"transport_cost\": 6\n    },\n    {\n      \"date\": \"2026-03-18\",\n      \"day_index\": 2,\n      \"description\": \"登岳麓山俯瞰长沙，游览橘子洲头欣赏湘江美景，感受自然与人文的交融。\",\n      \"transportation\": \"公共交通\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n        \"address\": \"营盘东路31号\",\n        \"location\": {\n          \"longitude\": 112.989013,\n          \"latitude\": 28.203758\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"距离五一广场约2公里\",\n        \"estimated_cost\": 250\n      },\n      \"attractions\": [\n        {\n          \"name\": \"岳麓山风景名胜区\",\n          \"address\": \"登高路58号\",\n          \"location\": {\n            \"longitude\": 112.936104,\n            \"latitude\": 28.183601\n          },\n          \"visit_duration\": 240,\n          \"description\": \"国家5A级景区，自然风光与历史文化完美融合，登高望远的好去处\",\n          \"category\": \"自然风光\",\n          \"rating\": 4.8,\n          \"ticket_price\": 0\n        },\n        {\n          \"name\": \"橘子洲风景名胜区\",\n          \"address\": \"橘子洲头2号\",\n          \"location\": {\n            \"longitude\": 112.963081,\n            \"latitude\": 28.196505\n          },\n          \"visit_duration\": 180,\n          \"description\": \"长沙地标性景点，湘江江心洲，风景秀丽，适合休闲散步和观赏烟花\",\n          \"category\": \"风景名胜\",\n          \"rating\": 4.9,\n          \"ticket_price\": 0\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"矮子粉店\",\n          \"address\": \"学院街17号(南门口地铁站1号口步行200米)\",\n          \"location\": {\n            \"longitude\": 112.97486,\n            \"latitude\": 28.185117\n          },\n          \"description\": \"长沙地道米粉，煎蛋、擂辣椒皮蛋粉\",\n          \"estimated_cost\": 21\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"新华楼(新开铺店)\",\n          \"address\": \"新开铺18号天翔新新家园商住楼A栋1层(近铁路桥)\",\n          \"location\": {\n            \"longitude\": 112.971795,\n            \"latitude\": 28.13983\n          },\n          \"description\": \"炸酱刀削面、蒸饺、老北京炸酱面、麻油猪血、鸭血粉丝、糖饺子、葱油粑粑\",\n          \"estimated_cost\": 37\n        },\n        {\n          \"type\": \"dinner\",\n          \"name\": \"王捌小院(红花坡店)\",\n          \"address\": \"长标巷30号\",\n          \"location\": {\n            \"longitude\": 113.004656,\n            \"latitude\": 28.165966\n          },\n          \"description\": \"土烧鸡黄焖甲鱼、黄焖甲鱼、回锅肉炒鲍鱼、压锅田鸡烧鳝鱼、胡椒蒸土鸭\",\n          \"estimated_cost\": 90\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n          \"destination\": \"岳麓山风景名胜区\",\n          \"distance\": 7.0,\n          \"duration\": 45,\n          \"mode\": \"transit\"\n        },\n        {\n          \"origin\": \"岳麓山风景名胜区\",\n          \"destination\": \"橘子洲风景名胜区\",\n          \"distance\": 3.5,\n          \"duration\": 30,\n          \"mode\": \"transit\"\n        }\n      ],\n      \"total_distance\": 10.5,\n      \"total_duration\": 75,\n      \"transport_cost\": 8\n    },\n    {\n      \"date\": \"2026-03-19\",\n      \"day_index\": 3,\n      \"description\": \"沿江风光游览，登杜甫江阁观景，夜晚漫步湘江风光带欣赏灯光秀。\",\n      \"transportation\": \"公共交通\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n        \"address\": \"营盘东路31号\",\n        \"location\": {\n          \"longitude\": 112.989013,\n          \"latitude\": 28.203758\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"距离五一广场约2公里\",\n        \"estimated_cost\": 250\n      },\n      \"attractions\": [\n        {\n          \"name\": \"杜甫江阁\",\n          \"address\": \"湘江中路二段108号\",\n          \"location\": {\n            \"longitude\": 112.968624,\n            \"latitude\": 28.184442\n          },\n          \"visit_duration\": 60,\n          \"description\": \"为纪念唐代诗人杜甫而建，登阁可欣赏湘江两岸风光，夜景尤为迷人\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.8,\n          \"ticket_price\": 0\n        },\n        {\n          \"name\": \"长沙湘江风光带\",\n          \"address\": \"白沙路(灵官渡地铁站1号口步行150米)\",\n          \"location\": {\n            \"longitude\": 112.968025,\n            \"latitude\": 28.17906\n          },\n          \"visit_duration\": 120,\n          \"description\": \"沿江而建的休闲景观带，白天可散步骑行，夜晚可欣赏绚丽灯光秀\",\n          \"category\": \"自然风光\",\n          \"rating\": 4.7,\n          \"ticket_price\": 0\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"公交新村粉店(太平街店)\",\n          \"address\": \"西牌楼43号(五一广场地铁站国金街3号口步行360米)\",\n          \"location\": {\n            \"longitude\": 112.972702,\n            \"latitude\": 28.193594\n          },\n          \"description\": \"长沙特色米粉，主打牛肉粉、辣椒炒肉、牛杂粉，24小时营业\",\n          \"estimated_cost\": 23\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"火宫殿(东塘分店)\",\n          \"address\": \"韶山北路521号(东塘地铁站5号口步行200米)\",\n          \"location\": {\n            \"longitude\": 112.995347,\n            \"latitude\": 28.169887\n          },\n          \"description\": \"糖油粑粑、开门红剁椒鱼头、毛氏红烧肉、臭豆腐、酸菜鱼\",\n          \"estimated_cost\": 47\n        },\n        {\n          \"type\": \"dinner\",\n          \"name\": \"耕渔雅院·湖南鱼鲜(雨花店)\",\n          \"address\": \"玉竹路27号\",\n          \"location\": {\n            \"longitude\": 113.046763,\n            \"latitude\": 28.133256\n          },\n          \"description\": \"耕渔水煮活鱼、筒子骨炖黄鸭叫、豆辣蒸翘白、黄焖牛肝菌、深井烧鹅\",\n          \"estimated_cost\": 96\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n          \"destination\": \"杜甫江阁\",\n          \"distance\": 2.5,\n          \"duration\": 20,\n          \"mode\": \"transit\"\n        },\n        {\n          \"origin\": \"杜甫江阁\",\n          \"destination\": \"长沙湘江风光带\",\n          \"distance\": 0.8,\n          \"duration\": 10,\n          \"mode\": \"walking\"\n        }\n      ],\n      \"total_distance\": 3.3,\n      \"total_duration\": 30,\n      \"transport_cost\": 4\n    },\n    {\n      \"date\": \"2026-03-20\",\n      \"day_index\": 4,\n      \"description\": \"悠闲慢游，上午橘子洲头散步，下午五一广场购物觅食，晚上体验夜宵文化。\",\n      \"transportation\": \"公共交通\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n        \"address\": \"营盘东路31号\",\n        \"location\": {\n          \"longitude\": 112.989013,\n          \"latitude\": 28.203758\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"距离五一广场约2公里\",\n        \"estimated_cost\": 250\n      },\n      \"attractions\": [\n        {\n          \"name\": \"橘子洲风景名胜区\",\n          \"address\": \"橘子洲头2号\",\n          \"location\": {\n            \"longitude\": 112.963081,\n            \"latitude\": 28.196505\n          },\n          \"visit_duration\": 180,\n          \"description\": \"长沙地标性景点，湘江江心洲，风景秀丽，适合休闲散步和观赏烟花\",\n          \"category\": \"风景名胜\",\n          \"rating\": 4.9,\n          \"ticket_price\": 0\n        },\n        {\n          \"name\": \"五一广场\",\n          \"address\": \"黄兴中路88号\",\n          \"location\": {\n            \"longitude\": 112.97734,\n            \"latitude\": 28.1965\n          },\n          \"visit_duration\": 120,\n          \"description\": \"长沙市中心地标，周边商圈繁华，美食聚集，夜生活丰富\",\n          \"category\": \"城市广场\",\n          \"rating\": 4.9,\n          \"ticket_price\": 0\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"百年德园\",\n          \"address\": \"芙蓉中路三段98号(候家塘南侧)\",\n          \"location\": {\n            \"longitude\": 112.984812,\n            \"latitude\": 28.169555\n          },\n          \"description\": \"长沙老字号面点，肉包、烧卖、春卷、油条、米粉\",\n          \"estimated_cost\": 10\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"家常风味馆(营盘路店)\",\n          \"address\": \"寿星街81号正对面十米\",\n          \"location\": {\n            \"longitude\": 112.974609,\n            \"latitude\": 28.205567\n          },\n          \"description\": \"醋炒蛋、酸萝卜牛肚丝、汽锅黄鸭叫、汽锅牛蛙、美辣凤爪、红烧猪脚\",\n          \"estimated_cost\": 54\n        },\n        {\n          \"type\": \"dinner\",\n          \"name\": \"解满嗲壹双好手\",\n          \"address\": \"大汉建材东湖路717号\",\n          \"location\": {\n            \"longitude\": 113.080243,\n            \"latitude\": 28.200251\n          },\n          \"description\": \"手工双油烧卖、姜辣兔子、口味腰花、鱼籽鱼泡火锅、爆炒土鳝鱼、姜辣凤爪\",\n          \"estimated_cost\": 63\n        },\n        {\n          \"type\": \"night_snack\",\n          \"name\": \"大晴老板不在·锡纸烧烤大排档\",\n          \"address\": \"德雅路1281号\",\n          \"location\": {\n            \"longitude\": 113.013883,\n            \"latitude\": 28.231509\n          },\n          \"description\": \"牛肉串、盲盒汽锅生蚝、口味虾、锡纸毛肚、锡纸手工肉丸、锡纸金针菇\",\n          \"estimated_cost\": 65\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n          \"destination\": \"橘子洲风景名胜区\",\n          \"distance\": 4.0,\n          \"duration\": 30,\n          \"mode\": \"transit\"\n        },\n        {\n          \"origin\": \"橘子洲风景名胜区\",\n          \"destination\": \"五一广场\",\n          \"distance\": 1.0,\n          \"duration\": 15,\n          \"mode\": \"transit\"\n        }\n      ],\n      \"total_distance\": 5.0,\n      \"total_duration\": 45,\n      \"transport_cost\": 6\n    },\n    {\n      \"date\": \"2026-03-21\",\n      \"day_index\": 5,\n      \"description\": \"二刷湖南省博物馆深度游览，下午在潮宗街闲逛喝茶，体验慢生活。\",\n      \"transportation\": \"公共交通\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n        \"address\": \"营盘东路31号\",\n        \"location\": {\n          \"longitude\": 112.989013,\n          \"latitude\": 28.203758\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"距离五一广场约2公里\",\n        \"estimated_cost\": 250\n      },\n      \"attractions\": [\n        {\n          \"name\": \"湖南省博物馆\",\n          \"address\": \"东风路50号\",\n          \"location\": {\n            \"longitude\": 112.993499,\n            \"latitude\": 28.211876\n          },\n          \"visit_duration\": 180,\n          \"description\": \"湖南省最大的综合性博物馆，收藏马王堆汉墓文物等珍贵藏品\",\n          \"category\": \"博物馆\",\n          \"rating\": 4.9,\n          \"ticket_price\": 0\n        },\n        {\n          \"name\": \"潮宗街区\",\n          \"address\": \"通泰街街道潮宗街22号\",\n          \"location\": {\n            \"longitude\": 112.974319,\n            \"latitude\": 28.202487\n          },\n          \"visit_duration\": 90,\n          \"description\": \"历史文化街区，保存完好的古建筑群，体验老长沙风情的绝佳去处\",\n          \"category\": \"历史文化\",\n          \"rating\": 4.8,\n          \"ticket_price\": 0\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"矮子粉店\",\n          \"address\": \"学院街17号(南门口地铁站1号口步行200米)\",\n          \"location\": {\n            \"longitude\": 112.97486,\n            \"latitude\": 28.185117\n          },\n          \"description\": \"长沙地道米粉，煎蛋、擂辣椒皮蛋粉\",\n          \"estimated_cost\": 21\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"新华楼(新开铺店)\",\n          \"address\": \"新开铺18号天翔新新家园商住楼A栋1层(近铁路桥)\",\n          \"location\": {\n            \"longitude\": 112.971795,\n            \"latitude\": 28.13983\n          },\n          \"description\": \"炸酱刀削面、蒸饺、老北京炸酱面、麻油猪血、鸭血粉丝、糖饺子、葱油粑粑\",\n          \"estimated_cost\": 37\n        },\n        {\n          \"type\": \"dinner\",\n          \"name\": \"喜座·湖南美食村落(总店)\",\n          \"address\": \"先锋街道先锋经济合作社杉坡组的易建华私宅(整栋)\",\n          \"location\": {\n            \"longitude\": 112.997079,\n            \"latitude\": 28.083502\n          },\n          \"description\": \"荷叶粉蒸排骨、家烧五年汉寿甲鱼、深井烧鹅、浏阳黑山羊、水晶圣女果\",\n          \"estimated_cost\": 133\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n          \"destination\": \"湖南省博物馆\",\n          \"distance\": 2.5,\n          \"duration\": 25,\n          \"mode\": \"transit\"\n        },\n        {\n          \"origin\": \"湖南省博物馆\",\n          \"destination\": \"潮宗街区\",\n          \"distance\": 2.0,\n          \"duration\": 15,\n          \"mode\": \"transit\"\n        }\n      ],\n      \"total_distance\": 4.5,\n      \"total_duration\": 40,\n      \"transport_cost\": 6\n    },\n    {\n      \"date\": \"2026-03-22\",\n      \"day_index\": 6,\n      \"description\": \"行程最后一天，清晨再次登上岳麓山呼吸新鲜空气，品尝地道早餐后返程。\",\n      \"transportation\": \"公共交通\",\n      \"accommodation\": \"经济型酒店\",\n      \"hotel\": {\n        \"name\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n        \"address\": \"营盘东路31号\",\n        \"location\": {\n          \"longitude\": 112.989013,\n          \"latitude\": 28.203758\n        },\n        \"price_range\": \"200-300元/晚\",\n        \"rating\": \"4.9\",\n        \"type\": \"经济型酒店\",\n        \"distance\": \"距离五一广场约2公里\",\n        \"estimated_cost\": 250\n      },\n      \"attractions\": [\n        {\n          \"name\": \"岳麓山风景名胜区\",\n          \"address\": \"登高路58号\",\n          \"location\": {\n            \"longitude\": 112.936104,\n            \"latitude\": 28.183601\n          },\n          \"visit_duration\": 180,\n          \"description\": \"国家5A级景区，自然风光与历史文化完美融合，登高望远的好去处\",\n          \"category\": \"自然风光\",\n          \"rating\": 4.8,\n          \"ticket_price\": 0\n        }\n      ],\n      \"meals\": [\n        {\n          \"type\": \"breakfast\",\n          \"name\": \"公交新村粉店(太平街店)\",\n          \"address\": \"西牌楼43号(五一广场地铁站国金街3号口步行360米)\",\n          \"location\": {\n            \"longitude\": 112.972702,\n            \"latitude\": 28.193594\n          },\n          \"description\": \"长沙特色米粉，主打牛肉粉、辣椒炒肉、牛杂粉，24小时营业\",\n          \"estimated_cost\": 23\n        },\n        {\n          \"type\": \"lunch\",\n          \"name\": \"火宫殿\",\n          \"address\": \"坡子街号127号(黄兴广场地铁站1号口步行260米)\",\n          \"location\": {\n            \"longitude\": 112.973865,\n            \"latitude\": 28.190528\n          },\n          \"description\": \"长沙百年老字号，糖油粑粑、葱油粑粑、毛氏红烧肉、臭豆腐、龙脂猪血\",\n          \"estimated_cost\": 50\n        }\n      ],\n      \"routes\": [\n        {\n          \"origin\": \"米漾米居酒店(长沙五一大道中南大学湘雅医院店)\",\n          \"destination\": \"岳麓山风景名胜区\",\n          \"distance\": 7.0,\n          \"duration\": 45,\n          \"mode\": \"transit\"\n        }\n      ],\n      \"total_distance\": 7.0,\n      \"total_duration\": 45,\n      \"transport_cost\": 4\n    }\n  ],\n  \"weather_info\": [\n    {\n      \"date\": \"2026-03-16\",\n      \"day_weather\": \"小雨\",\n      \"night_weather\": \"小雨\",\n      \"day_temp\": 10,\n      \"night_temp\": 8,\n      \"wind_direction\": \"北风\",\n      \"wind_power\": \"1-3级\"\n    },\n    {\n      \"date\": \"2026-03-17\",\n      \"day_weather\": \"小雨\",\n      \"night_weather\": \"小雨\",\n      \"day_temp\": 17,\n      \"night_temp\": 10,\n      \"wind_direction\": \"北风\",\n      \"wind_power\": \"1-3级\"\n    },\n    {\n      \"date\": \"2026-03-18\",\n      \"day_weather\": \"小雨\",\n      \"night_weather\": \"小雨\",\n      \"day_temp\": 14,\n      \"night_temp\": 10,\n      \"wind_direction\": \"北风\",\n      \"wind_power\": \"1-3级\"\n    },\n    {\n      \"date\": \"2026-03-19\",\n      \"day_weather\": \"小雨\",\n      \"night_weather\": \"小雨\",\n      \"day_temp\": 14,\n      \"night_temp\": 10,\n      \"wind_direction\": \"北风\",\n      \"wind_power\": \"1-3级\"\n    },\n    {\n      \"date\": \"2026-03-20\",\n      \"day_weather\": \"小雨\",\n      \"night_weather\": \"小雨\",\n      \"day_temp\": 14,\n      \"night_temp\": 10,\n      \"wind_direction\": \"北风\",\n      \"wind_power\": \"1-3级\"\n    },\n    {\n      \"date\": \"2026-03-21\",\n      \"day_weather\": \"小雨\",\n      \"night_weather\": \"小雨\",\n      \"day_temp\": 14,\n      \"night_temp\": 10,\n      \"wind_direction\": \"北风\",\n      \"wind_power\": \"1-3级\"\n    },\n    {\n      \"date\": \"2026-03-22\",\n      \"day_weather\": \"小雨\",\n      \"night_weather\": \"小雨\",\n      \"day_temp\": 14,\n      \"night_temp\": 10,\n      \"wind_direction\": \"北风\",\n      \"wind_power\": \"1-3级\"\n    }\n  ],\n  \"overall_suggestions\": \"长沙3月份天气多雨，请务必携带雨具和保暖衣物。湖南省博物馆非常热门，建议提前在官网预约。长沙美食以辣为主，点餐时可提醒服务员调整辣度。市区内地铁和公交非常便利，推荐使用长沙地铁APP扫码乘车。\",\n  \"budget\": {\n    \"total_attractions\": 0,\n    \"total_hotels\": 1750,\n    \"total_meals\": 1110,\n    \"total_transportation\": 38,\n    \"total\": 2898\n  }\n}\n```",
+  "status": "success",
+  "usage": {},
+  "latency_ms": 0
+}</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stats-panel">
+        <h2>📊 会话统计</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">总步骤数</span>
+                <span class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总 Token</span>
+                <span class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总成本</span>
+                <span class="stat-value">$0.0000</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">会话时长</span>
+                <span class="stat-value">88.2s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">模型调用次数</span>
+                <span class="stat-value">0</span>
+            </div>
+        </div>
+
+        <h3>🔧 工具调用统计</h3>
+        <table class="tool-stats">
+            <tr><th>工具名称</th><th>调用次数</th></tr>
+            <tr><td colspan="2">无工具调用</td></tr>
+        </table>
+
+        
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

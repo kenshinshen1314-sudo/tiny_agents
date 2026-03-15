@@ -1,0 +1,4 @@
+{"ts": "2026-03-15T09:50:18.335041", "session_id": "s-20260315-095018-4596", "step": null, "event": "session_start", "payload": {"agent_name": "酒店推荐专家", "agent_type": "SimpleAgent"}}
+{"ts": "2026-03-15T09:50:18.335147", "session_id": "s-20260315-095018-4596", "step": null, "event": "message_written", "payload": {"role": "user", "content": "请搜索长沙的经济型酒店酒店"}}
+{"ts": "2026-03-15T09:50:19.964183", "session_id": "s-20260315-095018-4596", "step": 1, "event": "error", "payload": {"error_type": "LLM_ERROR", "message": "LLM工具调用失败: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}"}}
+{"ts": "2026-03-15T09:50:19.964545", "session_id": "s-20260315-095018-4596", "step": null, "event": "session_end", "payload": {"duration": 1.630136, "total_steps": 1, "final_answer": "", "status": "success"}}

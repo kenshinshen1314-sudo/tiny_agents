@@ -14,7 +14,9 @@ export interface Attraction {
   category?: string
   rating?: number
   image_url?: string
-  ticket_price?: number
+  ticket_price: number
+  photos: string[]
+  poi_id: string
 }
 
 export interface Meal {
@@ -37,7 +39,7 @@ export interface Hotel {
   estimated_cost?: number
 }
 
-export interface RouteInfo {
+export interface DayRouteInfo {
   origin: string
   destination: string
   distance: number
@@ -62,7 +64,7 @@ export interface DayPlan {
   hotel?: Hotel
   attractions: Attraction[]
   meals: Meal[]
-  routes?: RouteInfo[]
+  routes?: DayRouteInfo[]
   total_distance?: number
   total_duration?: number
   transport_cost?: number

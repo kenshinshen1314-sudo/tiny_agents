@@ -9,6 +9,7 @@
 
 from typing import Dict, Any, List, Optional
 from ..base import Tool, ToolParameter
+from ..response import ToolResponse, ToolStatus
 import os
 
 
@@ -335,6 +336,58 @@ class MCPTool(Tool):
             expanded_tools.append(wrapped_tool)
 
         return expanded_tools
+
+    def run_with_timing(self, parameters: Dict[str, Any]) -> ToolResponse:
+        '''Override parent method to wrap string return as ToolResponse'''
+        import time
+        from ..response import ToolResponse
+        from ..errors import ToolErrorCode
+        
+        start_time = time.time()
+        
+        try:
+            result_text = self.run(parameters)
+        except Exception as e:
+            elapsed_ms = int((time.time() - start_time) * 1000)
+            return ToolResponse.error(
+                code=ToolErrorCode.INTERNAL_ERROR,
+                message=f"Tool execution exception: {str(e)}",
+                stats={"time_ms": elapsed_ms},
+                context={"params_input": parameters, "tool_name": self.name}
+            )
+        
+        elapsed_ms = int((time.time() - start_time) * 1000)
+        
+        if isinstance(result_text, str):
+            if '"status": "0"' in result_text or '"status":"0"' in result_text:
+                return ToolResponse(
+                    status=ToolStatus.ERROR,
+                    text=result_text,
+                    stats={"time_ms": elapsed_ms},
+                    context={"params_input": parameters, "tool_name": self.name}
+                )
+            
+            if result_text.startswith("错误") or result_text.startswith("MCP 操作失败") or                result_text.startswith("异步操作失败"):
+                return ToolResponse(
+                    status=ToolStatus.ERROR,
+                    text=result_text,
+                    stats={"time_ms": elapsed_ms},
+                    context={"params_input": parameters, "tool_name": self.name}
+                )
+            
+            return ToolResponse(
+                status=ToolStatus.SUCCESS,
+                text=result_text,
+                stats={"time_ms": elapsed_ms},
+                context={"params_input": parameters, "tool_name": self.name}
+            )
+        else:
+            result_text.stats = result_text.stats or {}
+            result_text.stats["time_ms"] = elapsed_ms
+            result_text.context = result_text.context or {}
+            result_text.context["params_input"] = parameters
+            result_text.context["tool_name"] = self.name
+            return result_text
 
     def run(self, parameters: Dict[str, Any]) -> str:
         """

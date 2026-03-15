@@ -1,0 +1,7 @@
+{"ts": "2026-03-15T09:50:14.674597", "session_id": "s-20260315-095014-57c1", "step": null, "event": "session_start", "payload": {"agent_name": "天气查询专家", "agent_type": "SimpleAgent"}}
+{"ts": "2026-03-15T09:50:14.674722", "session_id": "s-20260315-095014-57c1", "step": null, "event": "message_written", "payload": {"role": "user", "content": "请查询长沙的天气信息"}}
+{"ts": "2026-03-15T09:50:16.156831", "session_id": "s-20260315-095014-57c1", "step": 1, "event": "model_output", "payload": {"content": "我来为您查询长沙的天气信息。", "tool_calls": 1, "usage": {"prompt_tokens": 1118, "completion_tokens": 110, "total_tokens": 1228}}}
+{"ts": "2026-03-15T09:50:16.157075", "session_id": "s-20260315-095014-57c1", "step": 1, "event": "tool_call", "payload": {"tool_name": "amap_maps_weather", "tool_call_id": "call_-7806928793712453439", "args": {"city": "长沙"}}}
+{"ts": "2026-03-15T09:50:16.739231", "session_id": "s-20260315-095014-57c1", "step": 1, "event": "tool_result", "payload": {"tool_name": "amap_maps_weather", "tool_call_id": "call_-7806928793712453439", "result": "❌ 工具调用失败：'str' object has no attribute 'stats'"}}
+{"ts": "2026-03-15T09:50:18.333683", "session_id": "s-20260315-095014-57c1", "step": 2, "event": "error", "payload": {"error_type": "LLM_ERROR", "message": "LLM工具调用失败: Error code: 429 - {'error': {'code': '1302', 'message': '您的账户已达到速率限制，请您控制请求频率'}}"}}
+{"ts": "2026-03-15T09:50:18.334004", "session_id": "s-20260315-095014-57c1", "step": null, "event": "session_end", "payload": {"duration": 3.659919, "total_steps": 2, "final_answer": "", "status": "success"}}

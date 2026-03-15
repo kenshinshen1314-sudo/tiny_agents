@@ -24,8 +24,23 @@ from datetime import datetime, timedelta
 
 import dotenv
 
-# 加载环境变量
-dotenv.load_dotenv()
+# 加载环境变量 - 尝试多个路径
+env_loaded = False
+env_paths = [
+    ".env",  # 当前目录
+    "../.env",  # 上级目录
+    "../../.env",  # 上上级目录
+    os.path.join(os.path.dirname(__file__), "../.env"),  # 相对于模块文件
+    os.path.expanduser("~/.env"),  # 用户主目录
+]
+
+for env_path in env_paths:
+    if dotenv.load_dotenv(env_path):
+        env_loaded = True
+        break
+
+if not env_loaded:
+    dotenv.load_dotenv()  # 尝试默认位置
 
 # 高德地图 REST API 基础 URL
 AMAP_BASE_URL = "https://restapi.amap.com"
@@ -33,7 +48,11 @@ AMAP_BASE_URL = "https://restapi.amap.com"
 # 从环境变量获取 API Key
 AMAP_API_KEY = os.environ.get("AMAP_API_KEY", "")
 if not AMAP_API_KEY:
-    raise ValueError("AMAP_API_KEY 环境变量未设置")
+    import sys
+    print("⚠️  警告: AMAP_API_KEY 环境变量未设置", file=sys.stderr)
+    print("提示: 请在 .env 文件中设置 AMAP_API_KEY", file=sys.stderr)
+    # 不抛出异常，允许服务器启动（用于工具发现）
+    # raise ValueError("AMAP_API_KEY 环境变量未设置")
 
 
 class AmapMCPWrapper:
