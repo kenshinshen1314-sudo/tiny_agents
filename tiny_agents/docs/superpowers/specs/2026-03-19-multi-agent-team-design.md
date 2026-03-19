@@ -148,12 +148,48 @@
 
 ## 4. 数据结构设计
 
-### 4.1 团队配置
+### 4.1 枚举定义
+
+```python
+from enum import Enum
+
+class TeamType(Enum):
+    """团队类型"""
+    DEV = "dev"              # 软件开发
+    WRITING = "writing"       # 内容创作
+
+class TaskStatus(Enum):
+    """任务状态"""
+    PENDING = "pending"           # 待处理
+    ANALYZING = "analyzing"        # 分析中
+    TEAM_BUILDING = "team_building"  # 组建团队中
+    EXECUTING = "executing"        # 执行中
+    COMPLETED = "completed"        # 已完成
+    FAILED = "failed"              # 失败
+
+class RoleStatus(Enum):
+    """角色状态"""
+    IDLE = "idle"             # 空闲
+    WAITING = "waiting"       # 等待中
+    WORKING = "working"       # 执行中
+    COMPLETED = "completed"   # 已完成
+    FAILED = "failed"         # 失败
+
+class MsgType(Enum):
+    """消息类型"""
+    TASK = "task"            # 任务分配
+    RESULT = "result"         # 结果返回
+    PROGRESS = "progress"     # 进度汇报
+    QUERY = "query"           # 询问
+    ERROR = "error"           # 错误通知
+```
+
+### 4.2 团队配置
 
 ```python
 class TeamConfig:
     team_id: str              # 团队唯一标识
-    team_type: TeamType       # 团队类型 (DEV/WRITING)
+    team_type: TeamType       # 团队类型
     roles: List[RoleConfig]   # 角色配置
     task: str                # 原始任务描述
     status: TaskStatus       # 当前状态
@@ -166,7 +202,7 @@ class RoleConfig:
     dependencies: List[str]  # 依赖的其他角色
 ```
 
-### 4.2 消息协议
+### 4.3 消息协议
 
 ```python
 class TeamMessage:
@@ -174,10 +210,22 @@ class TeamMessage:
     from_role: str           # 发送者角色
     to_role: str             # 接收者角色 (BROADCAST表示广播)
     content: str             # 消息内容
-    message_type: MsgType    # 消息类型 (TASK/RESULT/PROGRESS/QUERY)
+    message_type: MsgType    # 消息类型
     timestamp: datetime      # 时间戳
     metadata: Dict           # 附加信息
 ```
+
+### 4.4 任务复杂度判定
+
+| 维度 | 简单 | 一般 | 复杂 |
+|------|------|------|------|
+| **功能点数** | 1-3个 | 4-8个 | 8+个 |
+| **技术栈** | 单技术 | 2-3技术 | 多技术集成 |
+| **页面数** | 1-3页 | 4-10页 | 10+页 |
+| **系统复杂度** | 单体 | 模块化 | 分布式 |
+| **字数（写作）** | <1000字 | 1000-3000字 | 3000+字 |
+
+**判定规则：** 任一维度达到"复杂"级别，则整体判定为复杂任务。
 
 ---
 
@@ -255,14 +303,20 @@ class AgentFactory:
 
 | 角色 | 可用工具 |
 |------|----------|
-| ProductManager | Read, Write, Search, Analyze |
-| Architect | Read, Diagram, Search |
-| FrontendDev | Code, Terminal, File |
-| BackendDev | Code, Terminal, File, Database |
-| QAEngineer | Test, Read, Execute |
+| **TeamManager** | Read, Write, Broadcast, Query |
+| **TeamLeader** | Read, Write, Dispatch, Query, Aggregate |
+| ProductManager | Read, Write, Search, Analyze, Diagram |
+| Architect | Read, Write, Search, Diagram, Code |
+| FrontendDev | Read, Write, Code, Terminal, File |
+| BackendDev | Read, Write, Code, Terminal, File, Database |
+| QAEngineer | Read, Write, Execute, Test |
+| UIDesigner | Read, Write, Design, Diagram |
+| DevOps | Read, Write, Terminal, Deploy, Config |
+| ChiefEditor | Read, Write, Search, Analyze, Plan |
 | Writer | Read, Write, Search |
-| Editor | Read, Write |
-| Reviewer | Read, Analyze |
+| Editor | Read, Write, Rewrite |
+| Reviewer | Read, Analyze, Comment |
+| SEOExpert | Read, Write, Search, Analyze |
 
 ### 6.2 团队协作工具
 
@@ -270,9 +324,84 @@ class AgentFactory:
 - **消息传递**：Agent间信息交换
 - **结果收集**：统一汇聚各角色产出
 
+### 6.3 Agent间通信机制
+
+**通信模式：** 异步消息队列 + 同步调用
+
+- **任务分发**：TeamLeader -> 执行Agent（同步调用）
+- **结果返回**：执行Agent -> TeamLeader（异步回调）
+- **进度汇报**：执行Agent -> TeamManager（定时推送）
+- **异常通知**：任意Agent -> TeamManager（事件触发）
+
+**超时机制：**
+- 单个Agent执行超时：5分钟（可配置）
+- 等待结果超时：3分钟
+- 任务总超时：根据复杂度动态计算
+
+**重试策略：**
+- 失败重试：最多3次，指数退避（1s, 2s, 4s）
+- 连续失败：跳过该Agent，标记并汇报TeamManager
+
+### 6.4 异常处理机制
+
+| 异常类型 | 处理策略 |
+|----------|----------|
+| Agent执行失败 | 重试3次后跳过，记录错误继续执行 |
+| 依赖前置任务失败 | 阻塞等待，人工介入或终止 |
+| 通信超时 | 重试+降级为串行执行 |
+| LLM调用失败 | 切换备用模型或返回错误 |
+
+**回滚机制：** 任务失败时保留各Agent产出，支持从指定节点重试。
+
 ---
 
-## 7. 使用示例
+## 7. 完整执行流程（时序图）
+
+```
+用户输入
+    │
+    ▼
+┌─────────────────────────────────────┐
+│        TeamManager                  │
+│  1. 分析任务类型和复杂度              │
+│  2. 选择团队模板                     │
+│  3. 组建团队                         │
+└─────────────────────────────────────┘
+    │
+    ▼
+┌─────────────────────────────────────┐
+│       TeamLeader                    │
+│  1. 分解子任务                      │
+│  2. 分配给执行Agent                 │
+│  3. 收集结果                        │
+└─────────────────────────────────────┘
+    │              │              │
+    ▼              ▼              ▼
+┌─────────┐   ┌─────────┐   ┌─────────┐
+│ Agent 1 │   │ Agent 2 │   │ Agent 3 │
+│ (执行)   │   │ (执行)   │   │ (执行)   │
+└─────────┘   └─────────┘   └─────────┘
+    │              │              │
+    └──────────────┴──────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────┐
+│       TeamLeader 汇总                │
+│  1. 整合结果                        │
+│  2. 检查完整性                      │
+└─────────────────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────┐
+│       TeamManager 交付               │
+│  1. 最终检查                        │
+│  2. 输出交付物                      │
+└─────────────────────────────────────┘
+```
+
+---
+
+## 8. 使用示例
 
 ### 7.1 软件开发示例
 
@@ -307,16 +436,16 @@ class AgentFactory:
 
 ---
 
-## 8. 扩展性设计
+## 9. 扩展性设计
 
-### 8.1 新增团队类型
+### 9.1 新增团队类型
 
 通过定义新的团队模板来支持：
 1. 创建团队模板配置（JSON/YAML）
 2. 定义角色列表和执行流程
 3. 注册到TeamManager
 
-### 8.2 新增角色
+### 9.2 新增角色
 
 1. 在模板中添加新角色
 2. 定义角色Prompt
@@ -324,21 +453,21 @@ class AgentFactory:
 
 ---
 
-## 9. 风险与限制
+## 10. 风险与限制
 
-### 9.1 当前限制
+### 10.1 当前限制
 - 复杂任务可能需要人工介入协调
 - 多Agent通信可能产生信息损耗
 - 产出质量依赖于底层LLM能力
 
-### 9.2 未来改进
+### 10.2 未来改进
 - 引入记忆共享机制减少信息丢失
 - 增加人工审核节点
 - 支持更多团队类型
 
 ---
 
-## 10. 实施计划
+## 11. 实施计划
 
 ### Phase 1: 核心框架
 - TeamManager基础实现
