@@ -64,7 +64,7 @@ class SessionStore:
             会话 ID
         """
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-        unique_suffix = uuid.uuid4().hex[:8]
+        unique_suffix = uuid.uuid4().hex
         return f"s-{timestamp}-{unique_suffix}"
     
     def save(

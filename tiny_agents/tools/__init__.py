@@ -7,7 +7,7 @@ from .errors import ToolErrorCode
 
 
 # 内置工具
-from .builtin.calculator import CalculatorTool
+from .builtin.calculator_tool import CalculatorTool
 from .builtin.file_tools import ReadTool, WriteTool, EditTool, MultiEditTool
 from .builtin.todowrite_tool import TodoWriteTool, TodoItem, TodoList
 from .builtin.devlog_tool import DevLogTool, DevLogEntry, DevLogStore, CATEGORIES

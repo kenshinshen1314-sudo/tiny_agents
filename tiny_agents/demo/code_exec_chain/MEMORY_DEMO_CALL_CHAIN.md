@@ -244,7 +244,7 @@ print("Agent Response:", result)
 │                   │                                                             │
 │               ←── 返回 memory_id                                                 │
 │               │                                                                 │
-│           ←── 返回 f"✅ 记忆已添加 (ID: {memory_id[:8]}...)"                     │
+│           ←── 返回 f"✅ 记忆已添加 (ID: {memory_id}...)"                     │
 │           │                                                                     │
 │       ←── return result                                                         │
 │                                                                             │

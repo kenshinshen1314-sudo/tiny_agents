@@ -63,7 +63,7 @@ def test_search_question():
     llm = HelloAgentsLLM()
     tool_registry = ToolRegistry()
 
-    from tiny_agents.tools.builtin.search import search
+    from tiny_agents.demo.search import search
     tool_registry.register_function("search", "搜索互联网信息", search)
     print(f"✅ 搜索工具注册成功")
 

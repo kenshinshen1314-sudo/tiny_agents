@@ -56,6 +56,7 @@ result = rag_tool.execute(
 )
 
 print(result)
+
 print("\n=== 知识库统计 ===")
 result = rag_tool.execute("stats")
 print(result)

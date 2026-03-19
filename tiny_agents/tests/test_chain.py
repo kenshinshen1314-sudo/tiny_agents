@@ -10,7 +10,7 @@ from tiny_agents.tools.chain import (
     create_research_chain,
     create_simple_chain
 )
-from tiny_agents.tools.builtin.calculator import CalculatorTool
+from tiny_agents.tools import CalculatorTool
 
 # 加载环境变量
 load_dotenv()
@@ -32,7 +32,8 @@ registry_1.register_tool(calculator)
 def my_calculator(expr: str) -> str:
     """计算器函数包装"""
     result = calculator.run({"input": expr})
-    return result.text if hasattr(result, 'text') else str(result)
+    # 返回纯数值结果，而不是带前缀的文本
+    return result.data.get('result_str') if result.data.get('result_str') else result.text
 
 registry_1.register_function(my_calculator, name="my_calculator", description="计算器工具")
 
@@ -50,6 +51,24 @@ chain1.add_step(
 
 result1 = chain1.execute(registry_1, "15 + 25")
 print(f"\n🎯 执行结果: {result1}")
+
+registry_1_1 = ToolRegistry()
+registry_1_1.register_tool(calculator)
+
+# 创建单步骤工具链
+chain1 = ToolChain(
+    name="simple_calculation",
+    description="简单的计算工具链"
+)
+
+chain1.add_step(
+    tool_name="python_calculator",
+    input_template="{input}",
+    output_key="result"
+)
+
+result1_1 = chain1.execute(registry_1_1, "15 + 25")
+print(f"\n🎯 执行结果: {result1_1}")
 
 # ==================== 测试2：多步骤 ToolChain ====================
 print("\n" + "="*80)

@@ -2,6 +2,7 @@
 
 from typing import List, Dict, Any, Optional
 from .registry import ToolRegistry
+from .response import ToolResponse
 
 
 class ToolChain:
@@ -69,7 +70,18 @@ class ToolChain:
             # 执行工具
             try:
                 result = registry.execute_tool(tool_name, actual_input)
-                context[output_key] = result
+                # 提取文本值用于后续步骤引用
+                if isinstance(result, ToolResponse):
+                    # 优先使用 data['output']（函数工具），其次使用 data['result']/data['result_str']（Tool对象），最后使用 text
+                    extracted_value = (
+                        result.data.get('output') or
+                        result.data.get('result_str') or
+                        result.data.get('result') or
+                        result.text
+                    )
+                    context[output_key] = extracted_value
+                else:
+                    context[output_key] = result
                 final_result = result
                 print(f"✅ 步骤 {i+1} 完成")
             except Exception as e:

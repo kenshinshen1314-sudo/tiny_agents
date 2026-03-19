@@ -114,7 +114,7 @@ def diagnose_qdrant() -> Dict[str, Any]:
             for i, point in enumerate(all_points[:5]):
                 payload = point.payload or {}
                 content = payload.get("content", "")[:50]
-                memory_id = payload.get("memory_id", "N/A")[:8]
+                memory_id = payload.get("memory_id", "N/A")
                 user_id = payload.get("user_id", "N/A")
                 memory_type = payload.get("memory_type", "N/A")
                 logger.info(f"      [{i+1}] memory_id={memory_id}... | user_id={user_id} | type={memory_type}")

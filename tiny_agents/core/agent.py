@@ -553,6 +553,8 @@ class Agent(ABC):
                 schema["function"]["parameters"]["required"] = required
             schemas.append(schema)
 
+        print(f"Built {len(schemas)} tool schemas, ")
+
         # 2. 处理函数工具
         function_map = getattr(self.tool_registry, "_functions", {})
         for name, info in function_map.items():
@@ -573,6 +575,9 @@ class Agent(ABC):
                     }
                 }
             })
+
+        print(f"schemas: {schemas}")
+        print(f"Built {len(schemas)} tool schemas, including {len(function_map)} function tools.")
 
         return schemas
 

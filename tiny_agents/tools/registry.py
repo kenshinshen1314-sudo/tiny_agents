@@ -157,6 +157,7 @@ class ToolRegistry:
 
         # 优先查找Tool对象（新协议）
         if name in self._tools:
+            print(f"尝试执行 Tool 对象 '{name}'")
             tool = self._tools[name]
             try:
                 # 解析参数（支持 JSON 字符串或字典）
@@ -183,6 +184,7 @@ class ToolRegistry:
 
         # 查找函数工具（自动包装为新协议）
         elif name in self._functions:
+            print(f"尝试执行函数工具 '{name}'")
             func = self._functions[name]["func"]
             start_time = time.time()
 

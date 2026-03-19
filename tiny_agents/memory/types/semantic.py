@@ -1119,7 +1119,7 @@ class SemanticMemory(BaseMemory):
         for memory_id in to_remove:
             if self.remove(memory_id):
                 forgotten_count += 1
-                logger.info(f"语义记忆硬删除: {memory_id[:8]}... (策略: {strategy})")
+                logger.info(f"语义记忆硬删除: {memory_id}... (策略: {strategy})")
         
         return forgotten_count
 

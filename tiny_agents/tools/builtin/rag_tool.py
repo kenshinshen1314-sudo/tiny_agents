@@ -290,6 +290,7 @@ class RAGTool(Tool):
                 with open(tmp_path, 'w', encoding='utf-8') as f:
                     f.write(text)
                 
+                print(f"##########namespace: {namespace}")  
                 pipeline = self._get_pipeline(namespace)
                 t0 = time.time()
 

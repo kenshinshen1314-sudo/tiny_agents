@@ -57,7 +57,25 @@ class CalculatorTool(Tool):
             ToolResponse: 标准化的工具响应对象
         """
         # 支持两种参数格式：input 和 expression
-        expression = parameters.get("input", "") or parameters.get("expression", "")
+        # 处理嵌套字典情况：例如 input = {"expression": "..."} 或 input = {"input": "..."}
+        raw_input = parameters.get("input") or parameters.get("expression", "")
+
+        # 如果 input 本身是字典，尝试提取其中的表达式
+        if isinstance(raw_input, dict):
+            expression = raw_input.get("expression") or raw_input.get("input", "")
+        elif isinstance(raw_input, str):
+            # 尝试解析 JSON 字符串（如 LLM 返回的 {"expression": "..."}）
+            import json
+            try:
+                parsed = json.loads(raw_input)
+                if isinstance(parsed, dict):
+                    expression = parsed.get("expression") or parsed.get("input", "")
+                else:
+                    expression = str(parsed)
+            except (json.JSONDecodeError, TypeError):
+                expression = raw_input
+        else:
+            expression = str(raw_input) if raw_input else ""
 
         if not expression:
             return ToolResponse.error(

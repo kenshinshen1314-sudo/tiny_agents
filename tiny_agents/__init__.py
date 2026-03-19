@@ -4,13 +4,13 @@ from .core.llm import HelloAgentsLLM
 
 # 可选的旧模块导入（可能缺失依赖）
 try:
-    from .agents.react_agent_old import ReActAgent
+    from .agents.react_agent import ReActAgent
     _has_react_old = True
 except ImportError:
     _has_react_old = False
 
 try:
-    from .tools.builtin.search import ToolExecutor, search
+    from .demo.search import ToolExecutor, search
     _has_search = True
 except ImportError:
     _has_search = False

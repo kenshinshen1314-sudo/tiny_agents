@@ -163,7 +163,7 @@ class MemoryTool(Tool):
                 auto_classify=False  # 禁用自动分类，使用明确指定的类型
             )
 
-            return f"✅ 记忆已添加 (ID: {memory_id[:8]}...)"
+            return f"✅ 记忆已添加 (ID: {memory_id}...)"
 
         except Exception as e:
             return f"❌ 添加记忆失败: {str(e)}"
@@ -311,7 +311,7 @@ class MemoryTool(Tool):
                 summary_parts.append(f"\n⭐ 重要记忆 (前{min(limit, len(unique_memories))}条):")
 
                 for i, memory in enumerate(unique_memories[:limit], 1):
-                    content_preview = memory.content[:60] + "..." if len(memory.content) > 60 else memory.content
+                    content_preview = memory.content[:100] + "..." if len(memory.content) > 100 else memory.content
                     summary_parts.append(f"  {i}. {content_preview} (重要性: {memory.importance:.2f})")
 
             return "\n".join(summary_parts)

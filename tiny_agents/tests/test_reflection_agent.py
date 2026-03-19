@@ -25,7 +25,7 @@ general_agent = MyReflectionAgent(
     max_iterations=3
 )
 result1 = general_agent.run("用Python实现一个简单的计算器，支持加减乘除运算")
-print(f"\n🎯 最终结果已获取")
+print(f"\n🎯 最终结果已生成: {result1}")
 
 # ==================== 测试2：代码领域Agent ====================
 print("\n" + "="*80)
@@ -38,7 +38,10 @@ coding_agent = create_agent(
     max_iterations=3
 )
 result2 = coding_agent.run("编写一个Python函数，实现快速排序算法")
-print(f"\n🎯 最终结果已获取")
+print(f"\n🎯 最终结果已生成: {result2}")
+
+result22 = coding_agent.run("编写一个Python函数，找出1到n之间所有的素数 (prime numbers)")
+print(f"\n🎯 最终结果已生成: {result22}")
 
 # ==================== 测试3：写作领域Agent ====================
 print("\n" + "="*80)
@@ -51,7 +54,7 @@ writing_agent = create_agent(
     max_iterations=3
 )
 result3 = writing_agent.run("写一篇关于人工智能未来发展的短文，约200字")
-print(f"\n🎯 最终结果已获取")
+print(f"\n🎯 最终结果已生成: {result3}")
 
 # ==================== 测试4：分析领域Agent ====================
 print("\n" + "="*80)
@@ -64,7 +67,7 @@ analysis_agent = create_agent(
     max_iterations=3
 )
 result4 = analysis_agent.run("分析远程办公对员工生产力的影响")
-print(f"\n🎯 最终结果已获取")
+print(f"\n🎯 最终结果已生成: {result4}")
 
 # ==================== 测试5：查看统计信息 ====================
 print("\n" + "="*80)

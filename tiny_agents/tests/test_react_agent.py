@@ -29,7 +29,7 @@ def test_react_agent():
 
     # 注册搜索工具（如果可用）
     try:
-        from tiny_agents.tools.builtin.search import search
+        from tiny_agents.demo.search import search
         tool_registry.register_function("search", "搜索互联网信息", search)
         print("✅ 搜索工具注册成功")
     except ImportError:

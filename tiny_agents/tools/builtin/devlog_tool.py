@@ -52,7 +52,7 @@ class DevLogEntry:
     ) -> 'DevLogEntry':
         """创建新的日志条目"""
         return cls(
-            id=f"log-{uuid.uuid4().hex[:8]}",
+            id=f"log-{uuid.uuid4().hex}",
             timestamp=datetime.now().isoformat(),
             category=category,
             content=content,

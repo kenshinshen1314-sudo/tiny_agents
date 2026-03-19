@@ -746,7 +746,7 @@ def search_vectors_expanded(
     only_rag_data: bool = True,
     score_threshold: Optional[float] = None,
     enable_mqe: bool = False,
-    mqe_expansions: int = 2,
+    mqe_expansions: int = 3,
     enable_hyde: bool = False,
     candidate_pool_multiplier: int = 4,
 ) -> List[Dict]:

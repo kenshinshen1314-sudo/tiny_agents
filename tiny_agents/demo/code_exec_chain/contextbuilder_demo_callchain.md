@@ -769,7 +769,7 @@ user_query = "如何优化Pandas的内存占用？"
     │                           │       ├── 存储到对应类型的记忆库
     │                           │       └── 返回记忆 ID
     │                           │
-    │                           ├── [Line 166] return f"✅ 记忆已添加 (ID: {memory_id[:8]}...)"
+    │                           ├── [Line 166] return f"✅ 记忆已添加 (ID: {memory_id}...)"
     │                           │
     │                           └── 返回 "✅ 记忆已添加 (ID: abc12345...)"
     │

@@ -84,6 +84,9 @@ class MyReActAgent(ReActAgent):
             # 3. 解析输出
             thought, action = self._parse_output(response_text)
 
+            print(f"Thought: {thought}")
+            print(f"Action: {action}")
+
             # 4. 检查完成条件
             if action and action.startswith("Finish"):
                 final_answer = self._parse_action_input(action)

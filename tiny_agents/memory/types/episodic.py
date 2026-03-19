@@ -417,7 +417,7 @@ class EpisodicMemory(BaseMemory):
         for episode_id in to_remove:
             if self.remove(episode_id):
                 forgotten_count += 1
-                logger.info(f"情景记忆硬删除: {episode_id[:8]}... (策略: {strategy})")
+                logger.info(f"情景记忆硬删除: {episode_id}... (策略: {strategy})")
         
         return forgotten_count
 

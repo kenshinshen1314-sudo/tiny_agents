@@ -79,6 +79,7 @@ class HelloAgentsLLM:
         # 验证必要参数
         if not self.model:
             self.model = self._get_default_model()
+
         if not all([self.api_key, self.base_url]):
             raise HelloAgentsException("API密钥和服务地址必须被提供或在.env文件中定义。")
 
@@ -112,6 +113,10 @@ class HelloAgentsLLM:
             return "ollama"
         if os.getenv("VLLM_API_KEY") or os.getenv("VLLM_HOST"):
             return "vllm"
+        if os.getenv("MINIMAX_API_KEY") or os.getenv("MINIMAX_HOST"):
+            return "minimax"
+
+
 
         # 2. 根据API密钥格式判断
         actual_api_key = api_key or os.getenv("LLM_API_KEY")
@@ -126,7 +131,7 @@ class HelloAgentsLLM:
             elif actual_key_lower == "local":
                 return "local"
             elif actual_api_key.startswith("sk-") and len(actual_api_key) > 50:
-                # 可能是OpenAI、DeepSeek或Kimi，需要进一步判断
+                # 可能是OpenAI、DeepSeek、Qwen、ModelScope、MINIMAX或Kimi，需要进一步判断
                 pass
             elif actual_api_key.endswith(".") or "." in actual_api_key[-20:]:
                 # 智谱AI的API密钥格式通常包含点号
@@ -148,6 +153,8 @@ class HelloAgentsLLM:
                 return "kimi"
             elif "open.bigmodel.cn" in base_url_lower:
                 return "zhipu"
+            elif "api.minimax.cn" in base_url_lower or "api.minimax.io" in base_url_lower:
+                return "minimax"
             elif "localhost" in base_url_lower or "127.0.0.1" in base_url_lower:
                 # 本地部署检测 - 优先检查特定服务
                 if ":11434" in base_url_lower or "ollama" in base_url_lower:
@@ -212,6 +219,11 @@ class HelloAgentsLLM:
             resolved_api_key = api_key or os.getenv("VLLM_API_KEY") or os.getenv("LLM_API_KEY") or "vllm"
             resolved_base_url = base_url or os.getenv("VLLM_HOST") or os.getenv("LLM_BASE_URL") or "http://localhost:8000/v1"
             return resolved_api_key, resolved_base_url
+        
+        elif self.provider == "minimax":
+            resolved_api_key = api_key or os.getenv("MINIMAX_API_KEY") or os.getenv("LLM_API_KEY") or "minimax"
+            resolved_base_url = base_url or os.getenv("MINIMAX_HOST") or os.getenv("LLM_BASE_URL") or "https://api.minimax.io/v1" or "https://api.minimax.cn/v1"
+            return resolved_api_key, resolved_base_url
 
         elif self.provider == "local":
             resolved_api_key = api_key or os.getenv("LLM_API_KEY") or "local"
@@ -250,11 +262,15 @@ class HelloAgentsLLM:
         elif self.provider == "kimi":
             return "moonshot-v1-8k"
         elif self.provider == "zhipu":
-            return "glm-4"
+            return "glm-4.7"
         elif self.provider == "ollama":
             return "llama3.2"  # Ollama常用模型
         elif self.provider == "vllm":
             return "meta-llama/Llama-2-7b-chat-hf"  # vLLM常用模型
+        elif self.provider == "minimax":
+            return "MiniMax-M2.5"  # MINIMAX常用模型
+        elif self.provider == "local":
+            return "local-model"  # 本地模型占位符
         elif self.provider == "local":
             return "local-model"  # 本地模型占位符
         elif self.provider == "custom":
@@ -272,7 +288,9 @@ class HelloAgentsLLM:
             elif "moonshot" in base_url_lower:
                 return "moonshot-v1-8k"
             elif "bigmodel" in base_url_lower:
-                return "glm-4"
+                return "glm-4.7"
+            elif "minimax" in base_url_lower:
+                return "MiniMax-M2.5"
             elif "ollama" in base_url_lower or ":11434" in base_url_lower:
                 return "llama3.2"
             elif ":8000" in base_url_lower or "vllm" in base_url_lower:

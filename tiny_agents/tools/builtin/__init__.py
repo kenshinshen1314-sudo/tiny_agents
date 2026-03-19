@@ -12,7 +12,7 @@ HelloAgents框架的内置工具集合，包括：
 - SkillTool: 技能加载工具
 """
 
-from .calculator import CalculatorTool
+from .calculator_tool import CalculatorTool
 from .file_tools import ReadTool, WriteTool, EditTool, MultiEditTool
 from .todowrite_tool import TodoWriteTool, TodoItem, TodoList
 from .devlog_tool import DevLogTool, DevLogEntry, DevLogStore, CATEGORIES

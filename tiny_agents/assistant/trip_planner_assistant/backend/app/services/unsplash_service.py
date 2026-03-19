@@ -942,7 +942,7 @@ class UnsplashService:
             return url
         except Exception:
             # 最后备用：使用 picsum 但带上旅行相关的 seed
-            seed = hashlib.md5(query.encode()).hexdigest()[:8]
+            seed = hashlib.md5(query.encode()).hexdigest()
             return f"https://picsum.photos/seed/{seed}/800/600"
 
     def _translate_city_name(self, city: str) -> str:

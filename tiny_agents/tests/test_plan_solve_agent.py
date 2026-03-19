@@ -53,10 +53,10 @@ math_prompts = {
 }
 # 使用自定义提示词创建数学专用Agent
 math_agent = MyPlanAndSolveAgent(
-name="数学计算助手",
-llm=llm,
-custom_prompts=math_prompts,
-enable_detailed_logging=True
+    name="数学计算助手",
+    llm=llm,
+    custom_prompts=math_prompts,
+    enable_detailed_logging=True
 )
 # 测试数学问题
 math_result = math_agent.run(question)

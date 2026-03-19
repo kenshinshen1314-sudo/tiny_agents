@@ -111,7 +111,7 @@ async def upload_pdf(file: UploadFile = File(...)):
             raise HTTPException(status_code=400, detail="只支持上传 PDF 文件")
 
         # 生成唯一文件名
-        file_id = str(uuid.uuid4())[:8]
+        file_id = str(uuid.uuid4())
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         safe_filename = f"{timestamp}_{file_id}_{file.filename}"
         file_path = os.path.join(UPLOAD_DIR, safe_filename)

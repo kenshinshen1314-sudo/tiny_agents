@@ -1,0 +1,20 @@
+
+            # Python 官方文档摘要
+
+            ## 什么是 Python？
+            Python 是一种广泛使用的解释型、高级和通用的编程语言。
+
+            ## Python 特点
+            - 简单易学：Python 语法简洁优雅
+            - 跨平台：支持 Windows、Linux、macOS 等
+            - 丰富的库：拥有庞大的标准库和第三方库
+            - 动态类型：无需声明变量类型
+            - 面向对象：支持类和多态
+
+            ## 常用 Python 库
+            - NumPy: 科学计算
+            - Pandas: 数据分析
+            - Matplotlib: 数据可视化
+            - TensorFlow: 机器学习
+            - Django: Web 开发
+            

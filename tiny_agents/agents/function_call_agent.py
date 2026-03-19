@@ -209,7 +209,11 @@ class FunctionCallAgent(Agent):
         if tool:
             try:
                 typed_arguments = self._convert_parameter_types(tool_name, arguments)
-                return tool.run(typed_arguments)
+                result = tool.run(typed_arguments)
+                # 确保返回字符串格式
+                if hasattr(result, 'text'):
+                    return result.text
+                return str(result)
             except Exception as exc:
                 return f"❌ 工具调用失败：{exc}"
 
