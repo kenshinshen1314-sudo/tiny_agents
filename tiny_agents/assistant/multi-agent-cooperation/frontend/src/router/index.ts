@@ -1,8 +1,21 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '@/views/HomeView.vue';
+import TaskView from '@/views/TaskView.vue';
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: []
-})
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/task/:id',
+      name: 'task',
+      component: TaskView
+    }
+  ]
+});
 
-export default router
+export default router;
