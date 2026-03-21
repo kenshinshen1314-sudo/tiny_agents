@@ -60,8 +60,6 @@ class CodebaseMaintainer:
 
         # 初始化上下文构建器
         self.context_builder = ContextBuilder(
-            memory_tool=self.memory_tool,
-            rag_tool=None,  # 本案例不使用 RAG
             config=ContextConfig(
                 max_tokens=4096,
                 reserve_ratio=0.15,

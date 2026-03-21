@@ -97,6 +97,7 @@ export interface TripFormData {
   travel_days: number
   transportation: string
   accommodation: string
+  budget?: string
   preferences: string[]
   food_preferences?: string[]
   environment_preferences?: string[]

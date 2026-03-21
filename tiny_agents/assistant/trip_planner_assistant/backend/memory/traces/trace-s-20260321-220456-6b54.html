@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260321-220456-6b54</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260321-220456-6b54</h1>
+        <p>生成时间: 2026-03-21 22:04:56</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-21T22:04:56.981038</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "天气查询专家",
+  "agent_type": "SimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-21T22:04:56.982901</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "请查询长沙的天气信息"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-21T22:05:07.238086</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "content": "<think>\n用户想要查询长沙的天气信息。我需要使用 amap_maps_weather 工具来查询天气，参数为城市名\"长沙\"。\n</think>\n\n\n",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 667,
+    "completion_tokens": 86,
+    "total_tokens": 753
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-21T22:05:07.238650</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-4')">[▼ 详情]</span>
+            </div>
+            <div id="details-4" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_leur0t5tvmrf_1",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "amap_maps_weather",
+    "arguments": {
+      "city": "长沙"
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-21T22:05:07.735922</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-5')">[▼ 详情]</span>
+            </div>
+            <div id="details-5" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_leur0t5tvmrf_1",
+  "result": "❌ 错误 [UNKNOWN]: 工具 'amap_maps_weather' 执行结果:\n{\"error\": \"未知工具: amap_maps_weather\", \"status\": \"0\", \"info\": \"工具'amap_maps_weather'不存在\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-21T22:05:11.546551</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-6')">[▼ 详情]</span>
+            </div>
+            <div id="details-6" class="details">
+                <pre>{
+  "content": "<think>\n看起来工具名称可能不对，让我先查看一下可用的工具列表。\n</think>\n\n\n",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 820,
+    "completion_tokens": 42,
+    "total_tokens": 862
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-21T22:05:11.547005</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-7')">[▼ 详情]</span>
+            </div>
+            <div id="details-7" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_b1prc4a11qww_1",
+  "args": {
+    "action": "list_tools"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-21T22:05:12.039171</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-8')">[▼ 详情]</span>
+            </div>
+            <div id="details-8" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_b1prc4a11qww_1",
+  "result": "找到 6 个工具:\n- maps_text_search: 搜索POI（兴趣点），支持按关键词搜索景点、酒店、餐厅等\n- maps_weather: 查询指定城市的天气信息\n- maps_direction_walking_by_address: 规划步行路线（通过地址）\n- maps_direction_driving_by_address: 规划驾车路线（通过地址）\n- maps_direction_transit_integrated_by_address: 规划公交路线（通过地址）\n- maps_geo: 地理编码：将地址转换为经纬度坐标\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-21T22:05:29.331574</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-9')">[▼ 详情]</span>
+            </div>
+            <div id="details-9" class="details">
+                <pre>{
+  "content": "<think>\n找到了正确的工具名称，应该是 maps_weather 而不是 amap_maps_weather。让我使用正确的工具名称重新查询。\n</think>\n\n\n",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 982,
+    "completion_tokens": 79,
+    "total_tokens": 1061
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-21T22:05:29.333253</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-10')">[▼ 详情]</span>
+            </div>
+            <div id="details-10" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_xnm5u9odgyan_1",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "maps_weather",
+    "arguments": {
+      "city": "长沙"
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-21T22:05:30.006074</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-11')">[▼ 详情]</span>
+            </div>
+            <div id="details-11" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_xnm5u9odgyan_1",
+  "result": "工具 'maps_weather' 执行结果:\n{\"status\": \"1\", \"count\": \"2\", \"info\": \"OK\", \"infocode\": \"10000\", \"forecasts\": [{\"city\": \"长沙市\", \"adcode\": \"430100\", \"province\": \"湖南\", \"reporttime\": \"2026-03-21 22:04:38\", \"casts\": [{\"date\": \"2026-03-21\", \"week\": \"6\", \"dayweather\": \"多云\", \"nightweather\": \"小雨\", \"daytemp\": \"17\", \"nighttemp\": \"13\", \"daywind\": \"东南\", \"nightwind\": \"东南\", \"daypower\": \"1-3\", \"nightpower\": \"1-3\", \"daytemp_float\": \"17.0\", \"nighttemp_float\": \"13.0\"}, {\"date\": \"2026-03-22\", \"week\": \"7\", \"dayweather\": \"小雨\", \"nightweather\": \"中雨\", \"daytemp\": \"19\", \"nighttemp\": \"13\", \"daywind\": \"北\", \"nightwind\": \"北\", \"daypower\": \"1-3\", \"nightpower\": \"1-3\", \"daytemp_float\": \"19.0\", \"nighttemp_float\": \"13.0\"}, {\"date\": \"2026-03-23\", \"week\": \"1\", \"dayweather\": \"小雨\", \"nightweather\": \"小雨\", \"daytemp\": \"16\", \"nighttemp\": \"12\", \"daywind\": \"西北\", \"nightwind\": \"西北\", \"daypower\": \"1-3\", \"nightpower\": \"1-3\", \"daytemp_float\": \"16.0\", \"nighttemp_float\": \"12.0\"}, {\"date\": \"2026-03-24\", \"week\": \"2\", \"dayweather\": \"小雨\", \"nightweather\": \"小雨\", \"daytemp\": \"16\", \"nighttemp\": \"12\", \"daywind\": \"北\", \"nightwind\": \"北\", \"daypower\": \"1-3\", \"nightpower\": \"1-3\", \"daytemp_float\": \"16.0\", \"nighttemp_float\": \"12.0\"}]}, {\"city\": \"长沙县\", \"adcode\": \"430121\", \"province\": \"湖南\", \"reporttime\": \"2026-03-21 22:04:40\", \"casts\": [{\"date\": \"2026-03-21\", \"week\": \"6\", \"dayweather\": \"多云\", \"nightweather\": \"小雨\", \"daytemp\": \"17\", \"nighttemp\": \"13\", \"daywind\": \"东南\", \"nightwind\": \"东南\", \"daypower\": \"1-3\", \"nightpower\": \"1-3\", \"daytemp_float\": \"17.0\", \"nighttemp_float\": \"13.0\"}, {\"date\": \"2026-03-22\", \"week\": \"7\", \"dayweather\": \"小雨\", \"nightweather\": \"中雨\", \"daytemp\": \"19\", \"nighttemp\": \"13\", \"daywind\": \"北\", \"nightwind\": \"北\", \"daypower\": \"1-3\", \"nightpower\": \"1-3\", \"daytemp_float\": \"19.0\", \"nighttemp_float\": \"13.0\"}, {\"date\": \"2026-03-23\", \"week\": \"1\", \"dayweather\": \"小雨\", \"nightweather\": \"小雨\", \"daytemp\": \"16\", \"nighttemp\": \"12\", \"daywind\": \"西北\", \"nightwind\": \"西北\", \"daypower\": \"1-3\", \"nightpower\": \"1-3\", \"daytemp_float\": \"16.0\", \"nighttemp_float\": \"12.0\"}, {\"date\": \"2026-03-24\", \"week\": \"2\", \"dayweather\": \"小雨\", \"nightweather\": \"小雨\", \"daytemp\": \"16\", \"nighttemp\": \"12\", \"daywind\": \"北\", \"nightwind\": \"北\", \"daypower\": \"1-3\", \"nightpower\": \"1-3\", \"daytemp_float\": \"16.0\", \"nighttemp_float\": \"12.0\"}]}]}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-21T22:05:47.695017</span>
+                <span class="event-type">session_end</span>
+                <span class="expandable" onclick="toggleDetails('details-12')">[▼ 详情]</span>
+            </div>
+            <div id="details-12" class="details">
+                <pre>{
+  "duration": 50.71569,
+  "total_steps": 3,
+  "final_answer": "<think>\n成功获取了长沙的天气信息。现在我需要解析数据并按照 WeatherInfo 格式输出 JSON。\n\n从返回数据中，我可以看到：\n- forecasts 数组包含两个城市的天气：长沙市和长沙县\n- 我取第一个长沙市的数据\n- casts 数组包含4天的天气预报\n\n让我解析数据：\n1. 2026-03-21: 多云/小雨, 17/13°C, 东南风, 1-3级\n2. 2026-03-22: 小雨/中雨, 19/13°C, 北风, 1-3级\n3. 2026-03-23: 小雨/小雨, 16/12°C, 西北风, 1-3级\n4. 2026-03-24: 小雨/小雨, 16/12°C, 北风, 1-3级\n\n现在我需要按照要求的格式输出 JSON。\n</think>\n\n[\n  {\n    \"date\": \"2026-03-21\",\n    \"day_weather\": \"多云\",\n    \"night_weather\": \"小雨\",\n    \"day_temp\": 17,\n    \"night_temp\": 13,\n    \"wind_direction\": \"东南风\",\n    \"wind_power\": \"1-3级\"\n  },\n  {\n    \"date\": \"2026-03-22\",\n    \"day_weather\": \"小雨\",\n    \"night_weather\": \"中雨\",\n    \"day_temp\": 19,\n    \"night_temp\": 13,\n    \"wind_direction\": \"北风\",\n    \"wind_power\": \"1-3级\"\n  },\n  {\n    \"date\": \"2026-03-23\",\n    \"day_weather\": \"小雨\",\n    \"night_weather\": \"小雨\",\n    \"day_temp\": 16,\n    \"night_temp\": 12,\n    \"wind_direction\": \"西北风\",\n    \"wind_power\": \"1-3级\"\n  },\n  {\n    \"date\": \"2026-03-24\",\n    \"day_weather\": \"小雨\",\n    \"night_weather\": \"小雨\",\n    \"day_temp\": 16,\n    \"night_temp\": 12,\n    \"wind_direction\": \"北风\",\n    \"wind_power\": \"1-3级\"\n  }\n]",
+  "status": "success"
+}</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stats-panel">
+        <h2>📊 会话统计</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">总步骤数</span>
+                <span class="stat-value">3</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总 Token</span>
+                <span class="stat-value">2,676</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总成本</span>
+                <span class="stat-value">$0.0000</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">会话时长</span>
+                <span class="stat-value">50.7s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">模型调用次数</span>
+                <span class="stat-value">3</span>
+            </div>
+        </div>
+
+        <h3>🔧 工具调用统计</h3>
+        <table class="tool-stats">
+            <tr><th>工具名称</th><th>调用次数</th></tr>
+            <tr><td>amap</td><td>3</td></tr>
+
+        </table>
+
+        
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

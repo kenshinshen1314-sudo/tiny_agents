@@ -581,6 +581,7 @@ class MultiAgentTripPlanner:
             print(f"交通方式偏好: {request.transportation if request.transportation else '无'}")
             print(f"住宿偏好: {request.accommodation if request.accommodation else '无'}")
             print(f"就餐环境偏好: {request.environment_preferences if request.environment_preferences else '无'}")
+            print(f"预算控制: {request.budget if request.budget else '无'}")
 
             print(f"{'='*60}\n")
 
@@ -758,6 +759,7 @@ class MultiAgentTripPlanner:
     def _build_planner_query(self, request: TripRequest, attractions: str,
                             gourmet: str, weather: str, hotels: str = "") -> str:
         """构建行程规划查询"""
+        budget_info = f"- 预算控制: {request.budget}" if request.budget else ""
         query = f"""请根据以下信息生成{request.city}的{request.travel_days}天旅行计划:
 
 **基本信息:**
@@ -770,6 +772,7 @@ class MultiAgentTripPlanner:
 - 交通方式偏好: {request.transportation if request.transportation else '无'}
 - 住宿偏好: {request.accommodation if request.accommodation else '无'}
 - 就餐环境偏好: {request.environment_preferences if request.environment_preferences else '无'}
+{budget_info}
 
 
 **景点信息:**
@@ -1114,6 +1117,48 @@ class MultiAgentTripPlanner:
         print(f"⚠️ 交通路线计算完成 (使用简单估算值)")
         return trip_plan
 
+    def _find_valid_trip_plan_json(self, text: str, request: TripRequest) -> dict:
+        """
+        从文本中查找包含完整旅行计划字段的JSON对象
+
+        优先查找包含 'city', 'days', 'overall_suggestions' 等字段的JSON
+        """
+        import re
+
+        # 首先尝试查找代码块中的JSON
+        json_candidates = []
+
+        # 查找 ```json ... ``` 块
+        json_blocks = re.findall(r'```json\s*([\s\S]*?)\s*```', text)
+        json_candidates.extend(json_blocks)
+
+        # 查找 ``` ... ``` 块
+        code_blocks = re.findall(r'```\s*([\s\S]*?)\s*```', text)
+        json_candidates.extend(code_blocks)
+
+        # 尝试从整个文本中提取所有独立的JSON对象
+        # 匹配 { ... } 结构
+        all_json_objects = re.findall(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', text)
+        json_candidates.extend(all_json_objects)
+
+        # 优先查找包含必需字段的JSON
+        required_fields = ["city", "days", "overall_suggestions"]
+
+        for json_str in json_candidates:
+            try:
+                # 尝试解析
+                data = json.loads(json_str.strip())
+                # 检查是否包含至少2个必需字段
+                found_fields = [f for f in required_fields if f in data and data[f]]
+                if len(found_fields) >= 2:
+                    print(f"🔍 DEBUG: 找到有效的旅行计划JSON，包含字段: {found_fields}")
+                    return data
+            except:
+                continue
+
+        # 如果没找到，返回None表示需要使用备用方案
+        return None
+
     def _parse_response(self, response: str, request: TripRequest) -> TripPlan:
         """
         解析Agent响应
@@ -1126,26 +1171,65 @@ class MultiAgentTripPlanner:
             旅行计划
         """
         try:
-            # 尝试从响应中提取JSON
-            # 查找JSON代码块
-            if "```json" in response:
-                json_start = response.find("```json") + 7
-                json_end = response.find("```", json_start)
-                json_str = response[json_start:json_end].strip()
-            elif "```" in response:
-                json_start = response.find("```") + 3
-                json_end = response.find("```", json_start)
-                json_str = response[json_start:json_end].strip()
-            elif "{" in response and "}" in response:
-                # 直接查找JSON对象
-                json_start = response.find("{")
-                json_end = response.rfind("}") + 1
-                json_str = response[json_start:json_end]
-            else:
-                raise ValueError("响应中未找到JSON数据")
+            # 打印原始响应用于调试
+            print(f"🔍 DEBUG: 原始响应长度 = {len(response)}")
+            print(f"🔍 DEBUG: 响应前200字符: {response[:200]}")
 
-            # 解析JSON
-            data = json.loads(json_str)
+            # 清理响应，移除 LLM 的思考标记
+            cleaned_response = response
+            # 移除开头的思考标记
+            if "<think>" in cleaned_response:
+                # 找到思考结束标记后的位置
+                think_end = cleaned_response.find("</think>")
+                if think_end != -1:
+                    cleaned_response = cleaned_response[think_end + len("</think>"):]
+            cleaned_response = cleaned_response.strip()
+
+            # 尝试智能查找包含旅行计划的JSON
+            data = self._find_valid_trip_plan_json(cleaned_response, request)
+
+            if data is None:
+                print(f"⚠️  未找到有效的旅行计划JSON")
+                # 尝试传统方法
+                if "```json" in cleaned_response:
+                    json_start = cleaned_response.find("```json") + 7
+                    json_end = cleaned_response.find("```", json_start)
+                    json_str = cleaned_response[json_start:json_end].strip()
+                    print(f"🔍 DEBUG: 找到 ```json 格式")
+                elif "```" in cleaned_response:
+                    json_start = cleaned_response.find("```") + 3
+                    json_end = cleaned_response.find("```", json_start)
+                    json_str = cleaned_response[json_start:json_end].strip()
+                    print(f"🔍 DEBUG: 找到 ``` 格式")
+                elif "{" in cleaned_response and "}" in cleaned_response:
+                    # 直接查找JSON对象 - 从第一个 { 开始
+                    json_start = cleaned_response.find("{")
+                    json_end = cleaned_response.rfind("}") + 1
+                    json_str = cleaned_response[json_start:json_end]
+                    print(f"🔍 DEBUG: 找到原始 JSON 格式")
+                else:
+                    print(f"🔍 DEBUG: 未找到 JSON 格式，响应内容: {cleaned_response[:500]}")
+                    raise ValueError("响应中未找到JSON数据")
+
+                print(f"🔍 DEBUG: 提取的JSON前200字符: {json_str[:200]}")
+                data = json.loads(json_str)
+
+            # 验证必需字段并填充默认值
+            required_fields = ["city", "start_date", "end_date", "days", "overall_suggestions"]
+            missing_fields = [f for f in required_fields if f not in data or not data[f]]
+            if missing_fields:
+                print(f"⚠️  JSON 缺少必需字段: {missing_fields}")
+                # 使用默认值填充缺失字段
+                if "city" not in data or not data["city"]:
+                    data["city"] = request.city
+                if "start_date" not in data or not data["start_date"]:
+                    data["start_date"] = request.start_date
+                if "end_date" not in data or not data["end_date"]:
+                    data["end_date"] = request.end_date
+                if "days" not in data or not data["days"]:
+                    data["days"] = []
+                if "overall_suggestions" not in data or not data["overall_suggestions"]:
+                    data["overall_suggestions"] = f"这是为您规划的{request.city}{request.travel_days}日游行程。"
 
             # 转换为TripPlan对象
             trip_plan = TripPlan(**data)
@@ -1169,17 +1253,29 @@ class MultiAgentTripPlanner:
         for i in range(request.travel_days):
             current_date = start_date + timedelta(days=i)
 
+            # 创建默认酒店
+            hotel = Hotel(
+                name=f"{request.city}酒店",
+                address=f"{request.city}市中心",
+                location=Location(longitude=112.93 + i*0.01, latitude=28.23 + i*0.01),
+                price_range="200-400元/晚",
+                rating="4.0",
+                type=request.accommodation or "经济型酒店",
+                estimated_cost=300
+            )
+
             day_plan = DayPlan(
                 date=current_date.strftime("%Y-%m-%d"),
                 day_index=i,
-                description=f"第{i+1}天行程",
-                transportation=request.transportation,
-                accommodation=request.accommodation,
+                description=f"第{i+1}天行程 - 探索{request.city}的著名景点",
+                transportation=request.transportation or "公共交通",
+                accommodation=request.accommodation or "经济型酒店",
+                hotel=hotel,
                 attractions=[
                     Attraction(
                         name=f"{request.city}景点{j+1}",
                         address=f"{request.city}市",
-                        location=Location(longitude=116.4 + i*0.01 + j*0.005, latitude=39.9 + i*0.01 + j*0.005),
+                        location=Location(longitude=112.93 + i*0.01 + j*0.005, latitude=28.23 + i*0.01 + j*0.005),
                         visit_duration=120,
                         description=f"这是{request.city}的著名景点",
                         category="景点"
@@ -1187,20 +1283,47 @@ class MultiAgentTripPlanner:
                     for j in range(2)
                 ],
                 meals=[
-                    Meal(type="breakfast", name=f"第{i+1}天早餐", description="当地特色早餐"),
-                    Meal(type="lunch", name=f"第{i+1}天午餐", description="午餐推荐"),
-                    Meal(type="dinner", name=f"第{i+1}天晚餐", description="晚餐推荐")
+                    Meal(type="breakfast", name=f"第{i+1}天早餐", description="当地特色早餐", estimated_cost=20),
+                    Meal(type="lunch", name=f"第{i+1}天午餐", description="午餐推荐", estimated_cost=40),
+                    Meal(type="dinner", name=f"第{i+1}天晚餐", description="晚餐推荐", estimated_cost=60)
                 ]
             )
             days.append(day_plan)
+
+        # 创建默认天气信息
+        weather_info = []
+        for i in range(request.travel_days):
+            current_date = start_date + timedelta(days=i)
+            weather_info.append(WeatherInfo(
+                date=current_date.strftime("%Y-%m-%d"),
+                day_weather="晴",
+                night_weather="多云",
+                day_temp=25,
+                night_temp=18,
+                wind_direction="东南风",
+                wind_power="3级"
+            ))
+
+        # 计算预算
+        total_attractions = sum(0 for _ in range(request.travel_days))  # 免费景点
+        total_hotels = 300 * request.travel_days
+        total_meals = (20 + 40 + 60) * request.travel_days
+        total_transportation = 50 * request.travel_days
 
         return TripPlan(
             city=request.city,
             start_date=request.start_date,
             end_date=request.end_date,
             days=days,
-            weather_info=[],
-            overall_suggestions=f"这是为您规划的{request.city}{request.travel_days}日游行程,建议提前查看各景点的开放时间。"
+            weather_info=weather_info,
+            overall_suggestions=f"这是为您规划的{request.city}{request.travel_days}日游行程，建议提前查看各景点的开放时间。注意携带雨具，关注目的地天气变化。",
+            budget=Budget(
+                total_attractions=total_attractions,
+                total_hotels=total_hotels,
+                total_meals=total_meals,
+                total_transportation=total_transportation,
+                total=total_attractions + total_hotels + total_meals + total_transportation
+            )
         )
 
 

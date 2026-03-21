@@ -130,7 +130,7 @@ class A2AServer:
                                 "skill_used": skill_name,
                                 "status": "success"
                             })
-                    except:
+                    except Exception:
                         continue
 
                 return jsonify({

@@ -186,14 +186,14 @@ class ReadTool(Tool):
                             size = entry.stat().st_size
                             size_str = self._format_size(size)
                             total_files += 1
-                        except:
+                        except OSError:
                             size_str = "?"
 
                     # 获取修改时间
                     try:
                         mtime = entry.stat().st_mtime
                         mtime_str = self._format_time(mtime)
-                    except:
+                    except OSError:
                         mtime_str = "?"
 
                     # 使用正斜杠作为路径分隔符（跨平台兼容）

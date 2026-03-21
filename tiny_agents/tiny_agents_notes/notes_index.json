@@ -43,10 +43,40 @@
         "next-steps"
       ],
       "created_at": "2026-03-11T18:27:15.585551"
+    },
+    {
+      "id": "note_20260321_190413_4",
+      "title": "Tiny Agents 项目代码结构分析",
+      "type": "conclusion",
+      "tags": [
+        "code_structure",
+        "project_organization",
+        "tiny_agents"
+      ],
+      "created_at": "2026-03-21T19:04:13.689522"
+    },
+    {
+      "id": "note_20260321_190559_5",
+      "title": "Tiny Agents 代码质量分析报告",
+      "type": "conclusion",
+      "tags": [],
+      "created_at": "2026-03-21T19:05:59.985454"
+    },
+    {
+      "id": "note_20260321_190629_6",
+      "title": "Tiny Agents 项目 - 下一步任务规划",
+      "type": "task_state",
+      "tags": [
+        "task_planning",
+        "roadmap",
+        "next_steps",
+        "code_quality"
+      ],
+      "created_at": "2026-03-21T19:06:29.026542"
     }
   ],
   "metadata": {
     "created_at": "2026-03-11T16:41:19.137520",
-    "total_notes": 4
+    "total_notes": 7
   }
 }

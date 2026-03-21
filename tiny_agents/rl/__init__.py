@@ -28,6 +28,7 @@ from .rewards import (
     create_accuracy_reward,
     create_length_penalty_reward,
     create_step_reward,
+    create_accuracy_length_step_balance_reward,
     evaluate_rewards
 )
 from .utils import TrainingConfig, setup_training_environment
@@ -55,6 +56,7 @@ __all__ = [
     "create_length_penalty_reward",
     "create_step_reward",
     "evaluate_rewards",
+    "create_accuracy_length_step_balance_reward",
 
     # 工具函数
     "TrainingConfig",

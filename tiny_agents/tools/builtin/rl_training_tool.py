@@ -297,6 +297,24 @@ class RLTrainingTool(Tool):
                 "step_bonus": step_bonus,
                 "description": f"步骤奖励函数: 基础奖励 + {step_bonus} * 步骤数"
             }
+        elif reward_type == "balance":
+            step_bonus = parameters.get("step_bonus", 0.1)
+            max_length = parameters.get("max_length", 1024)
+            penalty_weight = parameters.get("penalty_weight", 0.001)
+            # 创建基础奖励函数
+            base_reward_fn = create_accuracy_reward()
+            reward_fn = create_accuracy_length_step_balance_reward(
+                base_reward_fn=base_reward_fn,
+                step_bonus=step_bonus,
+                max_length=max_length,
+                penalty_weight=penalty_weight
+            )
+            result = {
+                "status": "success",
+                "reward_type": "accuracy_length_step",
+                "description": "准确性、长度惩罚、步骤奖励的组合"
+            }
+
         else:
             return json.dumps({
                 "status": "error",
@@ -311,6 +329,7 @@ class RLTrainingTool(Tool):
             from tiny_agents.rl import (
                 create_rl_dataset,
                 create_accuracy_reward,
+                create_accuracy_length_step_balance_reward,
                 evaluate_rewards
             )
             from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -334,7 +353,7 @@ class RLTrainingTool(Tool):
             try:
                 model = AutoModelForCausalLM.from_pretrained(model_path)
                 tokenizer = AutoTokenizer.from_pretrained(model_path)
-                device = "cuda" if torch.cuda.is_available() else "cpu"
+                device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
                 model = model.to(device)
                 model.eval()
             except Exception as e:

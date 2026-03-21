@@ -415,7 +415,7 @@ class BFCLEvaluator:
             pred_ast = ast.parse(pred, mode='eval')
             exp_ast = ast.parse(expected, mode='eval')
             return ast.dump(pred_ast) == ast.dump(exp_ast)
-        except:
+        except (SyntaxError, ValueError):
             # 如果AST解析失败，使用字符串相似度
             return pred.strip() == expected.strip()
 

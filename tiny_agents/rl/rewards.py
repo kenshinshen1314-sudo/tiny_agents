@@ -218,6 +218,45 @@ def create_step_reward(
     return reward_fn
 
 
+def create_accuracy_length_step_balance_reward(
+    base_reward_fn: Callable,
+    step_bonus: float = 0.1,
+    max_length: int = 1024,
+    penalty_weight: float = 0.1
+) -> Callable:
+    """
+    三者平衡:全面优化答案质量、简洁性和可解释性。
+    
+    Args:
+        base_reward_fn: 基础奖励函数
+        step_bonus: 每个推理步骤的奖励
+        max_length: 最大长度
+        penalty_weight: 惩罚权重
+        
+    Returns:
+        带步骤奖励的函数
+    """
+    def reward_fn(completions: List[str], **kwargs) -> List[float]:
+        # 计算基础奖励
+        base_rewards = base_reward_fn(completions, **kwargs)
+        
+        # 添加长度惩罚
+        final_rewards = []
+        for reward, completion in zip(base_rewards, completions):
+            length = len(completion)
+            if length > max_length:
+                penalty = penalty_weight * (length - max_length) / max_length
+                reward = max(0.0, reward - penalty)
+            # 统计推理步骤（简单地统计换行符数量）
+            num_steps = completion.count('\n')
+            step_reward = min(step_bonus * num_steps, 0.5)  # 最多0.5的额外奖励
+            final_rewards.append(reward + step_reward)
+
+        return final_rewards
+    
+    return reward_fn
+
+
 def evaluate_rewards(
     completions: List[str],
     ground_truths: List[str],

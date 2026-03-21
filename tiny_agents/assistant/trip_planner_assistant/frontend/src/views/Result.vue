@@ -327,37 +327,321 @@ const initMap = async () => {
   if (!tripPlan.value) return
 
   try {
+    // 根据交通方式确定使用哪个插件
+    const firstDay = tripPlan.value.days[0]
+    const transportType = firstDay?.transportation || '公共交通'
+
+    // 加载对应的插件
+    const plugins = ['AMap.Scale', 'AMap.ToolBar']
+    if (transportType === '自驾' || transportType === '打车') {
+      plugins.push('AMap.Driving')
+    } else if (transportType === '步行') {
+      plugins.push('AMap.Walking')
+    } else {
+      // 公共交通
+      plugins.push('AMap.Transfer')
+    }
+
     const AMap = await AMapLoader.load({
       key: import.meta.env.VITE_AMAP_WEB_JS_KEY || 'YOUR_AMAP_KEY',
       version: '2.0',
-      plugins: ['AMap.Scale', 'AMap.ToolBar']
+      plugins
     })
 
     const mapContainer = document.getElementById('amap-container')
     if (!mapContainer) return
 
+    // 收集所有位置点，用于设置地图中心
+    const allPoints: [number, number][] = []
+
+    // 遍历所有景点和酒店，收集坐标
+    tripPlan.value.days.forEach((day) => {
+      console.log('🗺️ Day:', day.date, '酒店:', day.hotel?.name, '酒店坐标:', day.hotel?.location)
+      if (day.hotel?.location?.longitude && day.hotel?.location?.latitude) {
+        allPoints.push([day.hotel.location.longitude, day.hotel.location.latitude])
+      }
+      day.attractions.forEach((attraction, idx) => {
+        console.log(`🗺️ 景点${idx + 1}:`, attraction.name, '坐标:', attraction.location)
+        if (attraction.location?.longitude && attraction.location?.latitude) {
+          allPoints.push([attraction.location.longitude, attraction.location.latitude])
+        }
+      })
+    })
+    console.log('🗺️ 所有坐标点:', allPoints)
+
+    // 计算中心点（所有点的平均值）
+    let centerPoint: [number, number] = [116.397428, 39.90923] // 默认北京
+    let zoomLevel = 11
+
+    if (allPoints.length > 0) {
+      const avgLng = allPoints.reduce((sum, p) => sum + p[0], 0) / allPoints.length
+      const avgLat = allPoints.reduce((sum, p) => sum + p[1], 0) / allPoints.length
+      centerPoint = [avgLng, avgLat]
+
+      // 根据点的分散程度调整缩放级别
+      const lngRange = Math.max(...allPoints.map(p => p[0])) - Math.min(...allPoints.map(p => p[0]))
+      const latRange = Math.max(...allPoints.map(p => p[1])) - Math.min(...allPoints.map(p => p[1]))
+      const maxRange = Math.max(lngRange, latRange)
+
+      if (maxRange > 0.5) zoomLevel = 9
+      if (maxRange > 1) zoomLevel = 8
+      if (maxRange > 2) zoomLevel = 7
+      if (maxRange > 5) zoomLevel = 6
+    }
+
+    console.log('🗺️ 地图中心点:', centerPoint, '缩放级别:', zoomLevel)
+
     map = new AMap.Map(mapContainer, {
-      zoom: 11,
-      center: [116.397428, 39.90923],
+      zoom: zoomLevel,
+      center: centerPoint,
       mapStyle: 'amap://styles/whitesmoke',
-      viewMode: '3D'
+      viewMode: '2D'
     })
 
     const markers: any[] = []
+    const polylines: any[] = []
+
+    // 根据交通方式选择路线规划函数
+    const getRoute = (startLng: number, startLat: number, endLng: number, endLat: number): Promise<any[]> => {
+      return new Promise((resolve) => {
+        // 默认使用公共交通
+        const routeType = transportType === '自驾' || transportType === '打车' ? 'driving'
+          : transportType === '步行' ? 'walking'
+          : 'transit'
+
+        if (routeType === 'driving') {
+          const driving = new AMap.Driving({
+            map: map,
+            showTraffic: false,
+            hideMarkers: true
+          })
+          driving.search(
+            [startLng, startLat],
+            [endLng, endLat],
+            (status: string, result: any) => {
+              if (status === 'complete' && result.routes && result.routes.length > 0) {
+                const path = result.routes[0].steps.flatMap((step: any) => {
+                  return step.path.map((p: any) => [p.lng, p.lat] as [number, number])
+                })
+                resolve(path)
+              } else {
+                resolve([[startLng, startLat], [endLng, endLat]])
+              }
+              driving.clear()
+            }
+          )
+        } else if (routeType === 'walking') {
+          const walking = new AMap.Walking({
+            map: map,
+            hideMarkers: true
+          })
+          walking.search(
+            [startLng, startLat],
+            [endLng, endLat],
+            (status: string, result: any) => {
+              if (status === 'complete' && result.routes && result.routes.length > 0) {
+                const path = result.routes[0].steps.flatMap((step: any) => {
+                  return step.path.map((p: any) => [p.lng, p.lat] as [number, number])
+                })
+                resolve(path)
+              } else {
+                resolve([[startLng, startLat], [endLng, endLat]])
+              }
+              walking.clear()
+            }
+          )
+        } else {
+          // 公共交通
+          const transfer = new AMap.Transfer({
+            map: map,
+            hideMarkers: true,
+            city: tripPlan.value?.city || '北京',
+            showTraffic: false
+          })
+          transfer.search(
+            [startLng, startLat],
+            [endLng, endLat],
+            (status: string, result: any) => {
+              console.log('🚌 公共交通路线状态:', status, result)
+              if (status === 'complete' && result.plans && result.plans.length > 0) {
+                // 获取第一个方案的路线
+                const path: [number, number][] = []
+                result.plans[0].segments.forEach((segment: any) => {
+                  // 步行段
+                  if (segment.walking && segment.walking.path) {
+                    segment.walking.path.forEach((p: any) => {
+                      path.push([p.lng, p.lat])
+                    })
+                  }
+                  // 公交/地铁段 - 从 line 获取路径
+                  if (segment.transit && segment.transit.line && segment.transit.line.path) {
+                    segment.transit.line.path.forEach((p: any) => {
+                      path.push([p.lng, p.lat])
+                    })
+                  }
+                  // 如果没有 line.path，尝试从 segments 获取
+                  if (segment.transit && segment.transit.segments) {
+                    segment.transit.segments.forEach((subSeg: any) => {
+                      if (subSeg.line && subSeg.line.path) {
+                        subSeg.line.path.forEach((p: any) => {
+                          path.push([p.lng, p.lat])
+                        })
+                      }
+                    })
+                  }
+                })
+                console.log('🚌 公共交通路线点数:', path.length)
+                resolve(path.length > 0 ? path : [[startLng, startLat], [endLng, endLat]])
+              } else {
+                console.warn('🚌 公共交通路线失败，使用直线')
+                resolve([[startLng, startLat], [endLng, endLat]])
+              }
+              transfer.clear()
+            }
+          )
+        }
+      })
+    }
+
+    // 每天的颜色
+    const dayColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8']
+
     tripPlan.value.days.forEach((day, dayIndex) => {
+      const color = dayColors[dayIndex % dayColors.length]
+      const pathPoints: [number, number][] = []
+
+      // 添加酒店标记和路线点
+      if (day.hotel?.location?.longitude && day.hotel?.location?.latitude) {
+        const hotelMarker = new AMap.Marker({
+          position: [day.hotel.location.longitude, day.hotel.location.latitude],
+          title: `Day${dayIndex + 1} 酒店: ${day.hotel.name}`,
+          icon: new AMap.Icon({
+            size: new AMap.Size(32, 32),
+            image: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+            imageSize: new AMap.Size(32, 32)
+          }),
+          offset: new AMap.Pixel(-16, -32)
+        })
+        markers.push(hotelMarker)
+        pathPoints.push([day.hotel.location.longitude, day.hotel.location.latitude])
+      }
+
+      // 添加景点标记和路线点
       day.attractions.forEach((attraction, attrIndex) => {
         if (attraction.location?.longitude && attraction.location?.latitude) {
           const marker = new AMap.Marker({
             position: [attraction.location.longitude, attraction.location.latitude],
-            title: attraction.name
+            title: `Day${dayIndex + 1} 景点${attrIndex + 1}: ${attraction.name}`,
+            // 使用数字标记
+            content: `<div style="
+              background: ${color};
+              color: white;
+              width: 24px;
+              height: 24px;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 12px;
+              font-weight: bold;
+              border: 2px solid white;
+              box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            ">${attrIndex + 1}</div>`,
+            offset: new AMap.Pixel(-12, -12)
           })
           markers.push(marker)
+          pathPoints.push([attraction.location.longitude, attraction.location.latitude])
         }
       })
+
+      // 添加返回酒店的路线点
+      if (day.hotel?.location?.longitude && day.hotel?.location?.latitude && pathPoints.length > 1) {
+        pathPoints.push([day.hotel.location.longitude, day.hotel.location.latitude])
+      }
     })
+
+    // 异步获取每段路线的真实路径
+    const allRoutePaths: any[] = []
+
+    for (let dayIndex = 0; dayIndex < tripPlan.value.days.length; dayIndex++) {
+      const day = tripPlan.value.days[dayIndex]
+      const color = dayColors[dayIndex % dayColors.length]
+
+      const points: { lng: number; lat: number; name: string; isHotel: boolean }[] = []
+
+      // 收集当天的所有点
+      if (day.hotel?.location?.longitude && day.hotel?.location?.latitude) {
+        points.push({
+          lng: day.hotel.location.longitude,
+          lat: day.hotel.location.latitude,
+          name: day.hotel.name,
+          isHotel: true
+        })
+      }
+
+      day.attractions.forEach((attraction) => {
+        if (attraction.location?.longitude && attraction.location?.latitude) {
+          points.push({
+            lng: attraction.location.longitude,
+            lat: attraction.location.latitude,
+            name: attraction.name,
+            isHotel: false
+          })
+        }
+      })
+
+      // 如果有酒店，再加一个返回酒店的点
+      if (day.hotel?.location?.longitude && day.hotel?.location?.latitude && points.length > 1) {
+        points.push({
+          lng: day.hotel.location.longitude,
+          lat: day.hotel.location.latitude,
+          name: day.hotel.name,
+          isHotel: true
+        })
+      }
+
+      // 获取每段路线的真实路径
+      for (let i = 0; i < points.length - 1; i++) {
+        const start = points[i]
+        const end = points[i + 1]
+
+        console.log('🛣️ 获取路线:', start.name, '->', end.name, '交通方式:', transportType)
+
+        try {
+          const routePath = await getRoute(start.lng, start.lat, end.lng, end.lat)
+          console.log('🛣️ 路线返回点数:', routePath?.length || 0)
+
+          if (routePath && routePath.length > 0) {
+            const polyline = new AMap.Polyline({
+              path: routePath,
+              strokeColor: color,
+              strokeWeight: 5,
+              strokeOpacity: 0.9,
+              strokeStyle: 'solid',
+              showDir: true,
+              zIndex: 50
+            })
+            polylines.push(polyline)
+            allRoutePaths.push(...routePath)
+          }
+        } catch (e) {
+          console.error(`❌ 路线获取失败: ${start.name} -> ${end.name}`, e)
+        }
+      }
+    }
 
     if (markers.length > 0) {
       map.add(markers)
+    }
+    if (polylines.length > 0) {
+      map.add(polylines)
+      // 根据所有路线点调整视图
+      if (allRoutePaths.length > 0) {
+        map.setFitView(allRoutePaths, false, [50, 50, 50, 50])
+      } else {
+        map.setFitView(polylines, false, [50, 50, 50, 50])
+      }
+    } else if (markers.length > 0) {
       map.setFitView(markers)
     }
   } catch (error) {

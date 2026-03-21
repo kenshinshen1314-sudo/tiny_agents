@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trace: s-20260321-220424-f4fb</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+        }
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            color: #4af626;
+        }
+        .stats-panel {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #4af626;
+        }
+        .stat-label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            display: block;
+            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tool-stats {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tool-stats th, .tool-stats td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .tool-stats th {
+            color: #4af626;
+        }
+        .error-list {
+            list-style: none;
+            padding: 0;
+        }
+        .error-list li {
+            background: #331111;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #ff4444;
+        }
+        .events-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #1a1a1a;
+        }
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .step {
+            color: #888;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 11px;
+        }
+        .event-type {
+            color: #4af626;
+            font-weight: bold;
+        }
+        .expandable {
+            cursor: pointer;
+            color: #4af626;
+            user-select: none;
+        }
+        .expandable:hover {
+            color: #6fff48;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #0d0d0d;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .details pre {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .tool-call {
+            border-left: 3px solid #4af626;
+        }
+        .tool-result {
+            border-left: 3px solid #ffd700;
+        }
+        .error {
+            border-left: 3px solid #ff4444;
+            background: #2a1a1a;
+        }
+        .model-output {
+            border-left: 3px solid #00bfff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔍 Trace Session: s-20260321-220424-f4fb</h1>
+        <p>生成时间: 2026-03-21 22:04:24</p>
+    </div>
+
+    <div class="events-container">
+        <h2>📋 事件列表</h2>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-21T22:04:24.377259</span>
+                <span class="event-type">session_start</span>
+                <span class="expandable" onclick="toggleDetails('details-1')">[▼ 详情]</span>
+            </div>
+            <div id="details-1" class="details">
+                <pre>{
+  "agent_name": "美食搜索专家",
+  "agent_type": "SimpleAgent"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-21T22:04:24.377342</span>
+                <span class="event-type">message_written</span>
+                <span class="expandable" onclick="toggleDetails('details-2')">[▼ 详情]</span>
+            </div>
+            <div id="details-2" class="details">
+                <pre>{
+  "role": "user",
+  "content": "我已经使用高德地图搜索了长沙的特色美食，以下是搜索结果：\n\n\n搜索关键词 '美食' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n搜索关键词 '特色小吃' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n搜索关键词 '本地美食' 的结果:\n工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}\n\n\n请从搜索结果中筛选出最受欢迎的10-15个餐厅和美食。\n\n用户偏好: 微辣, 清淡\n\n对于每个餐厅，请提供 JSON 格式的输出，包含：\n- name: 餐厅名称\n- address: 地址\n- rating: 评分\n- 特色菜品"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-21T22:04:32.228610</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-3')">[▼ 详情]</span>
+            </div>
+            <div id="details-3" class="details">
+                <pre>{
+  "content": "<think>\n用户说他已经使用了高德地图搜索了长沙的特色美食，但工具执行结果显示\"未知工具: amap_maps_text_search\"。这意味着用户并没有真正获取到搜索结果，或者工具调用失败了。\n\n让我再尝试调用正确的工具来搜索长沙的美食。我需要使用\"amap\"工具的\"call_tool\"操作来调用\"amap_maps_text_search\"函数。\n\n让我搜索长沙的特色美食：\n- 关键词：美食、特色小吃、湘菜\n- 城市：长沙\n</think>\n\n我注意到之前的搜索结果提示工具不存在。让我重新为您搜索长沙的特色美食：\n",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 1151,
+    "completion_tokens": 190,
+    "total_tokens": 1341
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-21T22:04:32.229163</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-4')">[▼ 详情]</span>
+            </div>
+            <div id="details-4" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_3gkufdlj8h47_1",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "amap_maps_text_search",
+    "arguments": {
+      "keywords": "长沙特色美食",
+      "city": "长沙",
+      "citylimit": true
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 1</span>
+                <span class="timestamp">2026-03-21T22:04:32.693647</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-5')">[▼ 详情]</span>
+            </div>
+            <div id="details-5" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_3gkufdlj8h47_1",
+  "result": "❌ 错误 [UNKNOWN]: 工具 'amap_maps_text_search' 执行结果:\n{\"error\": \"未知工具: amap_maps_text_search\", \"status\": \"0\", \"info\": \"工具'amap_maps_text_search'不存在\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-21T22:04:35.721908</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-6')">[▼ 详情]</span>
+            </div>
+            <div id="details-6" class="details">
+                <pre>{
+  "content": "<think>\n看起来这个工具确实不存在。让我检查一下可用的工具。根据系统提示，我应该使用\"amap\"工具，但可能需要不同的操作或工具名称。让我尝试列出可用的工具。\n</think>\n\n\n",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 1408,
+    "completion_tokens": 67,
+    "total_tokens": 1475
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-21T22:04:35.722408</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-7')">[▼ 详情]</span>
+            </div>
+            <div id="details-7" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_gxey3ejm7msc_1",
+  "args": {
+    "action": "list_tools"
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 2</span>
+                <span class="timestamp">2026-03-21T22:04:36.177830</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-8')">[▼ 详情]</span>
+            </div>
+            <div id="details-8" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_gxey3ejm7msc_1",
+  "result": "找到 6 个工具:\n- maps_text_search: 搜索POI（兴趣点），支持按关键词搜索景点、酒店、餐厅等\n- maps_weather: 查询指定城市的天气信息\n- maps_direction_walking_by_address: 规划步行路线（通过地址）\n- maps_direction_driving_by_address: 规划驾车路线（通过地址）\n- maps_direction_transit_integrated_by_address: 规划公交路线（通过地址）\n- maps_geo: 地理编码：将地址转换为经纬度坐标\n"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event model-output">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-21T22:04:39.150946</span>
+                <span class="event-type">model_output</span>
+                <span class="expandable" onclick="toggleDetails('details-9')">[▼ 详情]</span>
+            </div>
+            <div id="details-9" class="details">
+                <pre>{
+  "content": "<think>\n原来正确的工具名称是\"maps_text_search\"，不是\"amap_maps_text_search\"。让我使用正确的工具名称来搜索长沙的特色美食。\n</think>\n\n\n",
+  "tool_calls": 1,
+  "usage": {
+    "prompt_tokens": 1595,
+    "completion_tokens": 98,
+    "total_tokens": 1693
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-call">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-21T22:04:39.151503</span>
+                <span class="event-type">tool_call</span>
+                <span class="expandable" onclick="toggleDetails('details-10')">[▼ 详情]</span>
+            </div>
+            <div id="details-10" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_tjykrblqfsvd_1",
+  "args": {
+    "action": "call_tool",
+    "tool_name": "maps_text_search",
+    "arguments": {
+      "keywords": "特色美食",
+      "city": "长沙",
+      "citylimit": true
+    }
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="event tool-result">
+            <div class="event-header">
+                <span class="step">Step 3</span>
+                <span class="timestamp">2026-03-21T22:04:40.021317</span>
+                <span class="event-type">tool_result</span>
+                <span class="expandable" onclick="toggleDetails('details-11')">[▼ 详情]</span>
+            </div>
+            <div id="details-11" class="details">
+                <pre>{
+  "tool_name": "amap",
+  "tool_call_id": "call_function_tjykrblqfsvd_1",
+  "result": "工具 'maps_text_search' 执行结果:\n{\"suggestion\": {\"keywords\": [], \"cities\": []}, \"count\": \"433\", \"infocode\": \"10000\", \"pois\": [{\"parent\": [], \"distance\": [], \"keytag\": \"烧烤\", \"importance\": [], \"biz_ext\": {\"cost\": \"65.00\", \"opentime2\": \"周一至周日 17:01-02:30\", \"rating\": \"4.9\", \"open_time\": \"17:01-02:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFG8TWNC/comment/177081302154_1770813034496_03195257.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFG8TWNC/comment/AEAA4CA1_8889_464D_80E9_C34D3AF4492B_L0_001_1170_84_1769789462954_26803092.jpg\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/ed26d882b1809d6fdd5815dc1a2e5770\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"开福区\", \"featured_reviews_remake\": [], \"tel\": \"19119291999\", \"id\": \"B0FFG8TWNC\", \"address\": \"德雅路1281号\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"牛肉串,盲盒汽锅生蚝,口味虾,锡纸毛肚,锡纸手工肉丸,锡纸金针菇,锡纸土豆,锡纸牛蛙,秘制虾尾,蒜香手抓寸骨,烧烤香干,锡纸基围虾,口味鸡爪,五花肉,锡纸鲫鱼,锡纸豆腐,香辣跳跳蛙,牛油,锡纸花甲,蒜蓉罗氏虾,蒜辣罗氏虾,掌中宝,牛肉,大排档,油条,鸡爪,口味蟹,口味虾,臭豆腐,吮指嗦螺,长沙臭豆腐\", \"name\": \"大晴老板不在·锡纸烧烤大排档\", \"location\": \"113.013883,28.231509\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"133.00\", \"opentime2\": \"周一至周日 11:00-21:00 2026-02-16至2026-02-23 周一至周日 08:30-21:00\", \"rating\": \"4.8\", \"open_time\": \"11:00-21:00 08:30-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0K6PHYZUA/comment/1EA8BA1B_11B5_4574_A243_D0229FF33A5F_L0_001_1235_92_1769264769874_99732278.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0K6PHYZUA/comment/content_media_external_file_1000104280_ss__1749977729855_58804851.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0K6PHYZUA/comment/content_media_external_file_14834_1768400025076_77961025.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"天心区\", \"featured_reviews_remake\": [], \"tel\": \"0731-87307777;19375107108\", \"id\": \"B0K6PHYZUA\", \"address\": \"先锋街道先锋经济合作社杉坡组的易建华私宅(整栋)\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"爽口毛肚,臭豆腐烧蛏子王,碧绿脆皮鲍鱼,白汤荷花鱼,打边炉鸡汤鲜菌,蒜蓉罗氏虾,香煎八头鲍鱼鸡,青椒炒辽参,荷叶粉蒸排骨,果蔬什锦沙拉,家烧五年汉寿甲鱼,椒盐波龙,金牌手撕饼,竹荪肉汁汤,胖豆芽炒素鱼翅,深井烧鹅,香茅草黑椒炒帝王蟹,琼山黑椒牛仔骨,浏阳黑山羊,水晶圣女果,西海大雄鱼,可可脆片虾球,爆炒麻拐,水芹焖鳝鱼,点心,煮茶,特色小吃,甲鱼,臭豆腐,牛肉,私房菜,糖饺子,金牌手工粉,糖饺,米粉\", \"name\": \"喜座·湖南美食村落(总店)\", \"location\": \"112.997079,28.083502\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"50.00\", \"opentime2\": \"周一至周日 11:00-14:00,19:00-21:00 2026-02-17至2026-02-23 周一至周日 06:30-24:00\", \"rating\": \"4.6\", \"open_time\": \"11:00-14:00 19:00-21:00 06:30-24:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;湖南菜(湘菜)\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B02DB02DH4/comment/176465604530_1764656065311_35363994.jpg\"}, {\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/950ad8e9703ecca591137d5fb2f6148b\"}, {\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/3813cf60e51107b2a67ec2687d88bacd\"}], \"building\": [], \"typecode\": \"050108\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"天心区\", \"featured_reviews_remake\": [], \"tel\": \"0731-85814228\", \"id\": \"B02DB02DH4\", \"address\": \"坡子街号127号(黄兴广场地铁站1号口步行260米)\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"毛氏红烧肉,老长沙捆鸡,火宫殿臭豆腐,组庵裙边,玉翅蹄筋,糖饺子,龙脂猪血,糖油粑粑,葱油粑粑,臭豆腐,特色小吃,猪油拌粉,毛氏红烧肉,桂花糖油粑粑,糖饺子,刮凉粉,长沙臭豆腐,非遗臭豆腐,剁椒鱼头,葱油粑粑,龙脂猪血,红烧猪脚,米粉\", \"name\": \"火宫殿\", \"location\": \"112.973763,28.190555\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B02DB0UQKZ\", \"distance\": [], \"keytag\": \"美食街\", \"importance\": [], \"biz_ext\": {\"cost\": \"41.00\", \"opentime2\": \"周一至周日 10:00-21:00\", \"rating\": \"4.7\", \"open_time\": \"10:00-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK5A4QK/comment/content_media_external_images_media_1000099807_ss__1763779128576_42048628.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK5A4QK/comment/645f39f64d7aad0971e6f52f28e00250_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFK5A4QK/comment/content_media_external_images_media_112701_1665111503298_03e2ea58.jpg\"}], \"building\": [], \"typecode\": \"050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"天心区\", \"featured_reviews_remake\": [], \"tel\": \"0731-82565589\", \"id\": \"B0FFK5A4QK\", \"address\": \"坡子街115号(青和上座店)\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": \"324\", \"atag\": \"小吃街,臭豆腐,麻辣烫\", \"name\": \"坡子街美食城\", \"location\": \"112.972787,28.190556\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFGZUKMY\", \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"76.00\", \"opentime2\": \"周一至周日 11:00-21:30 2026-02-17至2026-02-17 周二 11:00-21:00\", \"rating\": \"4.7\", \"open_time\": [], \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/9b399b35f6de2a58c1e11aad5bbc7903\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/query_pic?id=st58816a2f-9ad4-4e86-9e49-e4e874d66031&user=search&operate=original\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFIXXJOO/comment/239FBFD3_D171_4AF2_BFB3_CC1B46EB0C15_L0_001_1440_108_1766064753883_23373709.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"天心区\", \"featured_reviews_remake\": [], \"tel\": \"18593462091\", \"id\": \"B0FFIXXJOO\", \"address\": \"五一大道637号7mall6层\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": \"202\", \"atag\": \"辣椒炒肉,费大厨辣椒炒肉\", \"name\": \"费大厨辣椒炒肉(7mall店)\", \"location\": \"112.975957,28.194896\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"中餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"64.00\", \"opentime2\": \"周一至周五 11:30-14:00,16:30-21:00；周六至周日 11:30-14:00,16:00-21:00 2026-02-13至2026-02-22 周一至周日 全天关闭\", \"rating\": \"4.8\", \"open_time\": \"11:30-14:00 16:30-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0J2XHOG6H/comment/20260311-63641e35464a07b10b00c61e-3sgiF8QyI0F9vtDJ2Ukeiv.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0J2XHOG6H/comment/5098C722_01FA_4955_B981_A5A774B051E1_L0_001_1500_200_1761379346049_92212047.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0J2XHOG6H/comment/881E2CF7_BDA9_47B4_9DAE_A616559CE555_L0_001_1179_140_1765020477217_83602007.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"开福区\", \"featured_reviews_remake\": [], \"tel\": \"13319503467\", \"id\": \"B0J2XHOG6H\", \"address\": \"东风路315号\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"风味手撕鸡,油泼嫩腰花,浓汤香辣大墨鱼,鸡蛋豆腐,五花大绑,铁盆子水鱼,兔辣版鸡蛋做的豆腐,蒜蓉罗氏虾,红油猪耳凉面,传统茄子煲,老长沙孜然牛肉,油泼香干丝,寸骨,牛肉,羊肉,家常菜,豆腐,麻辣烫,黄鸭叫\", \"name\": \"角落湾口味菜(开福店)\", \"location\": \"112.992756,28.223748\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"113.00\", \"opentime2\": \"周一至周日 11:00-14:00,17:00-20:30\", \"rating\": \"4.7\", \"open_time\": \"11:00-14:00 17:00-20:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/e2130e53949e0d8620c0596c3febd675\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B02DB00483/comment/e105ef9ef0ac62c4db73dcea77e168d8_2048_2048_80.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFL17ZLK/comment/D4F38574_CF70_4C2A_A2C1_5F9F95F4B6CB_L0_001_1500_200_1765243763150_20321983.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"开福区\", \"featured_reviews_remake\": [], \"tel\": \"0731-84258180\", \"id\": \"B0FFL17ZLK\", \"address\": \"三一大道478号\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"剁椒鱼头,粉皮羊肉,八宝养生鸭,大肉包,红烧肉,秘制板栗兔,糯米排骨,油炸臭豆腐,下酒菜,拌饭,烤鸭,臭豆腐\", \"name\": \"西湖楼美食城\", \"location\": \"113.042175,28.232916\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B02DB0US44\", \"distance\": [], \"keytag\": \"家常菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"74.00\", \"opentime2\": \"周一至周日 11:00-14:00,16:30-20:00\", \"rating\": \"4.8\", \"open_time\": \"11:00-14:00 16:30-20:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/cd7601ade49a82a3733c73ac15982695\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/2cbd941291c22dc2279d644907d2aad3\"}, {\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/9682b40404bc0071677666ebc18ec95b\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"开福区\", \"featured_reviews_remake\": [], \"tel\": \"18684828060\", \"id\": \"B0FFH8VNSW\", \"address\": \"春风街与轩辕殿巷交叉口东北50米\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": \"320\", \"atag\": \"素菜,家常菜,金钱蛋,辣椒炒肉,黄鸭叫,辣椒炒肉,大排档,牛肉,肥肠,鸡爪\", \"name\": \"湘在光脑壳家常菜馆面粉\", \"location\": \"112.974876,28.197300\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B02DB078II\", \"distance\": [], \"keytag\": \"水产海鲜\", \"importance\": [], \"biz_ext\": {\"cost\": \"154.00\", \"opentime2\": \"周一至周日 11:30-02:30\", \"rating\": \"4.8\", \"open_time\": \"11:30-02:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;海鲜酒楼\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0J37HVJ5J/comment/711eb7da-5d34-4eb0-a350-f2eca9b4fe0e.png\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0J37HVJ5J/comment/7AA8C882_7E58_4A4D_8E5B_8FD46F1FF4FA_L0_001_2000_150_1762607127474_04360352.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0J37HVJ5J/comment/content_media_external_file_49880_ss__1770428379867_54006883.jpg\"}], \"building\": [], \"typecode\": \"050119\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"芙蓉区\", \"featured_reviews_remake\": [], \"tel\": \"19119279687\", \"id\": \"B0J37HVJ5J\", \"address\": \"定王台街道解放西路262号城市生活家一楼整层\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": \"202\", \"atag\": \"龙虾,小龙虾,嗦螺,老长沙口味虾,桂花双皮奶,瞿记姜辣炒兰花蟹,口味蟹\", \"name\": \"聚味瞿记·龙虾堂(国金店)\", \"location\": \"112.978021,28.191633\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"烧烤\", \"importance\": [], \"biz_ext\": {\"cost\": \"107.00\", \"opentime2\": \"周一至周日 17:30-01:00 2026-02-16至2026-02-18 周一至周日 全天关闭\", \"rating\": \"4.8\", \"open_time\": \"17:30-01:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;餐饮相关场所;餐饮相关\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/ad1eddf010339b23e4ea9588ec8f7a5e\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0K6NC4MAC/comment/content_media_external_file_100001055_1768697660061_43203224.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/comment/20260206-18a4b2805d1036a1c8dd0ce6-2vgiBtCg00uAh4y0B18KBo.jpg\"}], \"building\": [], \"typecode\": \"050000\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"天心区\", \"featured_reviews_remake\": [], \"tel\": \"16681366666\", \"id\": \"B0K6NC4MAC\", \"address\": \"书院路717号(灵官渡地铁站2号口步行150米)\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"牛肉,烤串,清水嗦螺\", \"name\": \"串小白烧烤(书院路店)\", \"location\": \"112.971823,28.180327\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFF9TPHA\", \"distance\": [], \"keytag\": \"小龙虾\", \"importance\": [], \"biz_ext\": {\"cost\": \"100.00\", \"opentime2\": \"周一至周日 16:00-02:00\", \"rating\": \"4.8\", \"open_time\": \"16:00-02:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;综合酒楼\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/b3a2dd13a105acb71dee3acbc298241a\"}, {\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/e40dd4f7f61a574dce4f730c45e020c4\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B02DB05NR2/comment/917F4B79_1561_4289_801C_A5572BF93B10_L0_001_1500_200_1770652013374_74615972.jpg\"}], \"building\": [], \"typecode\": \"050101\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"长沙县\", \"featured_reviews_remake\": [], \"tel\": \"13548547725\", \"id\": \"B02DB05NR2\", \"address\": \"板仓路星沙一区37栋22号\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": \"320\", \"atag\": \"干煸罗氏虾,蒜蓉罗氏虾,江湖炒蟹,石锅鱼,手工葱油饼,豆花,牛胸口油炒鸭掌筋,馓子肉炒肉,话梅排骨,宝贝蒸饺,秘制虾尾,芥末罗氏虾,口味虾,姜辣凤爪,蒜蓉虾,兰花干子,烤黑猪五花肉,黄喉炒毛肚,椒香鸭头,黄金手撕鲈鱼,特色干煸虾,油泼香干,豆辣圣子王,手撕泥鳅,热卤四合一,孜然寸骨,烤芸豆,油爆虾,紫苏爆牛蛙,口味花甲,东山脆管鱿鱼,薯片战斗鸡,虾仁五香卷,紫苏桃子,三码头嗦螺,单人餐,小龙虾,烤串,罗氏虾,肥肠,蒸饺,龙虾,生蚝,炒饭,柠檬茶,大排档\", \"name\": \"鸿先阁 干煸虾\", \"location\": \"113.076701,28.232242\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"58.00\", \"opentime2\": \"周一至周五 10:30-14:00,16:30-20:30；周六至周日 10:30-14:30,16:30-20:30 2026-02-15至2026-02-19 全天关闭\", \"rating\": \"4.7\", \"open_time\": \"10:30-14:30 16:30-20:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B02DB079VU/comment/content_media_external_file_1000095466_ss__1769360422425_83293716.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B02DB079VU/comment/content_media_external_file_1000095465_ss__1769360422423_15053653.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B02DB079VU/comment/6fa11d2edce9778ca23e0033faf5e413_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"天心区\", \"featured_reviews_remake\": [], \"tel\": \"13548955548;15274809977\", \"id\": \"B02DB079VU\", \"address\": \"湘府西路新姚南路199号(新省政府西门南行1.5公里)\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"坛子肉,麻阳鹅,红薯饭,我家大盆鱼头,泉水豆腐,干锅野鸭,大盆鱼头,蒿子粑粑,我家炒黄牛肉,血耙,锅巴猪肝,莴笋拆骨肉,红糖发糕,湘西葛粉粑,烤串,豆腐,鱼头,特色菜,鸡肉,牛肉,干锅黄鸭叫,辣椒炒肉\", \"name\": \"我家小院(新姚南路店)\", \"location\": \"112.978686,28.102243\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFGCV13W\", \"distance\": [], \"keytag\": \"小吃快餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"9.00\", \"opentime2\": \"周一至周日 11:00-23:00\", \"rating\": \"4.8\", \"open_time\": \"11:00-23:00\"}, \"type\": \"购物服务;专卖店;专营店\", \"photos\": [{\"title\": \"菜品\", \"url\": \"http://store.is.autonavi.com/showpic/c01c1a334704b1d62a70b47a8e13baef\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0HD7UOF8D/comment/917841D9_EAEC_4B37_A920_C8089A5E5E9C_L0_001_1170_154_1756685836825_92032524.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0HD7UOF8D/comment/content_media_external_file_100001045_1763718665375_54979127.jpg\"}], \"building\": [], \"typecode\": \"061200\", \"shopinfo\": \"1\", \"poiweight\": [], \"adname\": \"天心区\", \"featured_reviews_remake\": [], \"tel\": \"15364004831;15388024831\", \"id\": \"B0HD7UOF8D\", \"address\": \"南门口地铁站1号口步行160米\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": [], \"cityname\": \"长沙市\", \"childtype\": \"202\", \"atag\": \"串串,堂食,炸串,小吃街,特色小吃,甜食,臭豆腐,糖油粑粑,长沙臭豆腐,臭豆腐,葱油粑粑\", \"name\": \"金记糖油坨坨店(南门口1662主题购物中心店)\", \"location\": \"112.975178,28.184811\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B02DB10GXQ\", \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"65.00\", \"opentime2\": \"周一至周日 10:30-15:00,17:00-21:00\", \"rating\": \"4.7\", \"open_time\": \"10:30-15:00 17:00-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/ebd65674bd726657039a411d28f21621\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/f27c9e052499f08a55cf113180822b23\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/c22e52f4c8e1c9be513e500c86508eb0\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"开福区\", \"featured_reviews_remake\": [], \"tel\": \"0731-89977988\", \"id\": \"B0FFH3QCZH\", \"address\": \"中山路222号中山大厦2层\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": \"202\", \"atag\": \"鱿鱼丝炒肉,老干妈蒸排骨,豆腐佬汤,米豆腐烧皮蛋,爆炒小肚丝,咸蛋黄丝瓜,酸包菜红薯粉,红菜苔炒腊肉,蒸抱盐鱼,肉末米豆腐,爆炒鱿鱼,香菜牛肉,酸包菜粉皮,烧辣椒皮蛋,香菜猪血钵,拌饭,特色菜,排骨,牛肉,鱿鱼,豆腐,家常菜,老长沙糖饺子\", \"name\": \"天下客饭店(中山路店)\", \"location\": \"112.978887,28.200294\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0JDR5ISZE\", \"distance\": [], \"keytag\": \"烧烤\", \"importance\": [], \"biz_ext\": {\"cost\": \"83.00\", \"opentime2\": \"周一至周日 16:30-03:00\", \"rating\": \"4.7\", \"open_time\": \"16:30-03:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://img.alicdn.com/imgextra/i3/3695320962/O1CN01VqOLWE1IydiaP1hMK_!!3695320962-0-kbcontentapng.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFJFNVAK/comment/content_media_external_file_1000046115_ss__1765855498149_85739449.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFJFNVAK/comment/content_media_external_file_52444_ss__1765369351509_02284289.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"长沙县\", \"featured_reviews_remake\": [], \"tel\": \"15580038877\", \"id\": \"B0FFJFNVAK\", \"address\": \"泉塘街道泉星社区星沙国际物流园A10栋7号1楼\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": \"320\", \"atag\": \"大排档,小龙虾,牛肉,鸡肉,宵夜,码头嗦螺,猪油拌粉,米粉,街坊口味虾\", \"name\": \"红记星沙地标大排档\", \"location\": \"113.114217,28.227659\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"84.00\", \"opentime2\": \"周一至周日 11:00-14:00,17:30-20:30 2026-02-16至2026-02-18 周一至周日 全天关闭\", \"rating\": \"4.7\", \"open_time\": \"11:00-14:00 17:30-20:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/e28cdc4a6b7ecdc3673ce37e50d6ea26\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/29cbc4ae8bcc4ec181eb09b89fd3719f\"}, {\"title\": [], \"url\": \"http://store.is.autonavi.com/showpic/6da4459a452f1c801cce0b0a89061809\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"岳麓区\", \"featured_reviews_remake\": [], \"tel\": \"19174934277\", \"id\": \"B0I6G7R0HX\", \"address\": \"枫林路一路479号(西湖公园地铁站2号口步行450米)\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"力力青椒藤椒鸡,紫苏冰杨梅,小院藤椒鸡,鱼汤泡饭（一鱼三吃）,贵州带皮牛肉,酸汤美蛙爱上虾,青椒炒鲍鱼捞小面,湘力力臭桂鱼,拆骨肉肥肠,紫苏小土豆,平锅翘白,黄焖草原牛肉,贵州带皮黄牛肉,藏区牦牛肉,鱼汤泡饭,永州血鸭,鱼丸汤,小院秘制鹅,黄焖水老虎,待客老水鱼,小面,排骨,特色菜,藤椒鸡,手工糖饺子,鸡肉\", \"name\": \"湘力力小院.鱼汤泡饭(枫林路店)\", \"location\": \"112.942063,28.201282\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"烧烤\", \"importance\": [], \"biz_ext\": {\"cost\": \"88.00\", \"opentime2\": \"周一至周日 17:00-03:00\", \"rating\": \"4.7\", \"open_time\": \"17:00-03:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;特色/地方风味餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0JR1CW6V2/comment/2DC4AA30_8588_4F9C_8393_6F3712FD86EA_L0_001_1500_2000_1757435617398_79621757.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0JR1CW6V2/comment/E0D75501_7F89_4563_9ABB_B223859E550F_L0_001_1179_134_1762585340809_92232637.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0JR1CW6V2/comment/content_media_external_file_100000704_1768650126852_43893308.jpg\"}], \"building\": [], \"typecode\": \"050118\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"雨花区\", \"featured_reviews_remake\": [], \"tel\": \"19313055295;19974994171\", \"id\": \"B0JR1CW6V2\", \"address\": \"树木岭路57号(树木岭地铁站2号口步行220米)\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"五花肉,大排档,小龙虾,炒饭,烤串,柠檬茶,牛肉,长沙臭豆腐,猪油伴粉,紫苏桃子姜,臭豆腐,嗦螺,米粉\", \"name\": \"串盟烧烤(树木岭店)\", \"location\": \"113.020991,28.154174\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": [], \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"72.00\", \"opentime2\": \"周一至周日 11:00-14:00,17:00-21:00 2026-02-15至2026-02-21 周一至周日 全天关闭\", \"rating\": \"4.7\", \"open_time\": \"11:00-14:00 17:00-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;湖南菜(湘菜)\", \"photos\": [{\"title\": [], \"url\": \"https://store.is.autonavi.com/showpic/401511bb67cb98a8c0c2f660964d635d\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGSGAV2/comment/EF6FC6AB_B790_4DC6_8D20_0FA50A170AFD_L0_001_1290_59_1765364525268_43781799.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFGSGAV2/comment/content_media_external_file_100001388_1761549493027_07914618.jpg\"}], \"building\": [], \"typecode\": \"050108\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"长沙县\", \"featured_reviews_remake\": [], \"tel\": \"18908478473\", \"id\": \"B0FFGSGAV2\", \"address\": \"东二路华润凤凰城三期6栋\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": [], \"atag\": \"酸菜花猪肉,干锅拆骨肉肥肠,口味脆莴笋,光脑壳榴莲臭鳜鱼,腊猪脚火锅,扣肉饭,腊鸡火锅,冬笋炒腊肉,大蒜腊牛肉,香煎刁子鱼,小炒黄牛肉,茶油黄焖土鸡,黄焖土鳝鱼,铁锅啤酒老水鸭,大蒜炒腊肉,腊八豆蒸排骨,锅巴藕饼水果沙拉,剁椒鱼头,擂辣椒扣肉,口味凤爪,酸萝卜牛肚丝,小炒腊猪脸,油泼肚丝,擂辣椒四季豆,拌饭,辣椒炒肉,小炒黄牛肉,糖饺子,光夫人手工糖饺,牛肉\", \"name\": \"厨道光脑壳土菜馆(凤凰城店)\", \"location\": \"113.093663,28.251375\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0FFH03VCC\", \"distance\": [], \"keytag\": \"小吃快餐\", \"importance\": [], \"biz_ext\": {\"cost\": \"18.00\", \"opentime2\": \"周一至周日 05:30-03:30\", \"rating\": \"4.7\", \"open_time\": \"05:30-03:30\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://img.alicdn.com/imgextra/i4/3695320962/O1CN01tmiWeB1IydiGKhuua_!!3695320962-0-kbcontentapng.jpg\"}, {\"title\": [], \"url\": \"https://img.alicdn.com/imgextra/i3/3695320962/O1CN01yfNH331Iydi2aX4xC_!!3695320962-0-kbcontentapng.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0FFKBBH53/comment/67aec1a3529a945278b99967ec190c6a_2048_2048_80.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"天心区\", \"featured_reviews_remake\": [], \"tel\": \"18973196399\", \"id\": \"B0FFKBBH53\", \"address\": \"竹塘西路180号天鸿小区12栋东一楼\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": \"320\", \"atag\": \"臭豆腐,油条,牛肉面,粉面,鸡肉,牛肉,米粉,葱油粑粑,米粉,牛肉粉,长沙臭豆腐,臭豆腐\", \"name\": \"易裕和·长沙米粉(竹塘西店)\", \"location\": \"112.988180,28.142573\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}, {\"parent\": \"B0HAM71MQT\", \"distance\": [], \"keytag\": \"湘菜\", \"importance\": [], \"biz_ext\": {\"cost\": \"123.00\", \"opentime2\": \"周一至周日 11:00-14:00,17:00-21:00 2026-02-04至2026-03-31 周一至周日 11:00-14:00,17:00-21:00\", \"rating\": \"4.7\", \"open_time\": \"11:00-14:00 17:00-21:00 11:00-14:00 17:00-21:00\", \"meal_ordering\": \"0\"}, \"type\": \"餐饮服务;中餐厅;中餐厅\", \"photos\": [{\"title\": [], \"url\": \"https://aos-comment.amap.com/B0G10UEAPG/comment/content_media_external_images_media_4_1743223499124_98748318.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0G10UEAPG/comment/20260318-9b8323fca4a45679e8a46187-9YacdBVsCb4AIduSw9x4lA.jpg\"}, {\"title\": [], \"url\": \"https://aos-comment.amap.com/B0G10UEAPG/comment/content_media_external_file_100001620_1748698422191_98743021.jpg\"}], \"building\": [], \"typecode\": \"050100\", \"shopinfo\": \"0\", \"poiweight\": [], \"adname\": \"芙蓉区\", \"featured_reviews_remake\": [], \"tel\": \"18008478093\", \"id\": \"B0G10UEAPG\", \"address\": \"世茂环球金融中心5层\", \"space_num\": [], \"pname\": \"湖南省\", \"biz_type\": \"diner\", \"cityname\": \"长沙市\", \"childtype\": \"202\", \"atag\": \"海鲜全家福,三年湘黄老母鸡炖花胶,组庵佛跳墙,黄贡椒蒸鱼头,豆豉五花肉蒸汉寿甲鱼,椒香新晃雪花牛肉,盐菜蒸土猪肉,三年湘黄老母鸡焖花胶,传统果木烤鸭,剁椒鱼头,牛肉,甲鱼,红烧肉,鱼头,小炒黄牛肉,杨枝甘露,鸡汤,点心,烤鸭,鸡肉,小炒黄牛肉\", \"name\": \"宴长沙(五一广场店)\", \"location\": \"112.984999,28.193928\", \"shopid\": [], \"favorite_num\": [], \"featured_reviews\": []}], \"status\": \"1\", \"info\": \"OK\"}"
+}</pre>
+            </div>
+        </div>
+
+        <div class="event">
+            <div class="event-header">
+                <span class="step">Step -</span>
+                <span class="timestamp">2026-03-21T22:04:56.977069</span>
+                <span class="event-type">session_end</span>
+                <span class="expandable" onclick="toggleDetails('details-12')">[▼ 详情]</span>
+            </div>
+            <div id="details-12" class="details">
+                <pre>{
+  "duration": 32.600153,
+  "total_steps": 3,
+  "final_answer": "<think>\n搜索成功了！现在我有了长沙特色美食的搜索结果。我需要根据用户偏好（微辣、清淡）筛选出合适的餐厅，并提取关键信息（餐厅名称、地址、评分、特色菜品等）。\n\n让我从搜索结果中提取10-15个最相关的餐厅，根据用户偏好筛选。用户偏好微辣、清淡，我应该选择口味相对温和的餐厅。\n\n从搜索结果中，我可以看到以下餐厅信息：\n\n1. 大晴老板不在·锡纸烧烤大排档 - 评分4.9，烧烤，地址：德雅路1281号\n2. 喜座·湖南美食村落(总店) - 评分4.8，湘菜，地址：先锋街道\n3. 火宫殿 - 评分4.6，湘菜，地址：坡子街号127号\n4. 坡子街美食城 - 评分4.7，美食街，地址：坡子街115号\n5. 费大厨辣椒炒肉(7mall店) - 评分4.7，湘菜，地址：五一大道637号7mall6层\n6. 角落湾口味菜(开福店) - 评分4.8，中餐，地址：东风路315号\n\n\n7. 西湖楼美食城 - 评分4.7，湘菜，地址：三一大道478号\n8. 湘在光脑壳家常菜馆面粉 - 评分4.8，家常菜，地址：春风街与轩辕殿巷交叉口东北50米\n9. 聚味瞿记·龙虾堂(国金店) - 评分4.8，水产海鲜，地址：定王台街道解放西路262号\n\n我继续浏览剩余的餐厅选项，包括串小白烧烤、鸿先阁干煸虾等特色店铺。这些餐厅涵盖了湘菜、烧烤、海鲜等多种美食品类，可以满足不同食客的需求。接下来需要仔细分析每家餐厅的特色和口味。\n\n从口味角度考虑，我倾向于选择适合微辣或清淡风格的餐厅。比如火宫殿和易裕和·长沙米粉这类店铺，提供多样化的菜品选择，既有辣味也有不辣的选项。接下来我将继续查看更多餐厅信息，以便做出更全面的选择。\n</think>\n\n\n<minimax:tool_call>\n<invoke name=\"amap\">\n<parameter name=\"action\">call_tool</parameter>\n<parameter name=\"tool_name\">maps_text_search</parameter>\n<parameter name=\"arguments\">{\"keywords\": \"湘菜\", \"city\": \"长沙\", \"citylimit\": true}</parameter>\n</invoke>\n</minimax:tool_call>",
+  "status": "success"
+}</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="stats-panel">
+        <h2>📊 会话统计</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">总步骤数</span>
+                <span class="stat-value">3</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总 Token</span>
+                <span class="stat-value">4,509</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">总成本</span>
+                <span class="stat-value">$0.0000</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">会话时长</span>
+                <span class="stat-value">32.6s</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">模型调用次数</span>
+                <span class="stat-value">3</span>
+            </div>
+        </div>
+
+        <h3>🔧 工具调用统计</h3>
+        <table class="tool-stats">
+            <tr><th>工具名称</th><th>调用次数</th></tr>
+            <tr><td>amap</td><td>3</td></tr>
+
+        </table>
+
+        
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -133,6 +133,21 @@
               </a-select>
             </div>
 
+            <div class="preference-card">
+              <div class="card-header">
+                <span class="card-icon">💵</span>
+                <span class="card-title">预算控制</span>
+              </div>
+              <a-select v-model:value="formData.budget" class="pref-select" placeholder="选择预算范围">
+                <a-select-option value="0-500">0-500 元</a-select-option>
+                <a-select-option value="500-1000">500-1000 元</a-select-option>
+                <a-select-option value="1000-2000">1000-2000 元</a-select-option>
+                <a-select-option value="2000-5000">2000-5000 元</a-select-option>
+                <a-select-option value="5000-10000">5000-10000 元</a-select-option>
+                <a-select-option value="10000以上">10000元以上</a-select-option>
+              </a-select>
+            </div>
+
             <!-- 兴趣标签卡片 -->
             <div class="preference-card interest-card">
               <div class="card-header">
@@ -406,6 +421,7 @@ const formData = reactive<TripFormData & { start_date: Dayjs | null; end_date: D
   travel_days: 1,
   transportation: '公共交通',
   accommodation: '经济型酒店',
+  budget: undefined,
   preferences: [],
   food_preferences: [],
   environment_preferences: [],
@@ -447,6 +463,7 @@ const handleSubmit = async () => {
       travel_days: formData.travel_days,
       transportation: formData.transportation,
       accommodation: formData.accommodation,
+      budget: formData.budget,
       preferences: formData.preferences,
       food_preferences: formData.food_preferences,
       environment_preferences: formData.environment_preferences,

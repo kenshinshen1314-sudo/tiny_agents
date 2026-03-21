@@ -1,0 +1,4 @@
+{"ts": "2026-03-21T21:39:31.510196", "session_id": "s-20260321-213931-68d0", "step": null, "event": "session_start", "payload": {"agent_name": "酒店推荐专家", "agent_type": "SimpleAgent"}}
+{"ts": "2026-03-21T21:39:31.510370", "session_id": "s-20260321-213931-68d0", "step": null, "event": "message_written", "payload": {"role": "user", "content": "请搜索长沙的经济型酒店酒店"}}
+{"ts": "2026-03-21T21:39:34.351547", "session_id": "s-20260321-213931-68d0", "step": 1, "event": "error", "payload": {"error_type": "LLM_ERROR", "message": "LLM工具调用失败: Error code: 429 - {'error': {'code': '1113', 'message': '余额不足或无可用资源包,请充值。'}}"}}
+{"ts": "2026-03-21T21:39:34.351749", "session_id": "s-20260321-213931-68d0", "step": null, "event": "session_end", "payload": {"duration": 2.842359, "total_steps": 1, "final_answer": "", "status": "success"}}
