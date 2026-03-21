@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 
 
@@ -39,7 +39,7 @@ class Question(BaseModel):
 class BattleRequest(BaseModel):
     anon_id: str
     guest_id: str
-    answer: int
+    answer: int = Field(ge=0, le=3, description="Answer index (0-3)")
 
 
 class BattleResponse(BaseModel):
@@ -56,3 +56,10 @@ class CaptureRequest(BaseModel):
     anon_id: str
     guest_id: str
     success: bool
+    battle_score: Optional[int] = 0
+
+
+class CaptureResponse(BaseModel):
+    success: bool
+    message: str
+    guest_name: Optional[str] = None
