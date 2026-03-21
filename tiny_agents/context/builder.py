@@ -210,7 +210,132 @@ class ContextBuilder:
             used_tokens += p.token_count
         
         return selected
-    
+
+    def _select2(
+        self,
+        packets: List[ContextPacket],
+        user_query: str
+    ) -> List[ContextPacket]:
+        """Select: 基于分数与预算的筛选（使用向量相似度）"""
+        # 1) 计算相关性（向量相似度）
+        relevance_scores = self._compute_embedding_similarity(user_query, packets)
+        for i, packet in enumerate(packets):
+            packet.relevance_score = relevance_scores[i]
+
+        # 2) 计算新近性（指数衰减）
+        def recency_score(ts: datetime) -> float:
+            delta = max((datetime.now() - ts).total_seconds(), 0)
+            tau = 3600  # 1小时时间尺度，可暴露到配置
+            return math.exp(-delta / tau)
+
+        # 3) 计算复合分：0.7*相关性 + 0.3*新近性
+        scored_packets: List[Tuple[float, ContextPacket]] = []
+        for p in packets:
+            rec = recency_score(p.timestamp)
+            score = 0.7 * p.relevance_score + 0.3 * rec
+            scored_packets.append((score, p))
+
+        # 4) 系统指令单独拿出，固定纳入
+        system_packets = [p for (_, p) in scored_packets if p.metadata.get("type") == "instructions"]
+        remaining = [p for (s, p) in sorted(scored_packets, key=lambda x: x[0], reverse=True)
+                     if p.metadata.get("type") != "instructions"]
+
+        # 5) 依据 min_relevance 过滤（对非系统包）
+        filtered = [p for p in remaining if p.relevance_score >= self.config.min_relevance]
+
+        # 6) 按预算填充
+        available_tokens = self.config.get_available_tokens()
+        selected: List[ContextPacket] = []
+        used_tokens = 0
+
+        # 先放入系统指令（不排序）
+        for p in system_packets:
+            if used_tokens + p.token_count <= available_tokens:
+                selected.append(p)
+                used_tokens += p.token_count
+
+        # 再按分数加入其余
+        for p in filtered:
+            if used_tokens + p.token_count > available_tokens:
+                continue
+            selected.append(p)
+            used_tokens += p.token_count
+
+        return selected
+
+    def _compute_embedding_similarity(
+        self,
+        query: str,
+        packets: List[ContextPacket]
+    ) -> List[float]:
+        """使用向量嵌入计算查询与文档的余弦相似度
+
+        Args:
+            query: 用户查询
+            packets: 上下文数据包列表
+
+        Returns:
+            每个packet与query的余弦相似度分数列表
+        """
+        try:
+            from sentence_transformers import SentenceTransformer
+            from sklearn.metrics.pairwise import cosine_similarity
+            import numpy as np
+
+            # 使用轻量级嵌入模型
+            model_name = "paraphrase-multilingual-MiniLM-L12-v2"
+
+            # 缓存模型实例
+            if not hasattr(self, '_embedding_model'):
+                self._embedding_model = SentenceTransformer(model_name)
+
+            # 准备文本列表
+            texts = [query] + [packet.content for packet in packets]
+
+            # 批量计算嵌入向量
+            embeddings = self._embedding_model.encode(texts, convert_to_numpy=True)
+
+            # 计算query与每个packet的余弦相似度
+            query_embedding = embeddings[0:1]  # shape: (1, embedding_dim)
+            doc_embeddings = embeddings[1:]     # shape: (n_packets, embedding_dim)
+
+            similarities = cosine_similarity(query_embedding, doc_embeddings)[0]
+
+            return similarities.tolist()
+
+        except ImportError:
+            # 如果没有sentence_transformers，回退到关键词重叠方法
+            print("⚠️ sentence_transformers未安装，回退到关键词重叠方法")
+            return self._keyword_overlap_similarity(query, packets)
+
+    def _keyword_overlap_similarity(
+        self,
+        query: str,
+        packets: List[ContextPacket]
+    ) -> List[float]:
+        """关键词重叠方法（回退方案）
+
+        Args:
+            query: 用户查询
+            packets: 上下文数据包列表
+
+        Returns:
+            每个packet与query的相似度分数列表
+        """
+        query_tokens = set(query.lower().split())
+        scores = []
+
+        for packet in packets:
+            content_tokens = set(packet.content.lower().split())
+            if len(query_tokens) > 0:
+                overlap = len(query_tokens & content_tokens)
+                score = overlap / len(query_tokens)
+            else:
+                score = 0.0
+            scores.append(score)
+
+        return scores
+
     def _structure(
         self,
         selected_packets: List[ContextPacket],
