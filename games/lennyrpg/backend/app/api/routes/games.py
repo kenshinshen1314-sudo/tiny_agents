@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 from app.models.schemas import Player, Guest, Question, BattleRequest, BattleResponse, CaptureRequest, CaptureResponse, LevelUpRequest, LevelUpResponse
 from app.supabase_client import get_supabase
 import random
@@ -291,6 +292,85 @@ def check_level_up(request: LevelUpRequest) -> LevelUpResponse:
                 "attack_increase": attack_increase
             }
         )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class SwitchRegionRequest(BaseModel):
+    anon_id: str
+    region_id: str
+
+
+@router.get("/regions")
+def get_regions(anon_id: str) -> List[dict]:
+    """获取玩家可访问的区域"""
+    try:
+        supabase = get_supabase()
+
+        # 获取玩家等级
+        player_result = supabase.table("anonymous_players").select("level").eq("anon_id", anon_id).execute()
+        if not player_result.data:
+            raise HTTPException(status_code=404, detail="Player not found")
+
+        player_level = player_result.data[0]["level"]
+
+        # 获取所有区域
+        regions_result = supabase.table("map_regions").select("*").execute()
+
+        regions = []
+        for region in regions_result.data:
+            regions.append({
+                "id": region["id"],
+                "name": region["name"],
+                "required_level": region["required_level"],
+                "is_unlocked": player_level >= region["required_level"],
+                "guest_count": len(region.get("guest_ids", []))
+            })
+
+        return regions
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/switch-region")
+def switch_region(request: SwitchRegionRequest) -> dict:
+    """切换玩家当前区域"""
+    anon_id = request.anon_id
+    region_id = request.region_id
+    try:
+        supabase = get_supabase()
+
+        # 验证区域存在且已解锁
+        region_result = supabase.table("map_regions").select("*").eq("id", region_id).execute()
+        if not region_result.data:
+            raise HTTPException(status_code=404, detail="Region not found")
+
+        region = region_result.data[0]
+
+        # 验证玩家等级
+        player_result = supabase.table("anonymous_players").select("level").eq("anon_id", anon_id).execute()
+        if not player_result.data:
+            raise HTTPException(status_code=404, detail="Player not found")
+
+        if player_result.data[0]["level"] < region["required_level"]:
+            raise HTTPException(status_code=403, detail="Level not enough")
+
+        # 更新玩家当前区域
+        supabase.table("anonymous_players").update({
+            "current_region_id": region_id
+        }).eq("anon_id", anon_id).execute()
+
+        return {
+            "success": True,
+            "current_region": region_id,
+            "region_name": region["name"]
+        }
 
     except HTTPException:
         raise
