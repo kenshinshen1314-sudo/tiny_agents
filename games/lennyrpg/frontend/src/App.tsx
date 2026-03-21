@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Game from './game'
+import Game from './game/index.tsx'
 
 function App() {
   return (
