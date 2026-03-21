@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.models.schemas import Player, Guest, Question, BattleRequest, BattleResponse, CaptureRequest, CaptureResponse
+from app.models.schemas import Player, Guest, Question, BattleRequest, BattleResponse, CaptureRequest, CaptureResponse, LevelUpRequest, LevelUpResponse
 from app.supabase_client import get_supabase
 import random
 import uuid
@@ -222,5 +222,77 @@ def capture_guest(request: CaptureRequest) -> CaptureResponse:
             guest_name=guest_name
         )
 
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+XP_PER_LEVEL = {
+    1: 0, 2: 100, 3: 250, 4: 450, 5: 700,
+    6: 1000, 7: 1400, 8: 1900, 9: 2500, 10: 3200
+}
+
+
+@router.post("/check-levelup")
+def check_level_up(request: LevelUpRequest) -> LevelUpResponse:
+    """检查并处理升级"""
+    anon_id = request.anon_id
+    try:
+        supabase = get_supabase()
+
+        # 获取玩家当前数据
+        player_result = supabase.table("anonymous_players").select("*").eq("anon_id", anon_id).execute()
+        if not player_result.data:
+            raise HTTPException(status_code=404, detail="Player not found")
+
+        player = player_result.data[0]
+        current_xp = player["xp"]
+        current_level = player["level"]
+
+        # 计算升级
+        new_level = current_level
+        for level, xp_required in XP_PER_LEVEL.items():
+            if level > current_level and current_xp >= xp_required:
+                new_level = level
+
+        leveled_up = new_level > current_level
+
+        # 初始化属性提升值
+        hp_increase = 0
+        attack_increase = 0
+
+        if leveled_up:
+            # 计算属性提升
+            hp_increase = (new_level - current_level) * 10
+            attack_increase = (new_level - current_level) * 5
+
+            # 更新玩家属性
+            supabase.table("anonymous_players").update({
+                "level": new_level,
+                "max_hp": player["max_hp"] + hp_increase,
+                "hp": player["max_hp"] + hp_increase,  # 回满HP
+                "attack": player["attack"] + attack_increase
+            }).eq("anon_id", anon_id).execute()
+
+            # 更新排行榜
+            supabase.table("leaderboard").update({
+                "max_level": new_level
+            }).eq("anon_id", anon_id).execute()
+
+        # 获取下一级所需经验
+        next_level_xp = XP_PER_LEVEL.get(new_level + 1, XP_PER_LEVEL[10])
+        xp_needed = next_level_xp - current_xp
+
+        return LevelUpResponse(
+            leveled_up=leveled_up,
+            new_level=new_level,
+            xp_needed=xp_needed,
+            rewards={
+                "hp_increase": hp_increase,
+                "attack_increase": attack_increase
+            }
+        )
+
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

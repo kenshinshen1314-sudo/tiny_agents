@@ -63,3 +63,14 @@ class CaptureResponse(BaseModel):
     success: bool
     message: str
     guest_name: Optional[str] = None
+
+
+class LevelUpRequest(BaseModel):
+    anon_id: str
+
+
+class LevelUpResponse(BaseModel):
+    leveled_up: bool
+    new_level: int
+    xp_needed: int
+    rewards: dict
