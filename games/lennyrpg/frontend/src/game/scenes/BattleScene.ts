@@ -190,6 +190,9 @@ export default class BattleScene extends Phaser.Scene {
     this.canCapture = true
     this.captureButton.setVisible(true)
 
+    // 检查升级
+    this.checkLevelUp()
+
     // 2秒后自动返回或等待玩家点击返回
     setTimeout(() => {
       // 不自动返回，等待玩家操作
@@ -280,5 +283,57 @@ export default class BattleScene extends Phaser.Scene {
       this.playerHP = this.playerMaxHP
       this.scene.start('MapScene')
     }, 2000)
+  }
+
+  private async checkLevelUp() {
+    try {
+      const response = await fetch('/api/games/check-levelup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ anon_id: (this as any).playerId || 'test-player' })
+      })
+      const data = await response.json()
+
+      if (data.leveled_up) {
+        this.showLevelUpEffect(data.new_level, data.rewards)
+      }
+    } catch (e) {
+      console.error('升级检查失败', e)
+    }
+  }
+
+  private showLevelUpEffect(newLevel: number, rewards: any) {
+    const container = this.add.container(400, 300)
+
+    const bg = this.add.graphics()
+    bg.fillStyle(0x000000, 0.7)
+    bg.fillRect(-200, -100, 400, 200)
+
+    const titleText = this.add.text(0, -60, `升级到 Lv.${newLevel}!`, {
+      fontSize: '32px',
+      color: '#ffd700',
+      fontStyle: 'bold'
+    }).setOrigin(0.5)
+
+    const hpText = this.add.text(0, -10, `HP +${rewards.hp_increase}`, {
+      fontSize: '20px',
+      color: '#4ade80'
+    }).setOrigin(0.5)
+
+    const atkText = this.add.text(0, 20, `攻击 +${rewards.attack_increase}`, {
+      fontSize: '20px',
+      color: '#4ade80'
+    }).setOrigin(0.5)
+
+    container.add([bg, titleText, hpText, atkText])
+
+    this.tweens.add({
+      targets: container,
+      alpha: 0,
+      scale: 1.5,
+      duration: 3000,
+      ease: 'Power2',
+      onComplete: () => container.destroy()
+    })
   }
 }
