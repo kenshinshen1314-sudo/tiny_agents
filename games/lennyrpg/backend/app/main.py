@@ -11,10 +11,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Placeholder imports - will be implemented in future phases
-# from app.api.routes import games, ai
-# app.include_router(games.router, prefix="/api/games", tags=["games"])
-# app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
+from app.api.routes import games, ai
+app.include_router(games.router, prefix="/api/games", tags=["games"])
+app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
 
 @app.get("/api/health")
 def health():
