@@ -42,6 +42,12 @@ class PlanningService:
         logger.info("Planner raw output (truncated): %s", response[:500])
 
         tasks_payload = self._extract_tasks(response)
+
+        # 确保至少有2个任务，如果不足则补充
+        if len(tasks_payload) < 2:
+            logger.warning("Planner returned only %d task(s), supplementing with default tasks", len(tasks_payload))
+            tasks_payload = self._supplement_tasks(tasks_payload, state.research_topic)
+
         todo_items: List[TodoItem] = []
 
         for idx, item in enumerate(tasks_payload, start=1):
@@ -158,3 +164,47 @@ class PlanningService:
             payload[key.strip()] = value.strip().strip('"').strip("'")
 
         return payload or None
+
+    @staticmethod
+    def _supplement_tasks(existing_tasks: List[dict[str, Any]], research_topic: str) -> List[dict[str, Any]]:
+        """补充任务列表，确保至少有2个任务。"""
+        tasks = list(existing_tasks)
+
+        # 如果已经有任务，尝试补充缺失的任务类型
+        existing_titles = {t.get("title", "").lower() for t in tasks}
+
+        default_tasks = [
+            {
+                "title": "背景梳理",
+                "intent": "收集主题的核心背景与最新进展",
+                "query": f"{research_topic} 背景 现状 最新进展"
+            },
+            {
+                "title": "数据分析",
+                "intent": "分析相关数据和统计信息",
+                "query": f"{research_topic} 数据 统计 报告"
+            },
+            {
+                "title": "趋势展望",
+                "intent": "分析发展趋势和未来展望",
+                "query": f"{research_topic} 趋势 未来 预测"
+            }
+        ]
+
+        for default_task in default_tasks:
+            if len(tasks) >= 3:
+                break
+            # 检查是否已存在类似任务
+            title_lower = default_task["title"].lower()
+            if not any(title_lower in existing for existing in existing_titles):
+                tasks.append(default_task)
+
+        # 如果仍然没有任务，至少添加一个
+        if not tasks:
+            tasks.append({
+                "title": "基础调研",
+                "intent": "收集主题的基本信息",
+                "query": research_topic
+            })
+
+        return tasks

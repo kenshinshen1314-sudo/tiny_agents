@@ -181,6 +181,60 @@ def create_app() -> FastAPI:
             },
         )
 
+    @app.post("/research/retry")
+    def retry_task(payload: dict) -> dict:
+        """重试指定的任务。
+
+        Request body:
+            - topic: 研究主题
+            - task_id: 要重试的任务 ID
+        """
+        topic = payload.get("topic")
+        task_id = payload.get("task_id")
+
+        if not topic:
+            raise HTTPException(status_code=400, detail="缺少 topic 参数")
+        if not task_id:
+            raise HTTPException(status_code=400, detail="缺少 task_id 参数")
+
+        try:
+            config = _build_config(ResearchRequest(topic=topic))
+            agent = DeepResearchAgent(config=config)
+            result = agent.retry_task(task_id, topic)
+            return result
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+        except Exception as exc:
+            logger.exception("Retry task failed")
+            raise HTTPException(status_code=500, detail=f"重试失败: {exc}") from exc
+
+    @app.post("/research/regenerate-report")
+    def regenerate_report(payload: dict) -> dict:
+        """根据现有任务数据重新生成报告。
+
+        Request body:
+            - topic: 研究主题
+            - tasks: 任务数据列表
+        """
+        topic = payload.get("topic")
+        tasks = payload.get("tasks", [])
+
+        if not topic:
+            raise HTTPException(status_code=400, detail="缺少 topic 参数")
+        if not tasks:
+            raise HTTPException(status_code=400, detail="缺少 tasks 参数")
+
+        try:
+            config = _build_config(ResearchRequest(topic=topic))
+            agent = DeepResearchAgent(config=config)
+            result = agent.regenerate_report(topic, tasks)
+            return result
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+        except Exception as exc:
+            logger.exception("Regenerate report failed")
+            raise HTTPException(status_code=500, detail=f"重新生成报告失败: {exc}") from exc
+
     return app
 
 

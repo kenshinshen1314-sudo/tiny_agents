@@ -173,3 +173,64 @@ export async function* runResearchStreamAsync(
     }
   }
 }
+
+export interface RetryTaskRequest {
+  topic: string;
+  task_id: number;
+}
+
+export async function retryTask(payload: RetryTaskRequest): Promise<{
+  task_id: number;
+  title: string;
+  status: string;
+  summary: string;
+  sources_summary: string;
+}> {
+  const response = await fetch(`${baseURL}/research/retry`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => "");
+    throw new Error(errorText || `重试任务失败，状态码：${response.status}`);
+  }
+
+  return response.json();
+}
+
+export interface RegenerateReportRequest {
+  topic: string;
+  tasks: Array<{
+    id: number;
+    title: string;
+    intent: string;
+    query: string;
+    status: string;
+    summary?: string;
+    sources_summary?: string;
+  }>;
+}
+
+export async function regenerateReport(payload: RegenerateReportRequest): Promise<{
+  report: string;
+  task_count: number;
+}> {
+  const response = await fetch(`${baseURL}/research/regenerate-report`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => "");
+    throw new Error(errorText || `重新生成报告失败，状态码：${response.status}`);
+  }
+
+  return response.json();
+}

@@ -131,6 +131,16 @@
                   <span class="task__title">{{ task.title }}</span>
                   <span class="task__intent">{{ task.intent }}</span>
                 </div>
+                <button
+                  v-if="task.status === 'failed'"
+                  class="task__retry"
+                  :disabled="retryingTaskId === task.id"
+                  @click.stop="handleRetryTask(task)"
+                  title="重试此任务"
+                >
+                  <span v-if="retryingTaskId === task.id" class="task__spinner"></span>
+                  <span v-else>↻</span>
+                </button>
               </div>
             </div>
             <p v-else class="sidebar__empty">等待任务规划...</p>
@@ -202,9 +212,18 @@
               <h3 class="report__title">
                 最终报告
               </h3>
-              <button class="btn btn--secondary btn--sm" @click="downloadReport">
-                下载
-              </button>
+              <div class="report__actions">
+                <button
+                  class="btn btn--secondary btn--sm"
+                  :disabled="isRegeneratingReport"
+                  @click="handleRegenerateReport"
+                >
+                  {{ isRegeneratingReport ? '生成中...' : '重新生成' }}
+                </button>
+                <button class="btn btn--secondary btn--sm" @click="downloadReport">
+                  下载
+                </button>
+              </div>
             </div>
             <div class="report__content" v-html="formatReport(reportMarkdown)"></div>
           </section>
@@ -222,7 +241,7 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, reactive, ref } from "vue";
-import { runResearchStream, type ResearchStreamEvent } from "./services/api";
+import { runResearchStream, retryTask, regenerateReport, type ResearchStreamEvent } from "./services/api";
 
 interface SourceItem {
   title: string;
@@ -249,6 +268,8 @@ const form = reactive({
 const loading = ref(false);
 const error = ref("");
 const progressLogs = ref<string[]>([]);
+const retryingTaskId = ref<number | null>(null);
+const isRegeneratingReport = ref(false);
 const isExpanded = ref(false);
 
 const todoTasks = ref<TodoTaskView[]>([]);
@@ -309,6 +330,82 @@ function formatReport(text: string): string {
 }
 
 function selectTask(task: TodoTaskView) { activeTaskId.value = task.id; }
+
+async function handleRetryTask(task: TodoTaskView) {
+  if (retryingTaskId.value !== null || !form.topic) return;
+
+  retryingTaskId.value = task.id;
+  progressLogs.value.push(`正在重试: ${task.title}...`);
+
+  try {
+    const result = await retryTask({
+      topic: form.topic,
+      task_id: task.id
+    });
+
+    // 更新任务状态
+    console.log('Retry result:', result);
+    const taskId = Number(result.task_id);
+    const existingTask = todoTasks.value.find(t => t.id === taskId);
+    console.log('Found task:', existingTask);
+    if (existingTask) {
+      // 创建新对象以确保 Vue 响应式更新
+      const updatedTask = { ...existingTask, status: result.status, summary: result.summary };
+      const index = todoTasks.value.findIndex(t => t.id === taskId);
+      if (index !== -1) {
+        todoTasks.value[index] = updatedTask;
+        todoTasks.value = [...todoTasks.value];
+      }
+      console.log('Updated task status to:', result.status);
+    }
+
+    progressLogs.value.push(`重试完成: ${result.title}`);
+    // 刷新当前任务显示
+    if (activeTaskId.value === result.task_id) {
+      activeTaskId.value = null;
+      activeTaskId.value = result.task_id;
+    }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "重试失败";
+    progressLogs.value.push(`重试失败: ${msg}`);
+    error.value = msg;
+  } finally {
+    retryingTaskId.value = null;
+  }
+}
+
+async function handleRegenerateReport() {
+  if (isRegeneratingReport.value || !form.topic || !todoTasks.value.length) return;
+
+  isRegeneratingReport.value = true;
+  progressLogs.value.push("正在重新生成报告...");
+
+  try {
+    const tasksData = todoTasks.value.map(t => ({
+      id: t.id,
+      title: t.title,
+      intent: t.intent,
+      query: t.query,
+      status: t.status,
+      summary: t.summary,
+      sources_summary: t.sourceItems ? t.sourceItems.map(s => s.raw || "").join("\n") : undefined,
+    }));
+
+    const result = await regenerateReport({
+      topic: form.topic,
+      tasks: tasksData,
+    });
+
+    reportMarkdown.value = result.report;
+    progressLogs.value.push(`报告已重新生成 (基于 ${result.task_count} 个任务)`);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "重新生成报告失败";
+    progressLogs.value.push(`重新生成报告失败: ${msg}`);
+    error.value = msg;
+  } finally {
+    isRegeneratingReport.value = false;
+  }
+}
 
 function resetResearch() {
   isExpanded.value = false;
@@ -542,6 +639,9 @@ onBeforeUnmount(() => {});
 .task__info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .task__title { font-size: 12px; font-weight: 500; color: var(--color-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .task__intent { font-size: 12px; color: var(--color-text-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.task__retry { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: none; background: var(--color-bg-tertiary); border-radius: 50%; font-size: 14px; color: var(--color-text-secondary); cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; }
+.task__retry:hover:not(:disabled) { background: var(--color-accent); color: white; }
+.task__retry:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .logs { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
 .log { display: flex; gap: 8px; font-size: 12px; color: var(--color-text-secondary); }
@@ -579,6 +679,7 @@ onBeforeUnmount(() => {});
 
 .report { background: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
 .report__header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--color-divider); }
+.report__actions { display: flex; gap: 8px; }
 .report__title { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--color-text-primary); }
 .report__title svg { width: 18px; height: 18px; color: var(--color-accent); }
 .report__content { padding: 20px; font-size: 12px; line-height: 1.8; color: var(--color-text-primary); max-height: 500px; overflow-y: auto; }

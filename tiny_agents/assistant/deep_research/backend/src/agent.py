@@ -148,6 +148,122 @@ class DeepResearchAgent:
             todo_items=state.todo_items,
         )
 
+    def retry_task(self, task_id: int, topic: str) -> dict[str, Any]:
+        """重试指定的任务。
+
+        Args:
+            task_id: 要重试的任务 ID
+            topic: 研究主题
+
+        Returns:
+            更新后的任务信息
+        """
+        config = self.config or Configuration.from_env()
+        state = SummaryState(research_topic=topic)
+
+        # 重新创建 agent 以确保状态干净
+        self.todo_agent = self._create_tool_aware_agent(
+            name="研究规划专家",
+            system_prompt=todo_planner_system_prompt.strip(),
+        )
+        self.report_agent = self._create_tool_aware_agent(
+            name="报告撰写专家",
+            system_prompt=report_writer_instructions.strip(),
+        )
+
+        # 重新创建 planner 服务
+        self.planner = PlanningService(self.todo_agent, self.config)
+        self.summarizer = SummarizationService(self._summarizer_factory, self.config)
+        self.reporting = ReportingService(self.report_agent, self.config)
+
+        # 获取现有任务
+        state.todo_items = self.planner.plan_todo_list(state)
+        if not state.todo_items:
+            return {"error": "无法获取任务列表"}
+
+        # 找到要重试的任务
+        task = None
+        for t in state.todo_items:
+            if t.id == task_id:
+                task = t
+                break
+
+        if not task:
+            return {"error": f"未找到任务 ID: {task_id}"}
+
+        # 重置任务状态
+        task.status = "pending"
+        task.summary = None
+        task.sources_summary = None
+
+        # 重新执行任务 - 需要迭代生成器才会真正执行
+        for _ in self._execute_task(state, task, emit_stream=False):
+            pass
+
+        logger.info("Retry task completed: id=%s status=%s", task.id, task.status)
+
+        return {
+            "task_id": task.id,
+            "title": task.title,
+            "status": task.status,
+            "summary": task.summary,
+            "sources_summary": task.sources_summary,
+        }
+
+    def regenerate_report(self, topic: str, tasks_data: list[dict]) -> dict[str, Any]:
+        """根据现有的任务数据重新生成报告。
+
+        Args:
+            topic: 研究主题
+            tasks_data: 任务数据列表，包含 id, title, intent, query, status, summary, sources_summary
+
+        Returns:
+            生成的报告内容
+        """
+        config = self.config or Configuration.from_env()
+
+        # 重建任务列表
+        todo_items = []
+        for task_data in tasks_data:
+            task = TodoItem(
+                id=int(task_data.get("id", 0)),
+                title=str(task_data.get("title", "")),
+                intent=str(task_data.get("intent", "")),
+                query=str(task_data.get("query", "")),
+                status=str(task_data.get("status", "pending")),
+                summary=task_data.get("summary"),
+                sources_summary=task_data.get("sources_summary"),
+            )
+            todo_items.append(task)
+
+        if not todo_items:
+            return {"error": "没有任务数据"}
+
+        # 创建状态对象
+        state = SummaryState(research_topic=topic)
+        state.todo_items = todo_items
+
+        # 收集已有的研究结果
+        for task in todo_items:
+            if task.sources_summary:
+                state.sources_gathered.append(task.sources_summary)
+
+        # 重新创建服务
+        self.report_agent = self._create_tool_aware_agent(
+            name="报告撰写专家",
+            system_prompt=report_writer_instructions.strip(),
+        )
+        self.reporting = ReportingService(self.report_agent, self.config)
+
+        # 生成报告
+        report = self.reporting.generate_report(state)
+        logger.info("Report regenerated with %d tasks", len(todo_items))
+
+        return {
+            "report": report,
+            "task_count": len(todo_items),
+        }
+
     def run_stream(self, topic: str) -> Iterator[dict[str, Any]]:
         """Execute the workflow yielding incremental progress events."""
         state = SummaryState(research_topic=topic)
