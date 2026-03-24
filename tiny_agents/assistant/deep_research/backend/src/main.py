@@ -188,9 +188,11 @@ def create_app() -> FastAPI:
         Request body:
             - topic: 研究主题
             - task_id: 要重试的任务 ID
+            - tasks: 所有任务的数据（可选，用于保留任务列表）
         """
         topic = payload.get("topic")
         task_id = payload.get("task_id")
+        tasks_data = payload.get("tasks", [])
 
         if not topic:
             raise HTTPException(status_code=400, detail="缺少 topic 参数")
@@ -200,7 +202,7 @@ def create_app() -> FastAPI:
         try:
             config = _build_config(ResearchRequest(topic=topic))
             agent = DeepResearchAgent(config=config)
-            result = agent.retry_task(task_id, topic)
+            result = agent.retry_task(task_id, topic, tasks_data)
             return result
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc

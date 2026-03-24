@@ -177,6 +177,15 @@ export async function* runResearchStreamAsync(
 export interface RetryTaskRequest {
   topic: string;
   task_id: number;
+  tasks?: Array<{
+    id: number;
+    title: string;
+    intent: string;
+    query: string;
+    status: string;
+    summary?: string;
+    sources_summary?: string;
+  }>;
 }
 
 export async function retryTask(payload: RetryTaskRequest): Promise<{

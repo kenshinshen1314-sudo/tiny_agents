@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>深度研究助手 | Deep Research</title>
+
+    <!-- Anthropic 风格字体 - 使用专用字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Figtree:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+      :root {
+        /* Anthropic 风格配色 - 温暖米白 */
+        --color-bg-primary: #FEFDFB;
+        --color-bg-secondary: #F8F6F3;
+        --color-bg-tertiary: #F0EDE8;
+        --color-bg-elevated: #FFFFFF;
+
+        /* 强调色 - Anthropic 蓝 */
+        --color-accent: #D97706;
+        --color-accent-hover: #B56404;
+        --color-accent-light: #FEF3C7;
+
+        /* 文字色 - 深灰 */
+        --color-text-primary: #1F1F1F;
+        --color-text-secondary: #525252;
+        --color-text-tertiary: #737373;
+        --color-text-muted: #A3A3A3;
+
+        /* 边框与分隔 */
+        --color-border: #E5E5E5;
+        --color-border-hover: #D4D4D4;
+        --color-divider: #F0F0F0;
+
+        /* 状态色 */
+        --color-success: #059669;
+        --color-warning: #D97706;
+        --color-error: #DC2626;
+        --color-info: #2563EB;
+
+        /* 字体 */
+        --font-display: 'DM Sans', 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-serif: 'Cormorant Garamond', Georgia, serif;
+        --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+        /* 间距 */
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 16px;
+        --space-lg: 24px;
+        --space-xl: 32px;
+        --space-2xl: 48px;
+        --space-3xl: 64px;
+
+        /* 圆角 - Anthropic 风格 */
+        --radius-sm: 6px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+        --radius-full: 9999px;
+
+        /* 阴影 */
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        height: 100%;
+        background: var(--color-bg-primary);
+        color: var(--color-text-primary);
+        font-family: var(--font-display);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* 柔和背景渐变 */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(ellipse at 30% 0%, rgba(217, 119, 6, 0.03) 0%, transparent 50%),
+          radial-gradient(ellipse at 70% 100%, rgba(217, 119, 6, 0.02) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      #app {
+        min-height: 100vh;
+      }
+
+      /* 滚动条 */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #D4D4D4;
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #A3A3A3;
+      }
+
+      /* 选中颜色 */
+      ::selection {
+        background: rgba(217, 119, 6, 0.15);
+        color: var(--color-text-primary);
+      }
+
+      /* 基础按钮样式 */
+      button {
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      /* 基础输入框样式 */
+      input, textarea, select {
+        font-family: inherit;
+      }
+
+      /* 链接样式 */
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

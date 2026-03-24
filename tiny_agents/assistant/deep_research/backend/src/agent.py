@@ -148,12 +148,13 @@ class DeepResearchAgent:
             todo_items=state.todo_items,
         )
 
-    def retry_task(self, task_id: int, topic: str) -> dict[str, Any]:
+    def retry_task(self, task_id: int, topic: str, tasks_data: list[dict] | None = None) -> dict[str, Any]:
         """重试指定的任务。
 
         Args:
             task_id: 要重试的任务 ID
             topic: 研究主题
+            tasks_data: 任务数据列表（如果传了就用这个，否则重新生成）
 
         Returns:
             更新后的任务信息
@@ -171,13 +172,27 @@ class DeepResearchAgent:
             system_prompt=report_writer_instructions.strip(),
         )
 
-        # 重新创建 planner 服务
-        self.planner = PlanningService(self.todo_agent, self.config)
+        # 重新创建服务
         self.summarizer = SummarizationService(self._summarizer_factory, self.config)
         self.reporting = ReportingService(self.report_agent, self.config)
 
-        # 获取现有任务
-        state.todo_items = self.planner.plan_todo_list(state)
+        # 如果没有传入任务数据，才重新生成
+        if tasks_data is None:
+            self.planner = PlanningService(self.todo_agent, self.config)
+            state.todo_items = self.planner.plan_todo_list(state)
+        else:
+            # 从传入的任务数据重建任务列表
+            state.todo_items = []
+            for task_data in tasks_data:
+                task = TodoItem(
+                    id=int(task_data.get("id", 0)),
+                    title=str(task_data.get("title", "")),
+                    intent=str(task_data.get("intent", "")),
+                    query=str(task_data.get("query", "")),
+                    status=str(task_data.get("status", "pending")),
+                )
+                state.todo_items.append(task)
+
         if not state.todo_items:
             return {"error": "无法获取任务列表"}
 
@@ -200,7 +215,7 @@ class DeepResearchAgent:
         for _ in self._execute_task(state, task, emit_stream=False):
             pass
 
-        logger.info("Retry task completed: id=%s status=%s", task.id, task.status)
+        logger.info("Retry task completed: id=%s status=%s summary=%s", task.id, task.status, task.summary[:100] if task.summary else "None")
 
         return {
             "task_id": task.id,
@@ -439,14 +454,17 @@ class DeepResearchAgent:
                     }
 
         if not search_result or not search_result.get("results"):
-            task.status = "skipped"
+            # 检查是否是搜索失败（区别于无结果的情况）
+            search_failed = any("搜索失败" in str(n) for n in notices)
+            task.status = "failed" if search_failed else "skipped"
+
             if emit_stream:
                 for event in self._drain_tool_events(state, step=step):
                     yield event
                 yield {
                     "type": "task_status",
                     "task_id": task.id,
-                    "status": "skipped",
+                    "status": task.status,
                     "title": task.title,
                     "intent": task.intent,
                     "note_id": task.note_id,

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from collections.abc import Callable, Iterator
 from typing import Tuple
 
@@ -12,6 +13,8 @@ from config import Configuration
 from utils import strip_thinking_tokens
 from services.notes import build_note_guidance
 from services.text_processing import strip_tool_calls
+
+logger = logging.getLogger(__name__)
 
 
 class SummarizationService:
@@ -93,6 +96,12 @@ class SummarizationService:
                         visible_output += chunk
                         if chunk:
                             yield chunk
+            except Exception as exc:
+                # LLM 调用失败，记录错误但继续处理
+                error_msg = f"LLM调用失败: {exc}"
+                logger.warning(error_msg)
+                visible_output += f"\n\n[{error_msg}]"
+                yield f"\n\n[{error_msg}]\n"
             finally:
                 if remove_thinking:
                     for segment in flush_visible():

@@ -43,7 +43,15 @@ def dispatch_search(
         )
     except Exception as exc:  # pragma: no cover - defensive logging
         logger.exception("Search backend %s failed: %s", search_api, exc)
-        raise
+        # 返回空结果而不是抛出异常，让任务可以继续（用户可以手动重试）
+        notices = [f"搜索失败: {exc}"]
+        payload = {
+            "results": [],
+            "backend": search_api,
+            "answer": None,
+            "notices": notices,
+        }
+        return payload, notices, None, search_api
 
     if isinstance(raw_response, str):
         notices = [raw_response]

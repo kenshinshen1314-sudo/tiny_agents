@@ -56,11 +56,34 @@ class ReportingService:
             ensure_ascii=False,
         )
 
+        # 报告结构模板（必须严格遵循）
+        report_template = """
+## 报告结构要求
+
+请严格按照以下结构生成报告：
+
+### 1. 背景概览
+简述研究主题的重要性与上下文。500字内。
+
+### 2. 核心洞见
+提炼 3-5 条最重要的洞见，标注文献/任务编号。500字内。
+
+### 3. 证据与数据
+罗列支持性的事实或指标，可引用任务摘要中的要点。1000字内。
+
+### 4. 风险与挑战
+分析潜在的问题、限制或仍待验证的假设。500字内。
+
+### 5. 参考来源
+按任务列出关键来源条目（标题 + 链接）。
+"""
+
         prompt = (
             f"研究主题：{state.research_topic}\n"
             f"任务概览：\n{''.join(tasks_block)}\n"
             f"可用任务笔记：\n{notes_section}\n"
-            f"请针对每条任务笔记使用格式：[TOOL_CALL:note:{read_template}] 读取内容，整合所有信息后撰写报告。\n"
+            f"{report_template}\n"
+            f"请针对每条任务笔记使用格式：[TOOL_CALL:note:{read_template}] 读取内容，整合所有信息后按照上述结构撰写报告。\n"
             f"如需输出汇总结论，可追加调用：[TOOL_CALL:note:{create_conclusion_template}] 保存报告要点。"
         )
 

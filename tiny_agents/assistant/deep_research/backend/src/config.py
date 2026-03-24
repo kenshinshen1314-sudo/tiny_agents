@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 class SearchAPI(Enum):
     PERPLEXITY = "perplexity"
     TAVILY = "tavily"
-    DUCKDUCKGO = "duckduckgo"
+    DUCKDUCKGO = "duckduckgo"  # 已禁用，默认使用 tavily，如需启用请设置环境变量 SEARCH_API=duckduckgo
     SEARXNG = "searxng"
     ADVANCED = "advanced"
 
@@ -32,9 +32,9 @@ class Configuration(BaseModel):
         description="Provider identifier (ollama, lmstudio, or custom)",
     )
     search_api: SearchAPI = Field(
-        default=SearchAPI.DUCKDUCKGO,
+        default=SearchAPI.TAVILY,
         title="Search API",
-        description="Web search API to use",
+        description="Web search API to use (duckduckgo is disabled due to reliability issues)",
     )
     enable_notes: bool = Field(
         default=True,
