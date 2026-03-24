@@ -121,6 +121,10 @@ class ToolAwareSimpleAgent(SimpleAgent):
         Returns:
             解析后的参数字典
         """
+        # 如果已经是 dict，直接返回
+        if isinstance(parameters, dict):
+            return parameters
+
         if not parameters:
             return {}
 

@@ -145,6 +145,8 @@ class DeepResearchAgent:
         """Execute the research workflow and return the final report."""
         state = SummaryState(research_topic=topic)
         state.todo_items = self.planner.plan_todo_list(state)
+        print(f"agent run todo items: {state.todo_items}")
+
         self._drain_tool_events(state)
 
         if not state.todo_items:
@@ -152,8 +154,11 @@ class DeepResearchAgent:
             state.todo_items = [self.planner.create_fallback_task(state)]
 
         for task in state.todo_items:
+            print(f"agent run task: {task}")
             self._execute_task(state, task, emit_stream=False)
 
+        print(f"agent run state: {state}")
+        print("###### generate report ######")
         report = self.reporting.generate_report(state)
         self._drain_tool_events(state)
         state.structured_report = report
@@ -263,9 +268,15 @@ class DeepResearchAgent:
         active_workers = len(state.todo_items)
         finished_workers = 0
 
+        timeout_occurred = False
         try:
             while finished_workers < active_workers:
-                event = event_queue.get()
+                try:
+                    event = event_queue.get(timeout=30)  # 30秒超时
+                except Empty:
+                    logger.warning("Event queue timeout after 30s, forcing stream completion")
+                    timeout_occurred = True
+                    break
                 if event.get("type") == "__task_done__":
                     finished_workers += 1
                     continue
@@ -281,7 +292,14 @@ class DeepResearchAgent:
         finally:
             self._set_tool_event_sink(None)
             for thread in threads:
-                thread.join()
+                thread.join(timeout=10)  # 最多等待10秒
+
+        # 标记所有未完成的任务为 failed
+        if timeout_occurred:
+            for task in state.todo_items:
+                if task.status in ("pending", "in_progress"):
+                    task.status = "failed"
+                    logger.warning(f"Task {task.id} marked as failed due to timeout")
 
         report = self.reporting.generate_report(state)
         final_step = len(state.todo_items) + 1
@@ -362,13 +380,52 @@ class DeepResearchAgent:
         step: int | None = None,
     ) -> Iterator[dict[str, Any]]:
         """实际的任务执行逻辑（不含重试）"""
+        import signal
+
+        # 设置60秒超时
+        def timeout_handler(signum, frame):
+            raise TimeoutError("Task execution timeout after 60s")
+
         task.status = "in_progress"
 
-        search_result, notices, answer_text, backend = dispatch_search(
-            task.query,
-            self.config,
-            state.research_loop_count,
-        )
+        # 尝试设置超时（仅 Unix 系统）
+        old_handler = None
+        if hasattr(signal, 'SIGALRM'):
+            try:
+                old_handler = signal.signal(signal.SIGALRM, timeout_handler)
+                signal.alarm(120)  # 120秒超时
+            except Exception:
+                pass
+
+        try:
+            search_result, notices, answer_text, backend = dispatch_search(
+                task.query,
+                self.config,
+                state.research_loop_count,
+            )
+        except TimeoutError:
+            # 超时，跳过任务
+            logger.warning(f"Task {task.id} execution timeout, marking as failed")
+            task.status = "failed"
+            if emit_stream:
+                yield {
+                    "type": "task_status",
+                    "task_id": task.id,
+                    "status": "failed",
+                    "detail": "任务执行超时",
+                    "title": task.title,
+                    "intent": task.intent,
+                }
+            return
+        finally:
+            # 取消超时
+            if hasattr(signal, 'SIGALRM') and old_handler:
+                try:
+                    signal.alarm(0)
+                    signal.signal(signal.SIGALRM, old_handler)
+                except Exception:
+                    pass
+
         self._last_search_notices = notices
         task.notices = notices
 
